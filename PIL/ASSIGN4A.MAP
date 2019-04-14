@@ -1,0 +1,27 @@
+
+ Start  Stop   Length Name               Class
+
+ 00000H 001F4H 001F5H _TEXT              CODE
+ 001F6H 004B9H 002C4H _DATA              DATA
+
+  Address         Publics by Name
+
+ 0000:0125       COMPARE
+ 0000:00B8       CONCATSTR
+ 0000:00A9       DISPLAYSTR
+ 001F:0006       STR1
+ 001F:001F       STR2
+ 0000:018F       SUBSTRING
+
+  Address         Publics by Value
+
+ 0000:00A9       DISPLAYSTR
+ 0000:00B8       CONCATSTR
+ 0000:0125       COMPARE
+ 0000:018F       SUBSTRING
+ 001F:0006       STR1
+ 001F:001F       STR2
+
+Program entry point at 0000:0000
+Warning: No stack
+
