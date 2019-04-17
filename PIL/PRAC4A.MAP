@@ -1,14 +1,14 @@
 
  Start  Stop   Length Name               Class
 
- 00000H 00198H 00199H _TEXT              CODE
- 0019AH 00425H 0028CH _DATA              DATA
+ 00000H 00192H 00193H _TEXT              CODE
+ 00194H 0041FH 0028CH _DATA              DATA
 
   Address         Publics by Name
 
  0000:00C7       COMPARE
  0000:0063       CONCAT
- 0019:000A       MAINSTR
+ 0019:0004       MAINSTR
  0000:011A       SUBSTRPROC
 
   Address         Publics by Value
@@ -16,7 +16,7 @@
  0000:0063       CONCAT
  0000:00C7       COMPARE
  0000:011A       SUBSTRPROC
- 0019:000A       MAINSTR
+ 0019:0004       MAINSTR
 
 Program entry point at 0000:0000
 Warning: No stack

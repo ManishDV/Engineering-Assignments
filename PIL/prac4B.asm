@@ -155,19 +155,15 @@ endm
             loop4:
                 mov al,[si]
                 mov dl,[di]
+                cmp al,13
+                je stop
                 cmp al,dl
                 jne loop2
+                
                 inc si
                 inc di
                 dec ch
-
-                mov al,[si]
-                cmp al,13
-                je stop
-                jnz doAgain
-                doAgain:
-                    dec ch
-                    jnz loop4
+                jnz loop4
             stop:
                 cmp ch,00h
                 jne print
