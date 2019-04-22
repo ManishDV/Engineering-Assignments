@@ -170,8 +170,8 @@ float evaluate(char exp[20], int code) {
 			continue;
 		} else {
 			if (code == 0) {
-				op1 = s2.pop();
 				op2 = s2.pop();
+				op1 = s2.pop();
 				float ans = performOP(op1, op2, exp[i]);
 				s2.push(ans);
 				i++;
