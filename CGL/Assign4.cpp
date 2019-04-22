@@ -83,7 +83,7 @@ void mouse(int button,int states,int x,int y)
 {
     if(button == GLUT_LEFT_BUTTON && states == GLUT_DOWN)
     {
-        seedFill(x, 600 - y,oldcolor,newcolor);
+        seedFill(x-200, y,oldcolor,newcolor);
     }
     
 	glFlush();	
@@ -139,10 +139,10 @@ void render(){
 void init(){
    
 	glClearColor(1.0,1.0,1.0,0.0);
-	//glMatrixMode(GL_PROJECTION);
+	glMatrixMode(GL_PROJECTION);
     glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(1.0,0.0,1.0);
-	gluOrtho2D(0,600,0,600);
+	gluOrtho2D(-600,600,-600,600);
 	//glOrtho(0, 100, 0, 300, -1, 1);
 }
 int main(int argc,char** argv)
