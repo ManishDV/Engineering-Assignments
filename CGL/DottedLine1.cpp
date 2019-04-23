@@ -5,7 +5,6 @@
 #include <math.h>
 #include <string.h>
 using namespace std;
-#define drawOneLine(x1,y1,x2,y2)  glBegin(GL_LINES);     glVertex2f((x1),(y1)); glVertex2f((x2),(y2)); glEnd();
 
 
 struct point{
