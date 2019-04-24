@@ -17,6 +17,14 @@ struct Point p4;
 int count = 0;
 int tx = 0,ty = 0;
 int status = 0;
+int angle = 0;
+int sx = 0,sy = 0;
+struct Point rotateClock(struct Point p){
+      struct Point dummy = p;
+      p.x =  p.x*cos(angle) + p.y*sin(angle);
+      p.y = -dummy.x*sin(angle)+p.y*cos(angle);
+      return p; 
+}
 
 void render(){
 
@@ -55,6 +63,64 @@ void reset(){
         glLoadIdentity();
         glutPostRedisplay();    
     }
+    if(status == 2){
+        status = 0;
+        p1.x /= sx;
+        p1.y /= sy;
+        
+
+        p2.x /= sx;
+        p2.y /= sy;
+        
+
+        p3.x /= sx;
+        p3.y /= sy;
+        
+
+        p4.x /= sx;
+        p4.y /= sy;
+        
+        glClear(GL_COLOR_BUFFER_BIT);
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+        glutPostRedisplay();
+    }
+
+     if(status == 2){
+        status = 0;
+        p1.x /= sx;
+        p1.y /= sy;
+        
+
+        p2.x /= sx;
+        p2.y /= sy;
+        
+
+        p3.x /= sx;
+        p3.y /= sy;
+        
+
+        p4.x /= sx;
+        p4.y /= sy;
+        
+        glClear(GL_COLOR_BUFFER_BIT);
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+        glutPostRedisplay();
+    }
+    if(status == 3){
+        status = 0;
+        
+        p1 = rotateClock(p1);
+        p2 = rotateClock(p2);
+        p3 = rotateClock(p3);
+        p4 = rotateClock(p4);
+        
+        glClear(GL_COLOR_BUFFER_BIT);
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+        glutPostRedisplay();
+    }
 }
 void Translate(){
     status = 1;
@@ -84,6 +150,59 @@ void Translate(){
     glLoadIdentity();
     glutPostRedisplay();
 }
+
+
+void Scale(){
+    status = 2;
+    cout<<"\nEnter Scaling Units In X Dir: ";
+    cin>>sx;
+
+    cout<<"\nEnter Scaling  Units In Y Dir: ";
+    cin>>sy;
+
+    p1.x *= sx;
+    p1.y *= sy;
+    
+
+    p2.x *= sx;
+    p2.y *= sy;
+    
+
+    p3.x *= sx;
+    p3.y *= sy;
+    
+
+    p4.x *= sx;
+    p4.y *= sy;
+    
+    glClear(GL_COLOR_BUFFER_BIT);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    glutPostRedisplay();
+}   
+
+struct Point rotateAntiClock(struct Point p){
+      struct Point dummy = p;
+      p.x =  p.x*cos(angle) - p.y*sin(angle);
+      p.y = dummy.x*sin(angle)+p.y*cos(angle);
+      return p; 
+}
+void rotate(){
+     status = 3;
+        cout<<"\nEnter Angle Of Rotation: ";
+        cin>>angle;
+
+        p1 = rotateAntiClock(p1);
+        p2 = rotateAntiClock(p2);
+        p3 = rotateAntiClock(p3);
+        p4 = rotateAntiClock(p4);
+        
+        glClear(GL_COLOR_BUFFER_BIT);
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+        glutPostRedisplay();
+}
+
 void MainMenu(int choice){
 
     switch(choice){
@@ -92,8 +211,10 @@ void MainMenu(int choice){
                
                 break;
         case 2:
+                Scale();
                 break;
         case 3:
+                rotate();
                 break;
         case 4:
                 exit(0);
