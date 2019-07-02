@@ -37,7 +37,7 @@ add_student(){
 					 
 		flag=0
 		echo
-		read -p 'Enter Address: ' loc
+		read -p 'Enter Address(Building/Flat No/Locality): ' loc
 	
 		echo
 		read -p 'Enter City Name: ' city
@@ -48,9 +48,7 @@ add_student(){
 			echo
 			read -p 'Enter Pin Number: ' pin
 	
-			STRLENGTH=${#pin}
-			echo "\n$STRLENGTH"
-			if [ "$STRLENGTH" -eq 6 ]
+			if [ ${#pin} -eq 6 ]
 			then
 				break
 				flag=1
@@ -160,10 +158,7 @@ searchName(){
 	return
 }
 
-
 delete(){
-
-
 		echo
 	        read -p 'Enter ID To Be Deleted: ' rno
 		fileName="address.dat"
@@ -181,18 +176,51 @@ delete(){
 		
 		fi	
 		return
-
-
-
 }
 
+deletePhone(){
+		echo
+	        read -p 'Enter Phone Number To Be Deleted: ' phone
+		fileName="address.dat"
+		lineNum="$(grep -n "$phone" "$fileName" | head -n 1 | cut -d" "  -f1)"
+		
+		line=${lineNum%:*}		
+		#echo "$(>temp.dat)"
+		
+		if grep -q "$phone" "$fileName"; 
+		then
+			echo -e "$(sed -i $line'd' $fileName)"	
+			echo -e "\nRecord Successfully Deleted"				
+		else
+			echo -e "No Record Present With Phone Number $phone"	
+		
+		fi	
+		return
+}
 
-modify(){
+deletePin(){
+		echo
+	        read -p 'Enter Pin Number To Be Deleted: ' pin
+		fileName="address.dat"
+		if grep -q "$pin" "$fileName"; 
+		then
+			awk '!/'"$pin"'/' "$fileName" > "temp.dat" && mv "temp.dat" "$fileName"
+			echo -e 'Record Deleted Successfully'
+		else
+			echo -e "Record Is Not Present With Pin Number $pin"
+		fi	
+}		
+
+
+modify()
+{
 
 
 		echo
-        	read -p 'Enter ID To Modify Record: ' rno
+        read -p 'Enter ID To Modify Record: ' rno
 		i=1
+		flag=0
+		re='^[0-9]+$'
 		fileName="address.dat"
 		lineNum="$(grep -n "$rno" $fileName | head -n 1 | cut -d" "  -f1)"
 		
@@ -203,31 +231,67 @@ modify(){
 			read -p "Do You Want To Modify Name For ID $rno (1 or 0)" choice3
 			if [ "$choice3" -eq 1 ];
 			then
-				echo -e '\nEnter Student Name: '
+				echo -e '\nEnter Name: '
 				read name
 			fi
+			choice3=0
+			read -p "Do You Want To Modify Phone Number For ID $rno (1 or 0)" choice3
+			if [ "$choice3" -eq 1 ];
+			then
+				while [ "$flag" -eq 0 ]; do
+					flag=0	
+					echo
+        			read -p 'Enter Phone Number: ' phone
+	
+	        		if [ ${#phone} -ne 10 ] || ! [[ $phone =~ $re ]]; then
+						echo            			
+						echo "Enter Valid Phone Number"
+						flag=0
+					else 
+						flag=1
+						break;	
+            		fi
+				done
+				flag=0
+			fi
+			
 			choice3=0
 			read -p "Do You Want To Modify Address For ID $rno (1 or 0)" choice3
 			if [ "$choice3" -eq 1 ];
 			then
-							
-				read -p '\nEnter Address(Building/Flat No/Locality): ' loc
-			
-				read -p '\nEnter City Name: ' city
-		
-				read -p '\nEnter Pin Code: ' pin
-		
-			echo -e "$(sed -i "/$rno/c\ $id\t\t  $name\t\t$phone\t\t$loc\t\t$city\t\t$pin" address.dat)"
+				echo			
+				read -p 'Enter Address(Building/Flat No/Locality): ' loc
+				echo
+				read -p 'Enter City Name: ' city
+
+				while [ "$flag" -eq 0 ]
+				do	
+					flag=0
+					echo
+					read -p 'Enter Pin Number: ' pin
+					if [ ${#pin} -eq 6 ]
+					then
+						break
+						flag=1
+					else 
+						echo
+						echo 'Pin Number Should Be Of 6 Digits'
+						flag=0
+					fi
+				done
+			fi	
+			echo -e "$(sed -i "/$rno/c\ $rno\t\t  $name\t\t$phone\t\t$loc\t\t$city\t\t$pin" address.dat)"
 			echo -e "\nRecord Successfully Modified"				
 		else
+			echo
 			echo "No Record Present With ID $rno"	
 		fi	
-		return
 }
 
 choice=0
 while [ "$choice" -ne 6 ]
 do
+	space
 	echo "----------- MENU ------------"
 	echo "1) Add Record"
     	echo "2) Display"
@@ -276,9 +340,29 @@ do
 				esac
 			done ;;
 	
-		4) delete ;;
+		4) 
+			choice4=0
+			while [ "$choice4" -ne 4 ]
+			do
+				space
+				echo "--------- DELETE MENU -----------"
+				echo "1.DELETE By Id"
+				echo "2.DELETE By Phone"
+				echo "3.DELETE By Pin Code"	
+				echo "4.Back To Main Menu"
+				echo "----------------------------------"
+				read -p 'Enter Your Choice : ' choice4
+				case $choice4 in 
+					1) delete ;;
+					2) deletePhone ;;
+					3) deletePin ;;
+					4) ;;	
+					*) echo "\nPlease Enter Valid Choice"
+				esac
+			done ;;
+	
 		5) modify ;;
 		6) exit ;;
-		*) echo '\nInvalid Option' ;;
+		*) echo -e '\nInvalid Option' ;;
 	esac
 done
