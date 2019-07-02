@@ -1,0 +1,31 @@
+
+ Start  Stop   Length Name               Class
+
+ 00000H 00260H 00261H _TEXT              CODE
+ 00262H 0064FH 003EEH _DATA              DATA
+
+  Address         Publics by Name
+
+ 0000:011B       COMPSTR
+ 0000:00F8       CONCATSTR
+ 0000:00ED       DISPLAYSTR
+ 0026:0197       STR1
+ 0026:01A6       STR2
+ 0026:0200       STR3
+ 0000:01A4       STROCCUR
+ 0000:014C       SUBSTRNG
+
+  Address         Publics by Value
+
+ 0000:00ED       DISPLAYSTR
+ 0000:00F8       CONCATSTR
+ 0000:011B       COMPSTR
+ 0000:014C       SUBSTRNG
+ 0000:01A4       STROCCUR
+ 0026:0197       STR1
+ 0026:01A6       STR2
+ 0026:0200       STR3
+
+Program entry point at 0000:0000
+Warning: No stack
+
