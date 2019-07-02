@@ -1,54 +1,53 @@
-#!/bin/sh
+#!/bin/bash
 
+space(){
+
+	echo
+	echo
+}
 add_student(){
-	echo '\nEnter Number Of Student: \c'
-	read no
+	space
+	read -p 'Enter Total Records You Want To Add: ' no
 	i=0
 	flag=0
+	re='^[0-9]+$'
+
 	while [ "$i" -lt "$no" ]
 	do	
-		flag=0
-		echo "\n---------------------------------------------"
+		space
+		echo "---------------------------------------------"
 
-		echo '\nEnter Person Name: \c'
-		read name
+		read -p 'Enter Name: ' name
 	
-		while [ "$flag" -eq 0 ]
-		do
-			echo '\nEnter Phone Number: \c'
-			read phone
-			patt='^[0-9]$'
-			 if ! [[ "$phone" =~ ^[[:digit:]]+$ ]];  
-			then
-   				echo "\nCharacters Are Not Allowed In Phone Number"
-   				flag=0
-   				continue
-			fi
-			
-			STRLENGTH=${#phone}
-			echo "\n$STRLENGTH"
-			if [ "$STRLENGTH" -eq 10 ]
-			then
-				break
-				flag=1
-			else 
-				echo '\nPhone Number Should Be Of 10 Digits'
+	
+		while [ "$flag" -eq 0 ]; do
+			flag=0	
+			echo
+        		read -p 'Enter Phone Number: ' phone
+	
+        		if [ ${#phone} -ne 10 ] || ! [[ $phone =~ $re ]]; then
+				echo            			
+				echo "Enter Valid Phone Number"
 				flag=0
-			fi
-		done
+			else 
+				flag=1
+				break;	
+            		fi
+			done
 					 
-		
-		echo "\nEnter Address: \c"
-		read loc
-		
-		
-		echo "\nEnter City Name: \c"
-		read city
+		flag=0
+		echo
+		read -p 'Enter Address: ' loc
+	
+		echo
+		read -p 'Enter City Name: ' city
+	
 		
 		while [ "$flag" -eq 0 ]
-		do
-			echo '\nEnter Pin Number: \c'
-			read pin
+		do	
+			echo
+			read -p 'Enter Pin Number: ' pin
+	
 			STRLENGTH=${#pin}
 			echo "\n$STRLENGTH"
 			if [ "$STRLENGTH" -eq 6 ]
@@ -56,7 +55,8 @@ add_student(){
 				break
 				flag=1
 			else 
-				echo '\nPin Number Should Be Of 6 Digits'
+				echo
+				echo 'Pin Number Should Be Of 6 Digits'
 				flag=0
 			fi
 		done
@@ -79,15 +79,15 @@ display(){
 
 	if [ -s "address.dat" ]
 	then 
-   		echo '\n\t\t\tRECORDS BY ID\n'
-		echo '\n------------------------------------------------------------------------------------------------------------------------------------------'
-		echo '\nID\t\t\tNAME\t\tPHONE NUMBER\t\t\t\tADDRESS\t\t\t\tCity\t\tPin Code'
-		echo '\n------------------------------------------------------------------------------------------------------------------------------------------'
-		echo "$(cat address.dat)"
-		echo '\n------------------------------------------------------------------------------------------------------------------------------------------'
+   		echo -e "\n\t\t\tRECORDS BY ID"
+		echo "--------------------------------------------------------------------------------------------------------------------------------------------"
+		echo -e "\nID\t\t\tNAME\t\tPHONE NUMBER\t\t\t\tADDRESS\t\t\t\tCity\t\tPin Code"
+		echo -e '\n------------------------------------------------------------------------------------------------------------------------------------------'
+		echo -e "$(cat address.dat)"
+		echo -e '\n------------------------------------------------------------------------------------------------------------------------------------------'
 			
 	else
-   		echo "\nfile does not exist, or is empty "
+   		echo -e "\nfile does not exist, or is empty "
 	fi	
 	return 	
 }
@@ -97,16 +97,17 @@ displayName(){
 	if [ -s "address.dat" ]
 	then 
 
-		echo '\n\t\t\tRECORDS BY NAME\n\n'
+		echo -e "\n\t\t\tRECORDS BY NAME\n\n"
 	
-		echo '\n------------------------------------------------------------------------------------------------------------------------------------------'
-		echo '\nID\t\t\tNAME\t\tPHONE NUMBER\t\t\t\tADDRESS\t\t\t\tCity\t\tPin Code'
-		echo '\n------------------------------------------------------------------------------------------------------------------------------------------'
-		echo "$(cat address.dat | sort -n -t ' ' -k 2,2 -k 3,3)"
-		echo '\n------------------------------------------------------------------------------------------------------------------------------------------'
+		echo -e '\n------------------------------------------------------------------------------------------------------------------------------------------'
+		echo -e '\nID\t\t\tNAME\t\tPHONE NUMBER\t\t\t\tADDRESS\t\t\t\tCity\t\tPin Code'
+		echo
+		echo '--------------------------------------------------------------------------------------------------------------------------------------------'
+		echo -e "$(cat address.dat | sort -n -t ' ' -k 2,2 -k 3,3)"
+		echo -e  '\n------------------------------------------------------------------------------------------------------------------------------------------'
 			
 	else
-   		echo "\nfile does not exist, or is empty "
+   		echo -e "\nfile does not exist, or is empty "
 	fi	
 	return 
 
@@ -117,21 +118,21 @@ displayName(){
 
 	
 search(){
-
-	echo '\nEnter ID To Be Searched: '
-	read ID
+	echo	
+	read -p 'Enter ID To Be Searched: ' ID
 
 	fileName="address.dat"
 
 	if grep -q "$ID" "$fileName"; 
 	then
-		echo '\n----------------------------------------------------------'
-		echo '\nID\t\tNAME\t\tADDRESS'
-		echo '\n----------------------------------------------------------'
-		echo "\n$(grep -F $ID address.dat)"
-		echo '\n----------------------------------------------------------'  		
+		echo -e '\n------------------------------------------------------------------------------------------------------------------------------------------'
+		echo -e '\nID\t\t\tNAME\t\tPHONE NUMBER\t\t\t\tADDRESS\t\t\t\tCity\t\tPin Code'
+		echo
+		echo '--------------------------------------------------------------------------------------------------------------------------------------------'
+		echo -e "\n$(grep -F $ID address.dat)"
+		echo -e '--------------------------------------------------------------------------------------------------------------------------------------------'
 	else
-		echo "\nNo Record Present With Roll Number $ID"	
+		echo -e "\nNo Record Present With Id $ID"	
 		
 	fi	
 	return
@@ -140,21 +141,20 @@ search(){
 
 	
 searchName(){
-
-	echo '\nEnter Name To Be Searched: '
-	read name
-
+	echo
+        read -p 'Enter Name To Be Searched: ' name
 	fileName="address.dat"
 
 	if grep -q "$name" "$fileName"; 
 	then
-		echo '\n----------------------------------------------------------'
-		echo '\nID\t\tNAME\t\tADDRESS'
-		echo '\n----------------------------------------------------------'
-		echo "\n$(grep -F $name address.dat)"
-		echo '\n---------------------------------------------'  		
+'\n------------------------------------------------------------------------------------------------------------------------------------------'
+		echo -e '\nID\t\t\tNAME\t\tPHONE NUMBER\t\t\t\tADDRESS\t\t\t\tCity\t\tPin Code'
+		echo
+		echo '--------------------------------------------------------------------------------------------------------------------------------------------'
+		echo -e "\n$(grep -F $name address.dat)"
+		echo -e '--------------------------------------------------------------------------------------------------------------------------------------------'
 	else
-		echo "\nNo Record Present With Roll Number $name"	
+		echo -e "\nNo Record Present With Name $name"	
 		
 	fi	
 	return
@@ -164,21 +164,20 @@ searchName(){
 delete(){
 
 
-		echo '\nEnter Roll Number Which Data To Be Deleted: '
-		read rno
-		i=1
+		echo
+	        read -p 'Enter ID To Be Deleted: ' rno
 		fileName="address.dat"
-		lineNum="$(grep -n "$rno" student.dat | head -n 1 | cut -d" "  -f1)"
+		lineNum="$(grep -n "$rno" "$fileName" | head -n 1 | cut -d" "  -f1)"
 		
 		line=${lineNum%:*}		
 		#echo "$(>temp.dat)"
 		
 		if grep -q "$rno" "$fileName"; 
 		then
-			echo "$(sed -i $line'd' student.dat)"	
-			echo "\nRecord Successfully Deleted"				
+			echo -e "$(sed -i $line'd' $fileName)"	
+			echo -e "\nRecord Successfully Deleted"				
 		else
-			echo "No Record Present With Roll Number $rno"	
+			echo -e "No Record Present With ID $rno"	
 		
 		fi	
 		return
@@ -191,48 +190,53 @@ delete(){
 modify(){
 
 
-		echo '\nEnter Roll Number Which Record To Be Modified: '
-		read rno
+		echo
+        	read -p 'Enter ID To Modify Record: ' rno
 		i=1
-		fileName="student.dat"
-		lineNum="$(grep -n "$rno" student.dat | head -n 1 | cut -d" "  -f1)"
+		fileName="address.dat"
+		lineNum="$(grep -n "$rno" $fileName | head -n 1 | cut -d" "  -f1)"
 		
-		line=${lineNum%:*}		
-		#echo "$(>temp.dat)"
+		line=${lineNum%:*}	
 		
 		if grep -q "$rno" "$fileName"; 
 		then
-			echo '\nEnter Student Name: '
-			read name
-		
-			echo '\nEnter Subject 1 Marks: '
-			read m1
+			read -p "Do You Want To Modify Name For ID $rno (1 or 0)" choice3
+			if [ "$choice3" -eq 1 ];
+			then
+				echo -e '\nEnter Student Name: '
+				read name
+			fi
+			choice3=0
+			read -p "Do You Want To Modify Address For ID $rno (1 or 0)" choice3
+			if [ "$choice3" -eq 1 ];
+			then
+							
+				read -p '\nEnter Address(Building/Flat No/Locality): ' loc
 			
-			echo '\nEnter Subject 2 Marks: '
-			read m2
+				read -p '\nEnter City Name: ' city
 		
-			echo '\nEnter Subject 3 Marks: '
-			read m3
+				read -p '\nEnter Pin Code: ' pin
 		
-			avg=$(((m1+m2+m3)/3))
-	
-			echo "$(sed -i "/$rno/c\ $rno \t $name \t $m1 \t $m2 \t $m3 \t $avg" student.dat)"
-			echo "\nRecord Successfully Deleted"				
+			echo -e "$(sed -i "/$rno/c\ $id\t\t  $name\t\t$phone\t\t$loc\t\t$city\t\t$pin" address.dat)"
+			echo -e "\nRecord Successfully Modified"				
 		else
-			echo "No Record Present With Roll Number $rno"	
-		
+			echo "No Record Present With ID $rno"	
 		fi	
 		return
-
-
-
 }
+
 choice=0
 while [ "$choice" -ne 6 ]
 do
-	echo '\n-------- MENU --------\n1.Insert Student Info\n2.Display Record\n3.Search In Program\n4.Delete Record\n5.Modify Record\n6.Exit\n---------------\nEnter Your Choice: \c' 
-	read choice
-
+	echo "----------- MENU ------------"
+	echo "1) Add Record"
+    	echo "2) Display"
+    	echo "3) Search"
+        echo "4) Delete"
+    	echo "5) Modify"
+    	echo "6) Exit"
+	echo "----------------------------"
+    	read -p 'Enter Your Choice : ' choice
 	case $choice in
 	
 		1) add_student ;;
@@ -240,9 +244,13 @@ do
 			choice1=0
 			while [ "$choice1" -ne 3 ]
 			do
-			
-				echo "\n--------- Display MENU -----------\n\n1.Display By Id\n2.Display By Name\n3.Back To Main Menu\n----------------------------------\nEnter Your Choice: "
-				read choice1
+				space
+				echo "--------- Display MENU -----------"
+				echo "1.Display By Id"
+				echo "2.Display By Name"
+				echo "3.Back To Main Menu"
+				echo "----------------------------------"
+				read -p 'Enter Your Choice : ' choice1
 				case $choice1 in 
 					1) display ;;
 					2) displayName ;;
@@ -253,9 +261,13 @@ do
 		3) 		choice2=0
 			while [ "$choice2" -ne 3 ]
 			do
-			
-				echo "\n--------- Search MENU -----------\n\n1.Search By Id\n2.Search By Name\n3.Back To Main Menu\n----------------------------------\nEnter Your Choice: "
-				read choice2
+				space
+				echo "--------- SEARCH MENU -----------"
+				echo "1.SEARCH By Id"
+				echo "2.SEARCH By Name"
+				echo "3.Back To Main Menu"
+				echo "----------------------------------"
+				read -p 'Enter Your Choice : ' choice2
 				case $choice2 in 
 					1) search ;;
 					2) searchName ;;
