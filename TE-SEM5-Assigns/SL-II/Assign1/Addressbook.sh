@@ -46,7 +46,10 @@ add_record(){
 					 
 		flag=0
 		echo
-		read -p 'Enter Address(Building/Flat No/Locality): ' loc #Reading Address
+		read -p 'Enter Address(Flat No/Building): ' apts #Reading Address
+	
+		echo
+		read -p 'Enter Locality: ' loc #Reading Address
 	
 		echo
 		read -p 'Enter City Name: ' city #Reading City
@@ -73,9 +76,9 @@ add_record(){
 		RANDOM="$(shuf -i 1-1000 -n 1)" #generating Random Number For ID
 		
 		id="$initial$RANDOM" #Concatinating Initial letter and Random Number to generate unique id
-		
-		echo "$id\t\t  $name\t\t$phone\t\t$loc\t\t$city\t\t$pin">>address.dat #Writing record In file Using Redirection
-		i=$((i+1)) #incrementing The Counter
+		echo "$id\t\t$name\t\t$phone\t\t$apts\t\t$loc\t\t$city\t\t$pin">>address.dat #Writing record In file Using Redirection
+	
+	 	i=$((i+1)) #incrementing The Counter
 	done
 	return
 	
@@ -89,7 +92,7 @@ display(){
 	then 
    		echo -e "\n\t\t\tRECORDS BY ID" 
 		line 
-		echo -e "\nID\t\t\tNAME\t\tPHONE NUMBER\t\t\t\tADDRESS\t\t\t\tCity\t\tPin Code"
+		echo -e "\n ID\t\t NAME\t\t\tPHONE NUMBER\t\t\tApartment\t\tLocality\t\tCity\t\tPin Code"
 		line
 		echo -e "$(cat address.dat)" # Command for Displaying Record
 		line	
