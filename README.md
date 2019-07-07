@@ -1,4 +1,5 @@
 # Engineering-Assignments
 
 
-This Repository Contains My Engineering Course Assignments Of All Sem
+This Repository Contains My Engineering Course Assignments Of All Semester
+
