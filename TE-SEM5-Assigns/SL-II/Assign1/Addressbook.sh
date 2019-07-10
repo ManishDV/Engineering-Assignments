@@ -112,8 +112,7 @@ display_name(){
 
 		echo -e "\n\t\t\tRECORDS BY NAME\n\n"
 		line
-		echo -e '\nID\t\t\tNAME\t\tPHONE NUMBER\t\t\t\tADDRESS\t\t\t\tCity\t\tPin Code'
-		echo
+		echo -e "\n ID\t\t NAME\t\t\tPHONE NUMBER\t\t\tApartment\t\tLocality\t\tCity\t\tPin Code"
 		line
 		echo -e "$(cat address.dat | sort -n -t ' ' -k 2,2 -k 3,3)" #Displaying Record In Sorted order
 		line	
@@ -135,7 +134,7 @@ search(){
 	if grep -q "$ID" "$fileName"; #Checking If Record With Entered Id Is Present Or Not In file 
 	then
 		line
-		echo -e '\nID\t\t\tNAME\t\tPHONE NUMBER\t\t\t\tADDRESS\t\t\t\tCity\t\tPin Code'
+		echo -e "\n ID\t\t NAME\t\t\tPHONE NUMBER\t\t\tApartment\t\tLocality\t\tCity\t\tPin Code"
 		echo
 		line
 		echo -e "\n$(grep -F $ID address.dat)" #Printing Record If Exists
@@ -158,7 +157,7 @@ search_name(){
 	if grep -q "$name" "$fileName";  #Checking if Record Present Or Not In File
 	then
 		line	
-		echo -e '\nID\t\t\tNAME\t\tPHONE NUMBER\t\t\t\tADDRESS\t\t\t\tCity\t\tPin Code'
+		echo -e "\n ID\t\t NAME\t\t\tPHONE NUMBER\t\t\tApartment\t\tLocality\t\tCity\t\tPin Code"
 		echo
 		line
 		echo -e "\n$(grep -F $name address.dat)" #Displaying Records If Present
@@ -378,3 +377,4 @@ do
 		*) echo -e '\nInvalid Option' ;; #Printing Error Message If User Choice Is Invalid
 	esac
 done #End Of Program
+
