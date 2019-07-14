@@ -54,7 +54,9 @@ int main(int argc,char *argv[]){
 	if(pid == 0){
 			sleep(2);
 			printf("\nUsing EXECV in main Program\n");
-			execvp("./exec2",array);
+			char *args[]={'./exec2',array,NULL};
+			printf("\n%s",*args[0]);
+			execvp(args[0],args);
      		printf("\nReturned In Main program\n");
 			 
      

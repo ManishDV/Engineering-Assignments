@@ -1,25 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<head>
+	<style>
+		ul {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		li a {
+			display: block;
+			color: #FFF;
+			padding: 10px 20px;
+			text-decoration: none;
+			font-size: 24px;
+			border: 1px solid cyan;
+		}
+
+		/* Change the link color on hover */
+		li a:hover {
+			background-color: #555;
+			color: white;
+		}
+
+		.active {
+			background-color: #4CAF50;
+			color: white;
+		}
+	</style>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
 <body bgcolor="#101935">
-	<ul style="list-style: none;margin-left: 0px;display: inline;">
-		
-		<li>
-			<a href="lang.html" target="right"><button  style="color: aliceblue;text-decoration: none;font-size: 30px;padding-left: 0px;background-color: #101935; border: 0px;margin-top: 0px">Devotional</button></a>
-		</li>
-        <br>
-        <hr color="lightblue"/>
-		<li>
-			<a href="#"><button  style="color: aliceblue;text-decoration: none;font-size: 30px;padding-left: 0px;background-color: #101935; border: 0px;margin-top: 20px">Kid's Stories</button></a>
-        </li>
-        <br>
-        <hr color="lightblue"/>
-		<li>
-			<a href="#"><button  style="color: aliceblue;text-decoration: none;font-size: 30px;padding-left: 0px;background-color: #101935; border: 0px;margin-top: 20px">Education(11th-12th)</button></a>
-        </li>
-        <br>
-        <hr color="lightblue"/>
-		
+	<ul>
+		<li><a href="info.html" target="right">Home</a></li>
+		<li><a href="lang.html" target="right">Devotional</a></li>
+		<li><a href="klang.html" target="right">kids Stories</a></li>
+		<li><a href="#" target="right">Educational</a></li>
 	</ul>
 </body>
+
 </html>

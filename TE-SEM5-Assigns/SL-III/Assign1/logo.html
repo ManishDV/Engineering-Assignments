@@ -1,10 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<head>
+    <style>
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            float: right;
+        }
+
+        .dropbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            float: right;
+            cursor: pointer;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
+    </style>
+</head>
+
 <body bgcolor="#101935">
-    <span style="position: relative;left: 46.5%">
-        <img src="logo.jpg" width="150px" height="100px"/>
+    <div class="dropdown">
+        <button class="dropbtn">Right</button>
+        <div class="dropdown-content">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+        </div>
+    </div>
+    <span style=" display: inline; position: relative;padding: 0px ;">
+        <img src="LOGO.png" width="50px" height="50px" style="float: left" />
+
     </span>
-    <h1 style="position: relative; left: 41%;  text-shadow: 5px 0px 3px #FF0000;"><font color="white">Manish's Book Store</font></h1>
-    <hr color="lightblue"/>
+
+    <h1 style="position: relative;  text-shadow: 5px 0px 3px #FF0000;padding: 7px">
+        <font color="white">Manish's Book Store</font>
+    </h1>
+    <hr color="lightblue" />
 </body>
+
 </html>
