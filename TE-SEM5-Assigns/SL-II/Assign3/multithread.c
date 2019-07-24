@@ -4,7 +4,7 @@
 #include<stdlib.h>
 #include<unistd.h>
 #include <stdio.h>
-
+#include<time.h>
 //Defining Structure to hold Multiple Values and Array To be  pass to the function
 struct thread_data{
    int *Mat1;
@@ -13,9 +13,6 @@ struct thread_data{
    int r1,c1,r2,c2;
 
 };
-
-//Declaring Structure Variable
-struct thread_data data;
 
 //Defining Function for taking input in matrix
 void matrixInput(int *mat,int r,int c){
@@ -61,15 +58,18 @@ void *multiplyMat(void *args){
         for(j=0;j<mydata->c1;j++){
           *(mydata->resMat+i*mydata->c1+j) = 0;
           for(k=0;k<mydata->r1;k++){
-          	printf("\nMultiplying [%d][%d] * [%d][%d]",i,k,k,j);
+          	if(k%2==0){
+          	printf("\ncalculating [%d][%d] * [%d][%d] + [%d][%d] * [%d][%d]",i,k,k,j,i,k+1,k+1,j);
+          	}
             *(mydata->resMat+i*mydata->c1+j) = *(mydata->resMat+i*mydata->c1+j) + *(mydata->Mat1+i*mydata->c1+k) * (*(mydata->Mat2+k*mydata->c1+j));
+          
           }
         }
       }
     }
     else{
       printf("\nMatrix Should Have Number of Rows of Matrix 1 equal to Number of Columns of Matrix 2");
-      pthread_exit("hello");
+      pthread_exit("\nPlease Provide Correct Arguements\n");
     }
 	
 	//Printing First Matrix
@@ -86,7 +86,7 @@ void *multiplyMat(void *args){
     dispMat(mydata->resMat,mydata->r1,mydata->c2);
 
 	//thread exiting 
-    pthread_exit(NULL);
+    pthread_exit("\nExecuted Successfully\n");
 }                                                                      
 
 
@@ -97,7 +97,8 @@ int main(){
   int r1=0,c1=0,r2=0,c2=0;
   pthread_t thread;
   int rc,*status;
-
+	//Declaring Structure Variable
+	struct thread_data data;
   //Taking Number of Rows and Columns From User
   printf("\nEnter Number Of Rows and Columns of Matrix 1: ");
   scanf("%d %d",&r1,&c1);
@@ -140,16 +141,13 @@ int main(){
 	
 	//joining thread to main process
     rc = pthread_join(thread,&status);
-    
+	printf("\n%s",status);
     //Checking Response Code
     if (rc) {
         printf("ERROR; return code from pthread_join() is %d\n", rc);
         exit(-1);
     }
-    printf("\n[INFO] Completed Join");
-
-    printf("\n[INFO] MAIN THREAD COMPLETED EXITING.\n");
- 	
+ 
  	//Main Thread Exiting 
     pthread_exit(NULL);
   //matrixInput(mat2,r1,c1);
