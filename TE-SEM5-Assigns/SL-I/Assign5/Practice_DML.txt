@@ -1,0 +1,1402 @@
+/*
+insert into contain values(1,1,10);
+insert into contain values(2,2,10);
+insert into contain values(3,3,10);
+insert into contain values(4,4,10);
+insert into contain values(5,5,10);
+*/
+/*
+insert into customer(name,Email,mobile,address) values('Manish Visave','manishvisave149@gmail.com',9762237440,'Pune');
+insert into customer(name,Email,mobile,address) values('Jayesh Prajapat','Jp@gmail.com',9876543210,'Nashik');
+insert into customer(name,Email,mobile,address) values('Sahil Shaikh','SS@gmail.com',9876543210,'Kopargaon');
+insert into customer(name,Email,mobile,address) values('Manas Patil','MP@gmail.com',9876543210,'Dhule');
+insert into customer(name,Email,mobile,address) values('Rupesh Mali','RM@gmail.com',9876543210,'Jalgaon');
+*/
+/*
+insert into order_details(date,amount,cust_id) values('2019-5-05',0.0,1);
+
+insert into order_details(date,amount,cust_id) values('2019-6-05',0.0,2);
+
+insert into order_details(date,amount,cust_id) values('2019-1-05',0.0,3);
+
+insert into order_details(date,amount,cust_id) values('2019-2-05',0.0,4);
+
+insert into order_details(date,amount,cust_id) values('2019-4-05',0.0,5);
+*/
+
+
+  
+mllab18@mllab18:~$ sudo mysql -u Manish -p
+[sudo] password for mllab18: 
+Enter password: 
+ERROR 1045 (28000): Access denied for user 'Manish'@'localhost' (using password: YES)
+mllab18@mllab18:~$ 
+mllab18@mllab18:~$ sudo mysql -u Manish -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 3
+Server version: 5.7.26-0ubuntu0.18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++------------------------+
+| Database               |
++------------------------+
+| information_schema     |
+| Book_Shop              |
+| MUSIC                  |
+| Order_Management       |
+| Prescription_R_X_chain |
+| ab1                    |
+| company                |
+| db                     |
+| dbms                   |
+| dbms1                  |
+| dbms2                  |
+| demo                   |
+| general_store          |
+| hospital               |
+| music                  |
+| mysql                  |
+| order_mgt              |
+| performance_schema     |
+| pharmacy               |
+| pict123                |
+| shit                   |
+| sys                    |
++------------------------+
+22 rows in set (0.09 sec)
+
+mysql> use Order_Management;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++----------------------------+
+| Tables_in_Order_Management |
++----------------------------+
+| Contains                   |
+| Order_details              |
+| belongs                    |
+| customer                   |
+| product                    |
++----------------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * form product;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'form product' at line 1
+mysql> select * from product;
+Empty set (0.02 sec)
+
+mysql> show databases;
++------------------------+
+| Database               |
++------------------------+
+| information_schema     |
+| Book_Shop              |
+| MUSIC                  |
+| Order_Management       |
+| Prescription_R_X_chain |
+| ab1                    |
+| company                |
+| db                     |
+| dbms                   |
+| dbms1                  |
+| dbms2                  |
+| demo                   |
+| general_store          |
+| hospital               |
+| music                  |
+| mysql                  |
+| order_mgt              |
+| performance_schema     |
+| pharmacy               |
+| pict123                |
+| shit                   |
+| sys                    |
++------------------------+
+22 rows in set (0.00 sec)
+
+mysql> use Book_Shop;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> select * from product;
++------+--------+----------------------------------------------------+-------+---------+
+| p_id | cat_id | name                                               | stock | price   |
++------+--------+----------------------------------------------------+-------+---------+
+|    1 |      1 | Jesus Calling: Enjoying Peace in His Presence      |    30 |  500.00 |
+|    2 |      1 | Ramayan Book                                       |    30 |  700.00 |
+|    3 |      1 | Suder Kand                                         |    30 |   28.00 |
+|    4 |      1 | Shrimad Bhagwat Geeta                              |    30 |  200.00 |
+|    5 |      1 | Aarti Sangrah Book                                 |    30 |  190.00 |
+|    6 |      2 | quantitative aptitude for competitive examinations |    30 |  550.00 |
+|    7 |      2 | Mindset                                            |    30 |  175.00 |
+|    8 |      2 | Deep Learning                                      |    30 | 1750.00 |
+|    9 |      2 | Problems In GENERAL PHYSICS                        |    30 |   78.00 |
+|   10 |      2 | The Orient BlackSwan Atlas for Competitive Exams   |    30 |  180.00 |
+|   11 |      3 | Everyone Has a Story                               |    30 |   92.00 |
+|   12 |      3 | 11 Hours                                           |    30 |  178.00 |
+|   13 |      3 | Believe In Yourself                                |    30 |  137.00 |
+|   14 |      3 | Something I Never Told You                         |    30 |  187.00 |
+|   15 |      3 | Wasted in Engineering : Story of Indias Youth      |    30 |  180.00 |
+|   16 |      4 | Great Stories For Children                         |    30 |  170.00 |
+|   17 |      4 | 101 Bedtime Stories                                |    30 |  119.00 |
+|   18 |      4 | The Very Hungry Caterpillar                        |    30 |  178.00 |
+|   19 |      4 | Brown Bear, Brown Bear, What Do You See?           |    30 |  197.00 |
+|   20 |      4 | The Giving Tree                                    |    30 |  107.00 |
+|   21 |      5 | Wings Of Fire                                      |    30 |  292.00 |
+|   22 |      5 | 101 Bedtime Stories                                |    30 |  119.00 |
+|   23 |      5 | The wit and wisdom of Ratan Tata                   |    30 |  299.00 |
+|   24 |      5 | Issac Newton A Biography                           |    30 |  197.00 |
+|   25 |      5 | Steve jobs                                         |    30 |  249.00 |
+|   26 |      6 | Chacha Chaudhary Digest -2                         |    30 |  127.00 |
+|   27 |      6 | Batman: The Killing Joke                           |    30 |  190.00 |
+|   28 |      6 | The Walking Dead Compendium Volume 3               |    30 |  250.00 |
+|   29 |      6 | From Hell                                          |    30 |  209.00 |
+|   30 |      6 | Superman:Whatever Happened to the Man of Tomorrow  |    30 |  199.00 |
+|   31 |      7 | History of Ancient INDIA                           |    30 |  450.00 |
+|   32 |      7 | The Silk Roads: A New History of the World         |    30 |  561.00 |
+|   33 |      7 | History of the World                               |    30 |  268.00 |
+|   34 |      7 | The Habsburg Empire – A New History                |    30 |  947.00 |
+|   35 |      7 | Ancient India in Historical Outline                |    30 |   99.00 |
++------+--------+----------------------------------------------------+-------+---------+
+35 rows in set (0.00 sec)
+
+mysql> show tables;
++---------------------+
+| Tables_in_Book_Shop |
++---------------------+
+| category            |
+| contain             |
+| customer            |
+| order_details       |
+| product             |
++---------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from category;
++--------+-----------------+
+| cat_id | cat_name        |
++--------+-----------------+
+|      1 | Devotional      |
+|      2 | Educational     |
+|      3 | Fiction Stories |
+|      4 | Kids Stories    |
+|      5 | Biography       |
+|      6 | Comics          |
+|      7 | Historical      |
+|      8 | Business        |
++--------+-----------------+
+8 rows in set (0.00 sec)
+
+mysql> select * contains;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'contains' at line 1
+mysql> select * from contains;
+ERROR 1146 (42S02): Table 'Book_Shop.contains' doesn't exist
+mysql> select * from contain;
+Empty set (0.00 sec)
+
+mysql> desc conyain;
+ERROR 1146 (42S02): Table 'Book_Shop.conyain' doesn't exist
+mysql> desc contain;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| p_id   | smallint(6) | NO   | MUL | NULL    |       |
+| ord_id | smallint(6) | NO   | MUL | NULL    |       |
+| qty    | int(11)     | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> source select.SQL
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`Book_Shop`.`contain`, CONSTRAINT `contain_ibfk_2` FOREIGN KEY (`ord_id`) REFERENCES `order_details` (`ord_id`))
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`Book_Shop`.`contain`, CONSTRAINT `contain_ibfk_2` FOREIGN KEY (`ord_id`) REFERENCES `order_details` (`ord_id`))
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`Book_Shop`.`contain`, CONSTRAINT `contain_ibfk_2` FOREIGN KEY (`ord_id`) REFERENCES `order_details` (`ord_id`))
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`Book_Shop`.`contain`, CONSTRAINT `contain_ibfk_2` FOREIGN KEY (`ord_id`) REFERENCES `order_details` (`ord_id`))
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`Book_Shop`.`contain`, CONSTRAINT `contain_ibfk_2` FOREIGN KEY (`ord_id`) REFERENCES `order_details` (`ord_id`))
+mysql> select * from order_details;
+Empty set (0.00 sec)
+
+mysql> desc order_detais;
+ERROR 1146 (42S02): Table 'Book_Shop.order_detais' doesn't exist
+mysql> desc order_details;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| ord_id   | smallint(6) | NO   | PRI | NULL    |       |
+| ord_date | date        | NO   |     | NULL    |       |
+| amount   | float(4,2)  | NO   |     | NULL    |       |
+| cust_id  | smallint(6) | YES  | MUL | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '..............................................................................' at line 1
+mysql> desc order-DETAILS;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order-DETAILS' at line 1
+mysql> desc order_DETAILS;
+ERROR 1146 (42S02): Table 'Book_Shop.order_DETAILS' doesn't exist
+mysql> desc order_details;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| ord_id   | smallint(6) | NO   | PRI | NULL    |       |
+| ord_date | date        | NO   |     | NULL    |       |
+| amount   | float(4,2)  | NO   |     | NULL    |       |
+| cust_id  | smallint(6) | YES  | MUL | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from customer;
+Empty set (0.00 sec)
+
+mysql> desc customer;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| cust_id | smallint(6)  | NO   | PRI | NULL    |       |
+| name    | varchar(50)  | NO   |     | NULL    |       |
+| Email   | varchar(50)  | NO   |     | NULL    |       |
+| Mobile  | smallint(10) | NO   |     | NULL    |       |
+| address | varchar(255) | NO   |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE ALLITEMS CHANGE itemid itemid INT(10)AUTO_INCREMENT PRIMARY KEY;
+ERROR 1146 (42S02): Table 'Book_Shop.ALLITEMS' doesn't exist
+mysql> ALTER TABLE customer CHANGE cust_id cust_id INT(10)AUTO_INCREMENT PRIMARY KEY;
+ERROR 1068 (42000): Multiple primary key defined
+mysql> ALTER TABLE customer CHANGE cust_id cust_id INT(10)AUTO_INCREMENT;
+ERROR 1833 (HY000): Cannot change column 'cust_id': used in a foreign key constraint 'order_details_ibfk_1' of table 'Book_Shop.order_details'
+mysql> alter table footable drop foreign key fooconstraint;
+ERROR 1146 (42S02): Table 'Book_Shop.footable' doesn't exist
+mysql> alter table odrer_details drop foreign key cust_id;
+ERROR 1146 (42S02): Table 'Book_Shop.odrer_details' doesn't exist
+mysql> alter table order_details drop foreign key cust_id;
+ERROR 1091 (42000): Can't DROP 'cust_id'; check that column/key exists
+mysql> SHOW CREATE table course;
+ERROR 1146 (42S02): Table 'Book_Shop.course' doesn't exist
+mysql> SHOW CREATE table customer;
++----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                     |
++----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| customer | CREATE TABLE `customer` (
+  `cust_id` smallint(6) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `Email` varchar(50) NOT NULL,
+  `Mobile` smallint(10) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  PRIMARY KEY (`cust_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 |
++----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SHOW CREATE table order_details;
++---------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table         | Create Table                                                                                                                                                                                                                                                                                                                                                  |
++---------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| order_details | CREATE TABLE `order_details` (
+  `ord_id` smallint(6) NOT NULL,
+  `ord_date` date NOT NULL,
+  `amount` float(4,2) NOT NULL,
+  `cust_id` smallint(6) DEFAULT NULL,
+  PRIMARY KEY (`ord_id`),
+  KEY `cust_id` (`cust_id`),
+  CONSTRAINT `order_details_ibfk_1` FOREIGN KEY (`cust_id`) REFERENCES `customer` (`cust_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 |
++---------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> alter table order_details drop foreign key `order_details_ibfk_1`;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE customer CHANGE cust_id cust_id INT(10)AUTO_INCREMENT;
+Query OK, 0 rows affected (0.59 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc customer
+    -> ;
++---------+--------------+------+-----+---------+----------------+
+| Field   | Type         | Null | Key | Default | Extra          |
++---------+--------------+------+-----+---------+----------------+
+| cust_id | int(10)      | NO   | PRI | NULL    | auto_increment |
+| name    | varchar(50)  | NO   |     | NULL    |                |
+| Email   | varchar(50)  | NO   |     | NULL    |                |
+| Mobile  | smallint(10) | NO   |     | NULL    |                |
+| address | varchar(255) | NO   |     | NULL    |                |
++---------+--------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE order_details ADD CONSTRAINT fk_cust_id FOREIGN KEY (cust_id) REFERENCES customer(cust_id);
+ERROR 1215 (HY000): Cannot add foreign key constraint
+mysql> desc order_details;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| ord_id   | smallint(6) | NO   | PRI | NULL    |       |
+| ord_date | date        | NO   |     | NULL    |       |
+| amount   | float(4,2)  | NO   |     | NULL    |       |
+| cust_id  | smallint(6) | YES  | MUL | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> source select.SQL;
+ERROR 1264 (22003): Out of range value for column 'Mobile' at row 1
+ERROR 1264 (22003): Out of range value for column 'Mobile' at row 1
+ERROR 1264 (22003): Out of range value for column 'Mobile' at row 1
+ERROR: 
+No query specified
+
+ERROR 1264 (22003): Out of range value for column 'Mobile' at row 1
+ERROR: 
+No query specified
+
+ERROR 1264 (22003): Out of range value for column 'Mobile' at row 1
+mysql> alter table customer modify mobile mobile numeric(10) NOT NULL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mobile numeric(10) NOT NULL' at line 1
+mysql> alter table customer modify mobile mobile numeric(10);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mobile numeric(10)' at line 1
+mysql> alter table customer modify mobile numeric(10);
+Query OK, 0 rows affected (0.60 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc mobile;
+ERROR 1146 (42S02): Table 'Book_Shop.mobile' doesn't exist
+mysql> desc customer;
++---------+---------------+------+-----+---------+----------------+
+| Field   | Type          | Null | Key | Default | Extra          |
++---------+---------------+------+-----+---------+----------------+
+| cust_id | int(10)       | NO   | PRI | NULL    | auto_increment |
+| name    | varchar(50)   | NO   |     | NULL    |                |
+| Email   | varchar(50)   | NO   |     | NULL    |                |
+| mobile  | decimal(10,0) | YES  |     | NULL    |                |
+| address | varchar(255)  | NO   |     | NULL    |                |
++---------+---------------+------+-----+---------+----------------+
+5 rows in set (0.01 sec)
+
+mysql> alter table customer modify mobile numeric(10) Not Null;
+Query OK, 0 rows affected (0.55 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc customer;
++---------+---------------+------+-----+---------+----------------+
+| Field   | Type          | Null | Key | Default | Extra          |
++---------+---------------+------+-----+---------+----------------+
+| cust_id | int(10)       | NO   | PRI | NULL    | auto_increment |
+| name    | varchar(50)   | NO   |     | NULL    |                |
+| Email   | varchar(50)   | NO   |     | NULL    |                |
+| mobile  | decimal(10,0) | NO   |     | NULL    |                |
+| address | varchar(255)  | NO   |     | NULL    |                |
++---------+---------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> source select.SQL;
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+ERROR: 
+No query specified
+
+Query OK, 1 row affected (0.04 sec)
+
+ERROR: 
+No query specified
+
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from customer;
++---------+-----------------+---------------------------+------------+-----------+
+| cust_id | name            | Email                     | mobile     | address   |
++---------+-----------------+---------------------------+------------+-----------+
+|       1 | Manish Visave   | manishvisave149@gmail.com | 9762237440 | Pune      |
+|       2 | Jayesh Prajapat | Jp@gmail.com              | 9876543210 | Nashik    |
+|       3 | Sahil Shaikh    | SS@gmail.com              | 9876543210 | Kopargaon |
+|       4 | Manas Patil     | MP@gmail.com              | 9876543210 | Dhule     |
+|       5 | Rupesh Mali     | RM@gmail.com              | 9876543210 | Jalgaon   |
++---------+-----------------+---------------------------+------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> desc order_details;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| ord_id   | smallint(6) | NO   | PRI | NULL    |       |
+| ord_date | date        | NO   |     | NULL    |       |
+| amount   | float(4,2)  | NO   |     | NULL    |       |
+| cust_id  | smallint(6) | YES  | MUL | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc contain;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| p_id   | smallint(6) | NO   | MUL | NULL    |       |
+| ord_id | smallint(6) | NO   | MUL | NULL    |       |
+| qty    | int(11)     | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> ALTER TABLE order_details CHANGE ord_id ord_id numeric(10)AUTO_INCREMENT;
+ERROR 1063 (42000): Incorrect column specifier for column 'ord_id'
+mysql> ALTER TABLE order_details CHANGE ord_id ord_id numeric(10) AUTO_INCREMENT;
+ERROR 1063 (42000): Incorrect column specifier for column 'ord_id'
+mysql> ALTER TABLE order_details CHANGE ord_id ord_id INT(10) AUTO_INCREMENT;
+ERROR 1833 (HY000): Cannot change column 'ord_id': used in a foreign key constraint 'contain_ibfk_2' of table 'Book_Shop.contain'
+mysql> SHOW CREATE table contain;
++---------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table   | Create Table                                                                                                                                                                                                                                                                                                                                                                             |
++---------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| contain | CREATE TABLE `contain` (
+  `p_id` smallint(6) NOT NULL,
+  `ord_id` smallint(6) NOT NULL,
+  `qty` int(11) NOT NULL,
+  KEY `p_id` (`p_id`),
+  KEY `ord_id` (`ord_id`),
+  CONSTRAINT `contain_ibfk_1` FOREIGN KEY (`p_id`) REFERENCES `product` (`p_id`),
+  CONSTRAINT `contain_ibfk_2` FOREIGN KEY (`ord_id`) REFERENCES `order_details` (`ord_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 |
++---------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> alter table contain drop foreign key `contain_ibfk_2`;
+Query OK, 0 rows affected (0.07 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE order_details CHANGE ord_id ord_id INT(10) AUTO_INCREMENT;
+Query OK, 0 rows affected (0.62 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc order_details;
++----------+-------------+------+-----+---------+----------------+
+| Field    | Type        | Null | Key | Default | Extra          |
++----------+-------------+------+-----+---------+----------------+
+| ord_id   | int(10)     | NO   | PRI | NULL    | auto_increment |
+| ord_date | date        | NO   |     | NULL    |                |
+| amount   | float(4,2)  | NO   |     | NULL    |                |
+| cust_id  | smallint(6) | YES  | MUL | NULL    |                |
++----------+-------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> desc contain;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| p_id   | smallint(6) | NO   | MUL | NULL    |       |
+| ord_id | smallint(6) | NO   | MUL | NULL    |       |
+| qty    | int(11)     | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> source select.SQL;
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+mysql> source select.SQL;
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+mysql> source select.SQL;
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+mysql> source select.SQL;
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+mysql> source select.SQL;
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+mysql> source select.SQL;
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'ord_date' in 'field list'
+mysql> alter table order_id change ord_date date date not null;
+ERROR 1146 (42S02): Table 'Book_Shop.order_id' doesn't exist
+mysql> alter table order_details change ord_date date date not null;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> source select.SQL;
+ERROR 1054 (42S22): Unknown column 'date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'date' in 'field list'
+mysql> source select.SQL;
+ERROR 1054 (42S22): Unknown column 'date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'date' in 'field list'
+ERROR 1054 (42S22): Unknown column 'date' in 'field list'
+mysql> source select.SQL;
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.07 sec)
+
+Query OK, 1 row affected (0.07 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+mysql> source select.SQL;
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+Query OK, 1 row affected (0.14 sec)
+
+Query OK, 1 row affected (0.04 sec)
+
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select *from contain;
++------+--------+-----+
+| p_id | ord_id | qty |
++------+--------+-----+
+|    1 |      1 |  10 |
+|    2 |      2 |  10 |
+|    3 |      3 |  10 |
+|    4 |      4 |  10 |
+|    5 |      5 |  10 |
++------+--------+-----+
+5 rows in set (0.00 sec)
+
+mysql> select * from order_details;
++--------+------------+--------+---------+
+| ord_id | date       | amount | cust_id |
++--------+------------+--------+---------+
+|      1 | 2019-05-05 |   0.00 |       1 |
+|      2 | 2019-06-05 |   0.00 |       2 |
+|      3 | 2019-01-05 |   0.00 |       3 |
+|      4 | 2019-02-05 |   0.00 |       4 |
+|      5 | 2019-04-05 |   0.00 |       5 |
++--------+------------+--------+---------+
+5 rows in set (0.00 sec)
+
+mysql> alter table order_details drop amount;
+Query OK, 0 rows affected (0.60 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc order_details';
+    '> ;
+    '> ;
+;
+^C
+mysql> 
+mysql> 
+mysql> desc order_details;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| ord_id  | int(10)     | NO   | PRI | NULL    | auto_increment |
+| date    | date        | NO   |     | NULL    |                |
+| cust_id | smallint(6) | YES  | MUL | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> alter table contain add column unit price float(6,2) not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'price float(6,2) not null' at line 1
+mysql> ALTER TABLE vendors
+    -> ADD COLUMN email VARCHAR(100) NOT NULL,
+    -> ADD COLUMN hourly_rate decimal(10,2) NOT NULL;;
+ERROR 1146 (42S02): Table 'Book_Shop.vendors' doesn't exist
+ERROR: 
+No query specified
+
+mysql> ALTER TABLE vendors ADD COLUMN email VARCHAR(100) NOT NULL, ADD COLUMN hourly_rate decimal(10,2) NOT NULL;
+ERROR 1146 (42S02): Table 'Book_Shop.vendors' doesn't exist
+mysql> ALTER TABLE contain ADD COLUMN unit_price float(7,2) NOT NULL, ADD COLUMN Total_price decimal(10,2) NOT NULL;
+Query OK, 0 rows affected (0.69 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from contain;
++------+--------+-----+------------+-------------+
+| p_id | ord_id | qty | unit_price | Total_price |
++------+--------+-----+------------+-------------+
+|    1 |      1 |  10 |       0.00 |        0.00 |
+|    2 |      2 |  10 |       0.00 |        0.00 |
+|    3 |      3 |  10 |       0.00 |        0.00 |
+|    4 |      4 |  10 |       0.00 |        0.00 |
+|    5 |      5 |  10 |       0.00 |        0.00 |
++------+--------+-----+------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> update contain set unit_price=(select * from product where contain.p_id = product.p_id);
+ERROR 1241 (21000): Operand should contain 1 column(s)
+mysql> update contain set unit_price(select * from product where contain.p_id = product.p_id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(select * from product where contain.p_id = product.p_id)' at line 1
+mysql> update contain set unit_price=(select unit_price  from product where contain.p_id = product.p_id);
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 5  Changed: 0  Warnings: 0
+
+mysql> select * from contain;
++------+--------+-----+------------+-------------+
+| p_id | ord_id | qty | unit_price | Total_price |
++------+--------+-----+------------+-------------+
+|    1 |      1 |  10 |       0.00 |        0.00 |
+|    2 |      2 |  10 |       0.00 |        0.00 |
+|    3 |      3 |  10 |       0.00 |        0.00 |
+|    4 |      4 |  10 |       0.00 |        0.00 |
+|    5 |      5 |  10 |       0.00 |        0.00 |
++------+--------+-----+------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> update contain set unit_price=(select unit_price  from product where contain.p_id = product.p_id);
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 5  Changed: 0  Warnings: 0
+
+mysql> update contain set unit_price=(select unit_price  from product where contain.p_id = product.p_id) where unit_price=0;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 5  Changed: 0  Warnings: 0
+
+mysql> select * from contain;
++------+--------+-----+------------+-------------+
+| p_id | ord_id | qty | unit_price | Total_price |
++------+--------+-----+------------+-------------+
+|    1 |      1 |  10 |       0.00 |        0.00 |
+|    2 |      2 |  10 |       0.00 |        0.00 |
+|    3 |      3 |  10 |       0.00 |        0.00 |
+|    4 |      4 |  10 |       0.00 |        0.00 |
+|    5 |      5 |  10 |       0.00 |        0.00 |
++------+--------+-----+------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> update contain set unit_price=(select unit_price  from product where contain.p_id = product.p_id);
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 5  Changed: 0  Warnings: 0
+
+mysql> update contain set unit_price=(select unit_price  from product where product.p_id = contain.p_id);
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 5  Changed: 0  Warnings: 0
+
+mysql> select * from contain;
++------+--------+-----+------------+-------------+
+| p_id | ord_id | qty | unit_price | Total_price |
++------+--------+-----+------------+-------------+
+|    1 |      1 |  10 |       0.00 |        0.00 |
+|    2 |      2 |  10 |       0.00 |        0.00 |
+|    3 |      3 |  10 |       0.00 |        0.00 |
+|    4 |      4 |  10 |       0.00 |        0.00 |
+|    5 |      5 |  10 |       0.00 |        0.00 |
++------+--------+-----+------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from product;
++------+--------+----------------------------------------------------+-------+---------+
+| p_id | cat_id | name                                               | stock | price   |
++------+--------+----------------------------------------------------+-------+---------+
+|    1 |      1 | Jesus Calling: Enjoying Peace in His Presence      |    30 |  500.00 |
+|    2 |      1 | Ramayan Book                                       |    30 |  700.00 |
+|    3 |      1 | Suder Kand                                         |    30 |   28.00 |
+|    4 |      1 | Shrimad Bhagwat Geeta                              |    30 |  200.00 |
+|    5 |      1 | Aarti Sangrah Book                                 |    30 |  190.00 |
+|    6 |      2 | quantitative aptitude for competitive examinations |    30 |  550.00 |
+|    7 |      2 | Mindset                                            |    30 |  175.00 |
+|    8 |      2 | Deep Learning                                      |    30 | 1750.00 |
+|    9 |      2 | Problems In GENERAL PHYSICS                        |    30 |   78.00 |
+|   10 |      2 | The Orient BlackSwan Atlas for Competitive Exams   |    30 |  180.00 |
+|   11 |      3 | Everyone Has a Story                               |    30 |   92.00 |
+|   12 |      3 | 11 Hours                                           |    30 |  178.00 |
+|   13 |      3 | Believe In Yourself                                |    30 |  137.00 |
+|   14 |      3 | Something I Never Told You                         |    30 |  187.00 |
+|   15 |      3 | Wasted in Engineering : Story of Indias Youth      |    30 |  180.00 |
+|   16 |      4 | Great Stories For Children                         |    30 |  170.00 |
+|   17 |      4 | 101 Bedtime Stories                                |    30 |  119.00 |
+|   18 |      4 | The Very Hungry Caterpillar                        |    30 |  178.00 |
+|   19 |      4 | Brown Bear, Brown Bear, What Do You See?           |    30 |  197.00 |
+|   20 |      4 | The Giving Tree                                    |    30 |  107.00 |
+|   21 |      5 | Wings Of Fire                                      |    30 |  292.00 |
+|   22 |      5 | 101 Bedtime Stories                                |    30 |  119.00 |
+|   23 |      5 | The wit and wisdom of Ratan Tata                   |    30 |  299.00 |
+|   24 |      5 | Issac Newton A Biography                           |    30 |  197.00 |
+|   25 |      5 | Steve jobs                                         |    30 |  249.00 |
+|   26 |      6 | Chacha Chaudhary Digest -2                         |    30 |  127.00 |
+|   27 |      6 | Batman: The Killing Joke                           |    30 |  190.00 |
+|   28 |      6 | The Walking Dead Compendium Volume 3               |    30 |  250.00 |
+|   29 |      6 | From Hell                                          |    30 |  209.00 |
+|   30 |      6 | Superman:Whatever Happened to the Man of Tomorrow  |    30 |  199.00 |
+|   31 |      7 | History of Ancient INDIA                           |    30 |  450.00 |
+|   32 |      7 | The Silk Roads: A New History of the World         |    30 |  561.00 |
+|   33 |      7 | History of the World                               |    30 |  268.00 |
+|   34 |      7 | The Habsburg Empire – A New History                |    30 |  947.00 |
+|   35 |      7 | Ancient India in Historical Outline                |    30 |   99.00 |
++------+--------+----------------------------------------------------+-------+---------+
+35 rows in set (0.00 sec)
+
+mysql> update contain set unit_price=(select price  from product where product.p_id = contain.p_id);
+Query OK, 5 rows affected (0.05 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> select * from contain;
++------+--------+-----+------------+-------------+
+| p_id | ord_id | qty | unit_price | Total_price |
++------+--------+-----+------------+-------------+
+|    1 |      1 |  10 |     500.00 |        0.00 |
+|    2 |      2 |  10 |     700.00 |        0.00 |
+|    3 |      3 |  10 |      28.00 |        0.00 |
+|    4 |      4 |  10 |     200.00 |        0.00 |
+|    5 |      5 |  10 |     190.00 |        0.00 |
++------+--------+-----+------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> update contain set Total_price=contain.qty*(select price from product where product.p_id = contain.p_id);
+Query OK, 5 rows affected (0.04 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> select * from contain;
++------+--------+-----+------------+-------------+
+| p_id | ord_id | qty | unit_price | Total_price |
++------+--------+-----+------------+-------------+
+|    1 |      1 |  10 |     500.00 |     5000.00 |
+|    2 |      2 |  10 |     700.00 |     7000.00 |
+|    3 |      3 |  10 |      28.00 |      280.00 |
+|    4 |      4 |  10 |     200.00 |     2000.00 |
+|    5 |      5 |  10 |     190.00 |     1900.00 |
++------+--------+-----+------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from product where price between 300 and 500;
++------+--------+-----------------------------------------------+-------+--------+
+| p_id | cat_id | name                                          | stock | price  |
++------+--------+-----------------------------------------------+-------+--------+
+|    1 |      1 | Jesus Calling: Enjoying Peace in His Presence |    30 | 500.00 |
+|   31 |      7 | History of Ancient INDIA                      |    30 | 450.00 |
++------+--------+-----------------------------------------------+-------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select * from product where name like 'B%';
++------+--------+------------------------------------------+-------+--------+
+| p_id | cat_id | name                                     | stock | price  |
++------+--------+------------------------------------------+-------+--------+
+|   13 |      3 | Believe In Yourself                      |    30 | 137.00 |
+|   19 |      4 | Brown Bear, Brown Bear, What Do You See? |    30 | 197.00 |
+|   27 |      6 | Batman: The Killing Joke                 |    30 | 190.00 |
++------+--------+------------------------------------------+-------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from product group by cat_id;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'Book_Shop.product.p_id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select count(*) from product group by cat_id;
++----------+
+| count(*) |
++----------+
+|        5 |
+|        5 |
+|        5 |
+|        5 |
+|        5 |
+|        5 |
+|        5 |
++----------+
+7 rows in set (0.00 sec)
+
+mysql> select category,count(*) as Total_Count from product group by cat_id;
+ERROR 1054 (42S22): Unknown column 'category' in 'field list'
+mysql> select avg(price) as Avg,count(*) as Total_Count from product group by cat_id;
++------------+-------------+
+| Avg        | Total_Count |
++------------+-------------+
+| 323.600000 |           5 |
+| 546.600000 |           5 |
+| 154.800000 |           5 |
+| 154.200000 |           5 |
+| 231.200000 |           5 |
+| 195.000000 |           5 |
+| 465.000000 |           5 |
++------------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> select category(select cat_name  from  category where category.cat_id = product.cat_id) as Avg,count(*) as Total_Count from product group by cat_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select cat_name  from  category where category.cat_id = product.cat_id) as Avg,c' at line 1
+mysql> select cat_name=(select cat_name  from  category where category.cat_id = product.cat_id) as Avg,count(*) as Total_Count from product group by cat_id;
+ERROR 1054 (42S22): Unknown column 'cat_name' in 'field list'
+mysql> select name(select cat_name  from  category where category.cat_id = product.cat_id) as Avg,count(*) as Total_Count from product group by cat_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(select cat_name  from  category where category.cat_id = product.cat_id) as Avg,' at line 1
+mysql> select avg(price) as Avg,count(*) as Total_Count from product group by cat_id; 
++------------+-------------+
+| Avg        | Total_Count |
++------------+-------------+
+| 323.600000 |           5 |
+| 546.600000 |           5 |
+| 154.800000 |           5 |
+| 154.200000 |           5 |
+| 231.200000 |           5 |
+| 195.000000 |           5 |
+| 465.000000 |           5 |
++------------+-------------+
+7 rows in set (0.00 sec)
+
+mllab18@mllab18:~$ sudo mysql -u Manish -p
+[sudo] password for mllab18: 
+Sorry, try again.
+[sudo] password for mllab18: 
+Sorry, try again.
+[sudo] password for mllab18: 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2
+Server version: 5.7.26-0ubuntu0.18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use Book_Shop
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables
+    -> ;
++---------------------+
+| Tables_in_Book_Shop |
++---------------------+
+| category            |
+| contain             |
+| customer            |
+| order_details       |
+| product             |
++---------------------+
+5 rows in set (0.01 sec)
+
+mysql> select * from customer where name like '%sh'
+    -> ;
+Empty set (0.00 sec)
+
+mysql> select * from customer;
++---------+-----------------+---------------------------+------------+-----------+
+| cust_id | name            | Email                     | mobile     | address   |
++---------+-----------------+---------------------------+------------+-----------+
+|       1 | Manish Visave   | manishvisave149@gmail.com | 9762237440 | Pune      |
+|       2 | Jayesh Prajapat | Jp@gmail.com              | 9876543210 | Nashik    |
+|       3 | Sahil Shaikh    | SS@gmail.com              | 9876543210 | Kopargaon |
+|       4 | Manas Patil     | MP@gmail.com              | 9876543210 | Dhule     |
+|       5 | Rupesh Mali     | RM@gmail.com              | 9876543210 | Jalgaon   |
++---------+-----------------+---------------------------+------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customer where name like '%ikh'
+    -> ;
++---------+--------------+--------------+------------+-----------+
+| cust_id | name         | Email        | mobile     | address   |
++---------+--------------+--------------+------------+-----------+
+|       3 | Sahil Shaikh | SS@gmail.com | 9876543210 | Kopargaon |
++---------+--------------+--------------+------------+-----------+
+1 row in set (0.00 sec)
+
+mysql> select * from product where name in product;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'product' at line 1
+mysql> select count(*) from product group by cat_name;
+ERROR 1054 (42S22): Unknown column 'cat_name' in 'group statement'
+mysql> select *  from product;
++------+--------+----------------------------------------------------+-------+---------+
+| p_id | cat_id | name                                               | stock | price   |
++------+--------+----------------------------------------------------+-------+---------+
+|    1 |      1 | Jesus Calling: Enjoying Peace in His Presence      |    30 |  500.00 |
+|    2 |      1 | Ramayan Book                                       |    30 |  700.00 |
+|    3 |      1 | Suder Kand                                         |    30 |   28.00 |
+|    4 |      1 | Shrimad Bhagwat Geeta                              |    30 |  200.00 |
+|    5 |      1 | Aarti Sangrah Book                                 |    30 |  190.00 |
+|    6 |      2 | quantitative aptitude for competitive examinations |    30 |  550.00 |
+|    7 |      2 | Mindset                                            |    30 |  175.00 |
+|    8 |      2 | Deep Learning                                      |    30 | 1750.00 |
+|    9 |      2 | Problems In GENERAL PHYSICS                        |    30 |   78.00 |
+|   10 |      2 | The Orient BlackSwan Atlas for Competitive Exams   |    30 |  180.00 |
+|   11 |      3 | Everyone Has a Story                               |    30 |   92.00 |
+|   12 |      3 | 11 Hours                                           |    30 |  178.00 |
+|   13 |      3 | Believe In Yourself                                |    30 |  137.00 |
+|   14 |      3 | Something I Never Told You                         |    30 |  187.00 |
+|   15 |      3 | Wasted in Engineering : Story of Indias Youth      |    30 |  180.00 |
+|   16 |      4 | Great Stories For Children                         |    30 |  170.00 |
+|   17 |      4 | 101 Bedtime Stories                                |    30 |  119.00 |
+|   18 |      4 | The Very Hungry Caterpillar                        |    30 |  178.00 |
+|   19 |      4 | Brown Bear, Brown Bear, What Do You See?           |    30 |  197.00 |
+|   20 |      4 | The Giving Tree                                    |    30 |  107.00 |
+|   21 |      5 | Wings Of Fire                                      |    30 |  292.00 |
+|   22 |      5 | 101 Bedtime Stories                                |    30 |  119.00 |
+|   23 |      5 | The wit and wisdom of Ratan Tata                   |    30 |  299.00 |
+|   24 |      5 | Issac Newton A Biography                           |    30 |  197.00 |
+|   25 |      5 | Steve jobs                                         |    30 |  249.00 |
+|   26 |      6 | Chacha Chaudhary Digest -2                         |    30 |  127.00 |
+|   27 |      6 | Batman: The Killing Joke                           |    30 |  190.00 |
+|   28 |      6 | The Walking Dead Compendium Volume 3               |    30 |  250.00 |
+|   29 |      6 | From Hell                                          |    30 |  209.00 |
+|   30 |      6 | Superman:Whatever Happened to the Man of Tomorrow  |    30 |  199.00 |
+|   31 |      7 | History of Ancient INDIA                           |    30 |  450.00 |
+|   32 |      7 | The Silk Roads: A New History of the World         |    30 |  561.00 |
+|   33 |      7 | History of the World                               |    30 |  268.00 |
+|   34 |      7 | The Habsburg Empire – A New History                |    30 |  947.00 |
+|   35 |      7 | Ancient India in Historical Outline                |    30 |   99.00 |
++------+--------+----------------------------------------------------+-------+---------+
+35 rows in set (0.00 sec)
+
+mysql> select cat_id,count(*) as total from product group by cat_id;
++--------+-------+
+| cat_id | total |
++--------+-------+
+|      1 |     5 |
+|      2 |     5 |
+|      3 |     5 |
+|      4 |     5 |
+|      5 |     5 |
+|      6 |     5 |
+|      7 |     5 |
++--------+-------+
+7 rows in set (0.00 sec)
+
+mysql> select cat_id,count(*) as total(select cat_name from category where category.cat_id = product.cat_id) from product group by cat_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(select cat_name from category where category.cat_id = product.cat_id) from prod' at line 1
+mysql> select cat_id,count(*) as total from product group by cat_id;                               +--------+-------+
+| cat_id | total |
++--------+-------+
+|      1 |     5 |
+|      2 |     5 |
+|      3 |     5 |
+|      4 |     5 |
+|      5 |     5 |
+|      6 |     5 |
+|      7 |     5 |
++--------+-------+
+7 rows in set (0.00 sec)
+
+mysql> select avg(price) as average from product group by cat_id having avg(price) > 300;
++------------+
+| average    |
++------------+
+| 323.600000 |
+| 546.600000 |
+| 465.000000 |
++------------+
+3 rows in set (0.00 sec)
+
+mysql> select cat_name,count(*) as total from product,category where product.cat_id = category.cat_id group by product.cat_id;
++-----------------+-------+
+| cat_name        | total |
++-----------------+-------+
+| Devotional      |     5 |
+| Educational     |     5 |
+| Fiction Stories |     5 |
+| Kids Stories    |     5 |
+| Biography       |     5 |
+| Comics          |     5 |
+| Historical      |     5 |
++-----------------+-------+
+7 rows in set (0.00 sec)
+
+mysql> select * from product,category where product.cat_id = category.cat_id ;
++------+--------+----------------------------------------------------+-------+---------+--------+-----------------+
+| p_id | cat_id | name                                               | stock | price   | cat_id | cat_name        |
++------+--------+----------------------------------------------------+-------+---------+--------+-----------------+
+|    1 |      1 | Jesus Calling: Enjoying Peace in His Presence      |    30 |  500.00 |      1 | Devotional      |
+|    2 |      1 | Ramayan Book                                       |    30 |  700.00 |      1 | Devotional      |
+|    3 |      1 | Suder Kand                                         |    30 |   28.00 |      1 | Devotional      |
+|    4 |      1 | Shrimad Bhagwat Geeta                              |    30 |  200.00 |      1 | Devotional      |
+|    5 |      1 | Aarti Sangrah Book                                 |    30 |  190.00 |      1 | Devotional      |
+|    6 |      2 | quantitative aptitude for competitive examinations |    30 |  550.00 |      2 | Educational     |
+|    7 |      2 | Mindset                                            |    30 |  175.00 |      2 | Educational     |
+|    8 |      2 | Deep Learning                                      |    30 | 1750.00 |      2 | Educational     |
+|    9 |      2 | Problems In GENERAL PHYSICS                        |    30 |   78.00 |      2 | Educational     |
+|   10 |      2 | The Orient BlackSwan Atlas for Competitive Exams   |    30 |  180.00 |      2 | Educational     |
+|   11 |      3 | Everyone Has a Story                               |    30 |   92.00 |      3 | Fiction Stories |
+|   12 |      3 | 11 Hours                                           |    30 |  178.00 |      3 | Fiction Stories |
+|   13 |      3 | Believe In Yourself                                |    30 |  137.00 |      3 | Fiction Stories |
+|   14 |      3 | Something I Never Told You                         |    30 |  187.00 |      3 | Fiction Stories |
+|   15 |      3 | Wasted in Engineering : Story of Indias Youth      |    30 |  180.00 |      3 | Fiction Stories |
+|   16 |      4 | Great Stories For Children                         |    30 |  170.00 |      4 | Kids Stories    |
+|   17 |      4 | 101 Bedtime Stories                                |    30 |  119.00 |      4 | Kids Stories    |
+|   18 |      4 | The Very Hungry Caterpillar                        |    30 |  178.00 |      4 | Kids Stories    |
+|   19 |      4 | Brown Bear, Brown Bear, What Do You See?           |    30 |  197.00 |      4 | Kids Stories    |
+|   20 |      4 | The Giving Tree                                    |    30 |  107.00 |      4 | Kids Stories    |
+|   21 |      5 | Wings Of Fire                                      |    30 |  292.00 |      5 | Biography       |
+|   22 |      5 | 101 Bedtime Stories                                |    30 |  119.00 |      5 | Biography       |
+|   23 |      5 | The wit and wisdom of Ratan Tata                   |    30 |  299.00 |      5 | Biography       |
+|   24 |      5 | Issac Newton A Biography                           |    30 |  197.00 |      5 | Biography       |
+|   25 |      5 | Steve jobs                                         |    30 |  249.00 |      5 | Biography       |
+|   26 |      6 | Chacha Chaudhary Digest -2                         |    30 |  127.00 |      6 | Comics          |
+|   27 |      6 | Batman: The Killing Joke                           |    30 |  190.00 |      6 | Comics          |
+|   28 |      6 | The Walking Dead Compendium Volume 3               |    30 |  250.00 |      6 | Comics          |
+|   29 |      6 | From Hell                                          |    30 |  209.00 |      6 | Comics          |
+|   30 |      6 | Superman:Whatever Happened to the Man of Tomorrow  |    30 |  199.00 |      6 | Comics          |
+|   31 |      7 | History of Ancient INDIA                           |    30 |  450.00 |      7 | Historical      |
+|   32 |      7 | The Silk Roads: A New History of the World         |    30 |  561.00 |      7 | Historical      |
+|   33 |      7 | History of the World                               |    30 |  268.00 |      7 | Historical      |
+|   34 |      7 | The Habsburg Empire – A New History                |    30 |  947.00 |      7 | Historical      |
+|   35 |      7 | Ancient India in Historical Outline                |    30 |   99.00 |      7 | Historical      |
++------+--------+----------------------------------------------------+-------+---------+--------+-----------------+
+35 rows in set (0.00 sec)
+
+mysql> mysql> select name from product,category where product.cat_id = category.cat_id and cat_name='Devotional' ;
++-----------------------------------------------+
+| name                                          |
++-----------------------------------------------+
+| Jesus Calling: Enjoying Peace in His Presence |
+| Ramayan Book                                  |
+| Suder Kand                                    |
+| Shrimad Bhagwat Geeta                         |
+| Aarti Sangrah Book                            |
++-----------------------------------------------+
+5 rows in set (0.01 sec)
+
+mysql> select count(*) from product,category where product.cat_id = category.cat_id and cat_name='Devotional' ;
++----------+
+| count(*) |
++----------+
+|        5 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select * from product where unit_price > 300;
+ERROR 1054 (42S22): Unknown column 'unit_price' in 'where clause'
+mysql> select * from product where price > 300;
++------+--------+----------------------------------------------------+-------+---------+
+| p_id | cat_id | name                                               | stock | price   |
++------+--------+----------------------------------------------------+-------+---------+
+|    1 |      1 | Jesus Calling: Enjoying Peace in His Presence      |    30 |  500.00 |
+|    2 |      1 | Ramayan Book                                       |    30 |  700.00 |
+|    6 |      2 | quantitative aptitude for competitive examinations |    30 |  550.00 |
+|    8 |      2 | Deep Learning                                      |    30 | 1750.00 |
+|   31 |      7 | History of Ancient INDIA                           |    30 |  450.00 |
+|   32 |      7 | The Silk Roads: A New History of the World         |    30 |  561.00 |
+|   34 |      7 | The Habsburg Empire – A New History                |    30 |  947.00 |
++------+--------+----------------------------------------------------+-------+---------+
+7 rows in set (0.00 sec)
+
+mysql> select * from product where price between 500 and 1000;
++------+--------+----------------------------------------------------+-------+--------+
+| p_id | cat_id | name                                               | stock | price  |
++------+--------+----------------------------------------------------+-------+--------+
+|    1 |      1 | Jesus Calling: Enjoying Peace in His Presence      |    30 | 500.00 |
+|    2 |      1 | Ramayan Book                                       |    30 | 700.00 |
+|    6 |      2 | quantitative aptitude for competitive examinations |    30 | 550.00 |
+|   32 |      7 | The Silk Roads: A New History of the World         |    30 | 561.00 |
+|   34 |      7 | The Habsburg Empire – A New History                |    30 | 947.00 |
++------+--------+----------------------------------------------------+-------+--------+
+5 rows in set (0.01 sec)
+
+mysql> select name as Customer_From_Pune from customer where address='Pune';
++--------------------+
+| Customer_From_Pune |
++--------------------+
+| Manish Visave      |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from order_details;
++--------+------------+---------+
+| ord_id | date       | cust_id |
++--------+------------+---------+
+|      1 | 2019-05-05 |       1 |
+|      2 | 2019-06-05 |       2 |
+|      3 | 2019-01-05 |       3 |
+|      4 | 2019-02-05 |       4 |
+|      5 | 2019-04-05 |       5 |
++--------+------------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select name,count(*) from customer,order_details where order_details.cust_id = customer.cust_id group by order_details.cust_id;
++-----------------+----------+
+| name            | count(*) |
++-----------------+----------+
+| Manish Visave   |        1 |
+| Jayesh Prajapat |        1 |
+| Sahil Shaikh    |        1 |
+| Manas Patil     |        1 |
+| Rupesh Mali     |        1 |
++-----------------+----------+
+5 rows in set (0.01 sec)
+
+mysql> select name,count(*) from customer,order_details where order_details.cust_id = customer.cust_id and customer.name like "Manish%" group by order_details.cust_id;
++---------------+----------+
+| name          | count(*) |
++---------------+----------+
+| Manish Visave |        1 |
++---------------+----------+
+1 row in set (0.00 sec)
+
+mysql> select * from contain;
++------+--------+-----+------------+-------------+
+| p_id | ord_id | qty | unit_price | Total_price |
++------+--------+-----+------------+-------------+
+|    1 |      1 |  10 |     500.00 |     5000.00 |
+|    2 |      2 |  10 |     700.00 |     7000.00 |
+|    3 |      3 |  10 |      28.00 |      280.00 |
+|    4 |      4 |  10 |     200.00 |     2000.00 |
+|    5 |      5 |  10 |     190.00 |     1900.00 |
++------+--------+-----+------------+-------------+
+5 rows in set (0.03 sec)
+
+mysql> select name as Product_Name from product,contain where contain.ord_id = order_details.ord_id;
+ERROR 1054 (42S22): Unknown column 'order_details.ord_id' in 'where clause'
+mysql> desc order_details;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| ord_id  | int(10)     | NO   | PRI | NULL    | auto_increment |
+| date    | date        | NO   |     | NULL    |                |
+| cust_id | smallint(6) | YES  | MUL | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+3 rows in set (0.01 sec)
+
+mysql> select name as Product_Name from product,contain where contain.ord_id = order_details.ord_id;
+ERROR 1054 (42S22): Unknown column 'order_details.ord_id' in 'where clause'
+mysql> select name as Product_Name from product,contain where contain.ord_id = 1 and contain.p_id = product.p_id ;
++-----------------------------------------------+
+| Product_Name                                  |
++-----------------------------------------------+
+| Jesus Calling: Enjoying Peace in His Presence |
++-----------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> 
+mysql> select * from order_details where date between '2019-05-05' and '2019-06-05';
++--------+------------+---------+
+| ord_id | date       | cust_id |
++--------+------------+---------+
+|      1 | 2019-05-05 |       1 |
+|      2 | 2019-06-05 |       2 |
++--------+------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from product order by name desc limit=5;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '=5' at line 1
+mysql> select * from product order by name desc limit 5;
++------+--------+-----------------------------------------------+-------+--------+
+| p_id | cat_id | name                                          | stock | price  |
++------+--------+-----------------------------------------------+-------+--------+
+|   21 |      5 | Wings Of Fire                                 |    30 | 292.00 |
+|   15 |      3 | Wasted in Engineering : Story of Indias Youth |    30 | 180.00 |
+|   23 |      5 | The wit and wisdom of Ratan Tata              |    30 | 299.00 |
+|   28 |      6 | The Walking Dead Compendium Volume 3          |    30 | 250.00 |
+|   18 |      4 | The Very Hungry Caterpillar                   |    30 | 178.00 |
++------+--------+-----------------------------------------------+-------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select name as Product_Name from product,contain,order_details,customer where contain.ord_id = order_details.ord_id and order_details.cust_id = customer.cust_id and customer.name="M%" ;
+ERROR 1052 (23000): Column 'name' in field list is ambiguous
+mysql> select name as Product_Name from product,contain,order_details,customer where contain.ord_id = order_details.ord_id and order_details.cust_id = customer.cust_id and customer.name like "M%" ;
+ERROR 1052 (23000): Column 'name' in field list is ambiguous
+mysql> select name as Product_Name from product,contain,order_details,customer where contain.ord_id = order_details.ord_id and order_details.cust_id = customer.cust_id and customer.name like "M%" and contain.p_id = product.p_id ;
+ERROR 1052 (23000): Column 'name' in field list is ambiguous
+mysql> select name as Customer_Name,name as Product_Name from product,contain,order_details,customer where contain.ord_id = order_details.ord_id and order_details.cust_id = customer.cust_id and customer.name like "M%" and contain.p_id = product.p_id ;
+ERROR 1052 (23000): Column 'name' in field list is ambiguous
+mysql> select name as Customer_Name,name as Product_Name from product,contain,order_details,customer where contain.ord_id = order_details.ord_id and order_details.cust_id = customer.cust_id and customer.name like "M%" and contain.p_id = product.p_id ;
+ERROR 1052 (23000): Column 'name' in field list is ambiguous
+mysql> alter table product change name P_name varchar(255) not null;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select name as Customer_Name,name as Product_Name from product,contain,order_details,customer where contain.ord_id = order_details.ord_id and order_details.cust_id = customer.cust_id and customer.name like "M%" and contain.p_id = product.p_id ;
++---------------+---------------+
+| Customer_Name | Product_Name  |
++---------------+---------------+
+| Manish Visave | Manish Visave |
+| Manas Patil   | Manas Patil   |
++---------------+---------------+
+2 rows in set (0.00 sec)
+
+mysql> select name as Customer_Name,P_name as Product_Name from product,contain,order_details,customer where contain.ord_id = order_details.ord_id and order_details.cust_id = customer.cust_id and customer.name like "M%" and contain.p_id = product.p_id ;
++---------------+-----------------------------------------------+
+| Customer_Name | Product_Name                                  |
++---------------+-----------------------------------------------+
+| Manish Visave | Jesus Calling: Enjoying Peace in His Presence |
+| Manas Patil   | Shrimad Bhagwat Geeta                         |
++---------------+-----------------------------------------------+
+2 rows in set (0.01 sec)
+
+mysql> select min(Total_price) as Minimum_Amount_Order,max(Total_price) as Maximum_Amount_Order from contain;
++----------------------+----------------------+
+| Minimum_Amount_Order | Maximum_Amount_Order |
++----------------------+----------------------+
+|               280.00 |              7000.00 |
++----------------------+----------------------+
+1 row in set (0.00 sec)
+
+mysql> select min(Total_price) as Minimum_Amount_Order,max(Total_price) as Maximum_Amount_Order from contain,order_details,customer where contain.ord_id = order_details.ord_id and order_details.cust_id = customer.cust_id;
++----------------------+----------------------+
+| Minimum_Amount_Order | Maximum_Amount_Order |
++----------------------+----------------------+
+|               280.00 |              7000.00 |
++----------------------+----------------------+
+1 row in set (0.01 sec)
+
+mysql> select name as Customer_Name,min(Total_price) as Minimum_Amount_Order,max(Total_price) as Maximum_Amount_Order from contain,order_details,customer where contain.ord_id = order_details.ord_id and order_details.cust_id = customer.cust_id and customer.name like '%';
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'Book_Shop.customer.name'; this is incompatible with sql_mode=only_full_group_by
+mysql> select name as Customer_Name,min(Total_price) as Minimum_Amount_Order,max(Total_price) as Maximum_Amount_Order from contain,order_details,customer where contain.ord_id = order_details.ord_id and order_details.cust_id = customer.cust_id;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'Book_Shop.customer.name'; this is incompatible with sql_mode=only_full_group_by
+mysql> select name as Customer_Name,min(Total_price) as Minimum_Amount_Order,max(Total_price) as Maximum_Amount_Order from contain,order_details,customer where contain.ord_id = order_details.ord_id and order_details.cust_id = customer.cust_id group by contain.ord_id;
++-----------------+----------------------+----------------------+
+| Customer_Name   | Minimum_Amount_Order | Maximum_Amount_Order |
++-----------------+----------------------+----------------------+
+| Manish Visave   |              5000.00 |              5000.00 |
+| Jayesh Prajapat |              7000.00 |              7000.00 |
+| Sahil Shaikh    |               280.00 |               280.00 |
+| Manas Patil     |              2000.00 |              2000.00 |
+| Rupesh Mali     |              1900.00 |              1900.00 |
++-----------------+----------------------+----------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from order_details;'
++--------+------------+---------+
+| ord_id | date       | cust_id |
++--------+------------+---------+
+|      1 | 2019-05-05 |       1 |
+|      2 | 2019-06-05 |       2 |
+|      3 | 2019-01-05 |       3 |
+|      4 | 2019-02-05 |       4 |
+|      5 | 2019-04-05 |       5 |
++--------+------------+---------+
+5 rows in set (0.00 sec)
+
+    '> 
+    '> ;
+    '> ;
+    '> 
+    '> 
+    '> 
+    '> 
+    '> 
+    '> ;
+    '> ^C;
+;
+^C
+mysql> insert into order_details values(6,'2019-06-05',1);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> desc contain;
++-------------+---------------+------+-----+---------+-------+
+| Field       | Type          | Null | Key | Default | Extra |
++-------------+---------------+------+-----+---------+-------+
+| p_id        | smallint(6)   | NO   | MUL | NULL    |       |
+| ord_id      | smallint(6)   | NO   | MUL | NULL    |       |
+| qty         | int(11)       | NO   |     | NULL    |       |
+| unit_price  | float(7,2)    | NO   |     | NULL    |       |
+| Total_price | decimal(10,2) | NO   |     | NULL    |       |
++-------------+---------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into contain values(30,6,10,0,0);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from product where p_id =30;
++------+--------+---------------------------------------------------+-------+--------+
+| p_id | cat_id | P_name                                            | stock | price  |
++------+--------+---------------------------------------------------+-------+--------+
+|   30 |      6 | Superman:Whatever Happened to the Man of Tomorrow |    30 | 199.00 |
++------+--------+---------------------------------------------------+-------+--------+
+1 row in set (0.00 sec)
+
+mysql> update contain set unit_price = (select price from product where p_id=30);
+Query OK, 6 rows affected (0.04 sec)
+Rows matched: 6  Changed: 6  Warnings: 0
+
+mysql> update contain set unit_price = (select price from product where p_id=30)*qty;
+Query OK, 6 rows affected (0.04 sec)
+Rows matched: 6  Changed: 6  Warnings: 0
+
+mysql> update contain set unit_price = (select price from product where p_id=30);
+Query OK, 6 rows affected (0.04 sec)
+Rows matched: 6  Changed: 6  Warnings: 0
+
+mysql> update contain set total_price = (select price from product where p_id=30)*qty;
+Query OK, 6 rows affected (0.03 sec)
+Rows matched: 6  Changed: 6  Warnings: 0
+
+mysql> select * from contain;
++------+--------+-----+------------+-------------+
+| p_id | ord_id | qty | unit_price | Total_price |
++------+--------+-----+------------+-------------+
+|    1 |      1 |  10 |     199.00 |     1990.00 |
+|    2 |      2 |  10 |     199.00 |     1990.00 |
+|    3 |      3 |  10 |     199.00 |     1990.00 |
+|    4 |      4 |  10 |     199.00 |     1990.00 |
+|    5 |      5 |  10 |     199.00 |     1990.00 |
+|   30 |      6 |  10 |     199.00 |     1990.00 |
++------+--------+-----+------------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from order_details;
++--------+------------+---------+
+| ord_id | date       | cust_id |
++--------+------------+---------+
+|      1 | 2019-05-05 |       1 |
+|      2 | 2019-06-05 |       2 |
+|      3 | 2019-01-05 |       3 |
+|      4 | 2019-02-05 |       4 |
+|      5 | 2019-04-05 |       5 |
+|      6 | 2019-06-05 |       1 |
++--------+------------+---------+
+6 rows in set (0.00 sec)
+
+mysql> select name as Customer_Name,name as Product_Name from product,contain,order_details,customer where contain.ord_id = order_details.ord_id and order_details.cust_id = customer.cust_id and customer.name like "Manish Visave" and contain.p_id = product.p_id ;
++---------------+---------------+
+| Customer_Name | Product_Name  |
++---------------+---------------+
+| Manish Visave | Manish Visave |
+| Manish Visave | Manish Visave |
++---------------+---------------+
+2 rows in set (0.00 sec)
+
+mysql> select name as Customer_Name,P_name as Product_Name from product,contain,order_details,customer where contain.ord_id = order_details.ord_id and order_details.cust_id = customer.cust_id and customer.name like "Manish Visave" and contain.p_id = product.p_id ;
++---------------+---------------------------------------------------+
+| Customer_Name | Product_Name                                      |
++---------------+---------------------------------------------------+
+| Manish Visave | Jesus Calling: Enjoying Peace in His Presence     |
+| Manish Visave | Superman:Whatever Happened to the Man of Tomorrow |
++---------------+---------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> select name as Customer_Name,P_name as Product_Name from product,contain,order_details,customer where contain.ord_id = order_details.ord_id and order_details.cust_id = customer.cust_id and customer.name like "Manish Visave" and contain.p_id = product.p_id ;
++---------------+---------------------------------------------------+
+| Customer_Name | Product_Name                                      |
++---------------+---------------------------------------------------+
+| Manish Visave | Jesus Calling: Enjoying Peace in His Presence     |
+| Manish Visave | Superman:Whatever Happened to the Man of Tomorrow |
++---------------+---------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> select name as Customer_Name,P_name as Product_Name from product,contain,order_details,customer where contain.ord_id = order_details.ord_id and order_details.cust_id = customer.cust_id and customer.name like "Manas" and contain.p_id = product.p_id ;
+Empty set (0.00 sec)
+
+mysql> select name as Customer_Name,P_name as Product_Name from product,contain,order_details,customer where contain.ord_id = order_details.ord_id and order_details.cust_id = customer.cust_id and customer.name like "Manas Patil" and contain.p_id = product.p_id ;
++---------------+-----------------------+
+| Customer_Name | Product_Name          |
++---------------+-----------------------+
+| Manas Patil   | Shrimad Bhagwat Geeta |
++---------------+-----------------------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
