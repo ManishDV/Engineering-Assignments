@@ -1,29 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>REGISTRATION</title>
     <link rel="stylesheet" href="fom.css">
+    <script>
+        function changetype() {
+            id = document.getElementById("date");
+            id.type = 'text';
+        }
+    </script>
 </head>
+
 <body>
     <div class="wrap">
 
         <h2> Register Here </h2>
         <form>
 
-            <input type="text" placeholder="First Name.." autocomplete="off" id="fname" required/>
-            <input type="text" placeholder="Last Name.." autocomplete="off" id="lname" required/>
-            <input type="text" placeholder="Username.." autocomplete="off" id="username"required/>
-            <input type="password" placeholder="Password.." autocomplete="off" id="pass" required/>
-            <input type="password" placeholder="Confirm Password.." autocomplete="off" id="cpass" required/>
-            <input type="text" placeholder="E-mail.." autocomplete="off" id="email" required/>
-            <input type="text" placeholder="Phone Number.." autocomplete="off" id="phone" required/>
+            <div>
+                <input type="text" placeholder="First Name.." autocomplete="off" id="fname" style="float: left;"
+                    required />
+                <button style="float: right;margin-top: 7px;width: 40px;height: 35px">X</button>
+            </div>
+            <input type="text" placeholder="Last Name.." autocomplete="off" id="lname" required />
+            <input type="text" placeholder="Username.." autocomplete="off" id="username" required />
+            <input type="password" placeholder="Password.." autocomplete="off" id="pass" required />
+            <input type="password" placeholder="Confirm Password.." autocomplete="off" id="cpass" required />
+            <input type="text" placeholder="E-mail.." autocomplete="off" id="email" required />
+            <input type="text" placeholder="Phone Number.." autocomplete="off" id="phone" required />
+
             <textarea rows="3" cols="50" placeholder="Enter Address" id="addr"></textarea>
-            <input type="text" placeholder="Pin Code.." id="pin" required/>
+            <input type="text" placeholder="Pin Code.." id="pin" required />
+            <input placeholder="Date" class="textbox-n" type="text" onfocus="(this.type='date')"
+                onfocusout="changetype()" id="date">
+
             <input type="submit" value="submit">
-            <input type="reset" value="reset">
-                
-        </form> 
+            <input type="reset" class="spreset" value="reset">
+
+        </form>
 
     </div>
 </body>
+
 </html>
