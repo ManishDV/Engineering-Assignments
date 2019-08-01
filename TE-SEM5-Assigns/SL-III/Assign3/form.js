@@ -1,15 +1,75 @@
-$(".clearable").each(function() {
+function validate(){
+
+  form = document.getElementById('registerForm');
+  fname = document.getElementById('fname').value;
+  lname = document.getElementById('lname').value;
+  pass = document.getElementById('pass').value;
+  uname = document.getElementById('username').value;
+  cpass = document.getElementById('cpass').value;
+  email = document.getElementById('email').value;
+  phone = document.getElementById('phone').value;
+  addr = document.getElementById('addr').value;
+  pin = document.getElementById('pin').value;
   
-    var $inp = $(this).find("input:text"),
-        $cle = $(this).find(".clearable__clear");
+  var re = /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+  var emailre = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;  
+  var phoneno = /^\d{10}$/;
+  var pinre = /^\d{6}$/;
   
-    $inp.on("input", function(){
-      $cle.toggle(!!this.value);
-    });
-    
-    $cle.on("touchstart click", function(e) {
-      e.preventDefault();
-      $inp.val("").trigger("input");
-    });
-    
-  });
+  if(uname.length >= 6){
+    if(pass.length >= 6){
+      if(cpass.length == pass.length){
+        if(re.test(pass)){
+          if(cpass.value == pass.value){
+            if(emailre.test(email)){
+              if(phoneno.test(phone)){
+                if(pinre.test(pin)){
+                    alert("Form Is Successfully Submitted");
+                    return true;
+                }else{
+                  alert("Pin Number Should Contain only Digits or Length Should be 6 digits");
+                  form.pin.focus();
+                  return false;
+                }
+              }else{
+                  alert("Phone Number Must be of length 10 and it must contains only digits");
+                  form.phone.focus();
+                  return false; 
+              }
+            }else{
+               alert("Incorrect Email"); 
+               form.email.focus();
+               return false;
+            }
+          }else{
+              alert("Password Does Not Match");
+              form.cpass.focus();
+              return false;
+          }
+        }else{
+          alert("password Must contain at least one Uppercase letter,one lowercase letter,one digit and Special Character");
+          form.pass.focus();
+          return false;
+        }
+      }else{
+           alert("Password Does Not Match");
+            form.cpass.focus();
+            return false;
+      }
+    }else{
+      alert("Length Of Password should at least be 6");
+      form.pass.focus();
+      return false;
+    }
+  }else{
+    alert("\nLength Of Username Should be 6");
+    form.username.focus();
+    return false;
+  }
+
+
+  
+  
+
+ 
+}

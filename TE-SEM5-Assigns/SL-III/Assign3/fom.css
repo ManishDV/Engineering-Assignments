@@ -13,13 +13,18 @@ body{
     box-sizing: border-box;
     padding: 40px;
     color: #fff;
+    font-weight: 24px;
     margin-top: 100px;
 
 }
-
+label{
+    font-size: 24px;
+    margin-left: 5px;
+}
 h2{
     text-align: center;
-    color: violet
+    color: violet;
+    font-size: 30px;
 }
 input[type="date"]{
     width: 100%;
@@ -33,14 +38,16 @@ input[type="date"]{
     border-radius: 5px;
     float: left;
     margin: 5px;
+    font-size: 18px;
 }
 
-input[type="text"],input[type="password"]{
-    width: 90%;
+input[type="search"],input[type="password"]{
+    width: 100%;
     box-sizing: border-box;
     padding: 12px 5px;
     background: rgba(0, 0, 0, 0.10);
     outline: none;
+    font-size: 18px;
     border: none;
     border-bottom: 1px #fff;
     color:white;
@@ -58,7 +65,8 @@ textarea{
     outline: none;
     border: none;
     border-bottom: 1px #fff;
-    color:aqua;
+    color:white;
+    font-size: 18px;
     border-radius: 5px;
     float: left;
     margin: 5px;
@@ -82,7 +90,7 @@ input[type="submit"]{
     width: 40%;
     box-sizing: border-box;
     padding: 10px 0px;
-    margin-top: 30px;
+    margin-top: 20px;
     outline: none;
     border: none;
     background: #60adde;
@@ -90,7 +98,7 @@ input[type="submit"]{
     border-radius:20px;
     font-size: 20px;
     float: right;
-    margin-left: 4px;
+    margin-left: 20px;
     color:#fff;
 
 }
@@ -103,5 +111,25 @@ input[type="submit"]:hover{
 input[type="reset"]:hover{
     background: #003366;
     opacity: 0.7;
+    
 
 }
+
+input:focus
+{
+background-color:white;
+color: black;
+}
+
+
+textarea:focus
+{
+background-color:white;
+color: black;
+}
+
+input[type="radio"]{
+       width: 50px;
+       height: 1.5em;
+       border: 0px; 
+}   

@@ -4,11 +4,14 @@
 <head>
     <title>REGISTRATION</title>
     <link rel="stylesheet" href="fom.css">
+    <script src="form.js"></script>
     <script>
         function changetype() {
             id = document.getElementById("date");
-            id.type = 'text';
+            id.type = 'search';
         }
+
+        
     </script>
 </head>
 
@@ -16,27 +19,27 @@
     <div class="wrap">
 
         <h2> Register Here </h2>
-        <form>
+        <form id="registerForm">
 
-            <div>
-                <input type="text" placeholder="First Name.." autocomplete="off" id="fname" style="float: left;"
-                    required />
-                <button style="float: right;margin-top: 7px;width: 40px;height: 35px">X</button>
-            </div>
-            <input type="text" placeholder="Last Name.." autocomplete="off" id="lname" required />
-            <input type="text" placeholder="Username.." autocomplete="off" id="username" required />
+                <input type="search" placeholder="First Name.." autocomplete="off" id="fname" style="float: left;"
+                     required />
+            <input type="search" placeholder="Last Name.." autocomplete="off" id="lname" required />
+            <input type="search" placeholder="Username.." autocomplete="off" id="username" required />
             <input type="password" placeholder="Password.." autocomplete="off" id="pass" required />
             <input type="password" placeholder="Confirm Password.." autocomplete="off" id="cpass" required />
-            <input type="text" placeholder="E-mail.." autocomplete="off" id="email" required />
-            <input type="text" placeholder="Phone Number.." autocomplete="off" id="phone" required />
+            <input type="search" placeholder="E-mail.." autocomplete="off" id="email" required />
+            <input type="search" placeholder="Phone Number.." autocomplete="off" id="phone" required />
 
-            <textarea rows="3" cols="50" placeholder="Enter Address" id="addr"></textarea>
-            <input type="text" placeholder="Pin Code.." id="pin" required />
-            <input placeholder="Date" class="textbox-n" type="text" onfocus="(this.type='date')"
+            <textarea rows="5" cols="30"  class="addExtra" placeholder="Enter Address" id="addr"></textarea>
+            <input type="search" placeholder="Pin Code.." id="pin" required />
+            <input placeholder="Birth Date" class="textbox-n" type="search" onfocus="(this.type='date')"
                 onfocusout="changetype()" id="date">
-
-            <input type="submit" value="submit">
-            <input type="reset" class="spreset" value="reset">
+                <!-- <label>Gender:</label> 
+                <input type="radio" name="gender" value="male" id="male"><label for="male"> Male</label>
+                <input type="radio" name="gender" value="female" id="female"> <label for="female"> Female</label>
+                <input type="radio" name="gender" value="other" id="other"> <label for="other"> Other</label>   -->
+                <input type="submit" value="Submit" onclick="return validate();">
+            <input type="reset" class="spreset" value="Reset">
 
         </form>
 
