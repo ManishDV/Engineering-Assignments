@@ -11,7 +11,6 @@
             id.type = 'search';
         }
 
-        
     </script>
 </head>
 
@@ -20,25 +19,36 @@
 
         <h2> Register Here </h2>
         <form id="registerForm">
+            <fieldset>
+                <legend>Personal Information</legend>
+                <input type="search" placeholder="First Name.." autocomplete="off" id="fname" onblur="validateName()"
+                    style="float: left;">
+                <div id="ferr" style="visibility: hidden;color:red"></div>
+                <input type="search" placeholder="Last Name.." autocomplete="off" id="lname" onblur="validateName()" />
 
-                <input type="search" placeholder="First Name.." autocomplete="off" id="fname" style="float: left;"
-                     required />
-            <input type="search" placeholder="Last Name.." autocomplete="off" id="lname" required />
-            <input type="search" placeholder="Username.." autocomplete="off" id="username" required />
-            <input type="password" placeholder="Password.." autocomplete="off" id="pass" required />
-            <input type="password" placeholder="Confirm Password.." autocomplete="off" id="cpass" required />
-            <input type="search" placeholder="E-mail.." autocomplete="off" id="email" required />
-            <input type="search" placeholder="Phone Number.." autocomplete="off" id="phone" required />
+                <textarea rows="5" cols="30" class="addExtra" placeholder="Enter Address" id="addr"
+                    onblur="validateAddress()"></textarea>
+                <input type="search" placeholder="Pin Code.." id="pin" autocomplete="off" onblur="validatePin()" />
+                <input placeholder="Birth Date" class="textbox-n" type="search" onfocus="(this.type='date')"
+                    onfocusout="changetype()" id="date">
+                <div class="gender">
+                    <label>Gender:</label>
+                    <input type="radio" name="gender" value="male" id="male" checked="checked"><label for="male">
+                        Male</label>
+                    <input type="radio" name="gender" value="female" id="female"> <label for="female"> Female</label>
+                    <input type="radio" name="gender" value="other" id="other"> <label for="other"> Other</label>
+                </div>
+            </fieldset>
 
-            <textarea rows="5" cols="30"  class="addExtra" placeholder="Enter Address" id="addr"></textarea>
-            <input type="search" placeholder="Pin Code.." id="pin" required />
-            <input placeholder="Birth Date" class="textbox-n" type="search" onfocus="(this.type='date')"
-                onfocusout="changetype()" id="date">
-                <!-- <label>Gender:</label> 
-                <input type="radio" name="gender" value="male" id="male"><label for="male"> Male</label>
-                <input type="radio" name="gender" value="female" id="female"> <label for="female"> Female</label>
-                <input type="radio" name="gender" value="other" id="other"> <label for="other"> Other</label>   -->
-                <input type="submit" value="Submit" onclick="return validate();">
+            <fieldset>
+                <legend>Account Information</legend>
+                <input type="search" placeholder="Username.." autocomplete="off" id="username" />
+                <input type="password" placeholder="Password.." autocomplete="off" id="pass" />
+                <input type="password" placeholder="Confirm Password.." autocomplete="off" id="cpass" />
+                <input type="search" placeholder="E-mail.." autocomplete="off" id="email" />
+                <input type="search" placeholder="Phone Number.." autocomplete="off" id="phone" />
+            </fieldset>
+            <input type="submit" value="Submit" onclick="return validate();">
             <input type="reset" class="spreset" value="Reset">
 
         </form>

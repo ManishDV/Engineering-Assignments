@@ -9,12 +9,14 @@ body{
     max-height: 1200px;
     border-radius: 20px;
     margin: auto;
-    background: rgba(0, 0, 0, 0.5);
+    background: linear-gradient(to bottom left, #ff9999 0%, #66ccff 100%);
     box-sizing: border-box;
     padding: 40px;
     color: #fff;
     font-weight: 24px;
     margin-top: 100px;
+
+    box-shadow: 5px 1px;
 
 }
 label{
@@ -23,8 +25,8 @@ label{
 }
 h2{
     text-align: center;
-    color: violet;
-    font-size: 30px;
+    color: blue;
+    font-size: 40px;
 }
 input[type="date"]{
     width: 100%;
@@ -79,7 +81,7 @@ input[type="submit"]{
     margin-top: 20px;
     outline: none;
     border: none;
-    background: #60adde;
+    background: purple;
     opacity: 0.7;
     border-radius:20px;
     font-size: 20px;
@@ -93,7 +95,7 @@ input[type="submit"]{
     margin-top: 20px;
     outline: none;
     border: none;
-    background: #60adde;
+    background:purple;
     opacity: 0.7;
     border-radius:20px;
     font-size: 20px;
@@ -121,6 +123,9 @@ background-color:white;
 color: black;
 }
 
+input:focus::placeholder{
+    color:black;
+}
 
 textarea:focus
 {
@@ -128,8 +133,36 @@ background-color:white;
 color: black;
 }
 
+textarea:focus::placeholder{
+    color:black;
+}
+
 input[type="radio"]{
        width: 50px;
        height: 1.5em;
        border: 0px; 
-}   
+} 
+
+::placeholder{
+    color:white;
+}
+
+fieldset {
+       border:2px solid purple;
+        margin-top: 10px;
+        border-radius: 10px;
+
+  box-shadow: 5px 1px;
+}
+
+legend {
+  padding: 0.2em 0.5em;
+  border:1px solid purple;
+  color:purple;
+  font-size:90%;
+  border-radius: 5px;
+  box-shadow: 5px 1px;
+  text-align:left;
+  font-weight: 20px;
+  font-size: 25px;
+  }
