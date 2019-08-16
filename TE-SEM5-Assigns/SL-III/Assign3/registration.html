@@ -10,27 +10,23 @@
             id = document.getElementById("date");
             id.type = 'search';
         }
-
     </script>
 </head>
 
 <body>
     <div class="wrap">
 
-        <h2> Register Here </h2>
-        <form id="registerForm">
+        <h2> Register </h2>
+        <form id="registerForm" action="validate.php">
             <fieldset>
                 <legend>Personal Information</legend>
-                <input type="search" placeholder="First Name.." autocomplete="off" id="fname" onblur="validateName()"
-                    style="float: left;">
+                <input type="search" placeholder="First Name.." autocomplete="off" id="fname" style="float: left;">
                 <div id="ferr" style="visibility: hidden;color:red"></div>
-                <input type="search" placeholder="Last Name.." autocomplete="off" id="lname" onblur="validateName()" />
+                <input type="search" placeholder="Last Name.." autocomplete="off" id="lname" />
 
-                <textarea rows="5" cols="30" class="addExtra" placeholder="Enter Address" id="addr"
-                    onblur="validateAddress()"></textarea>
+                <textarea rows="5" cols="30" class="addExtra" placeholder="Enter Address" id="addr" onblur="validateAddress()"></textarea>
                 <input type="search" placeholder="Pin Code.." id="pin" autocomplete="off" onblur="validatePin()" />
-                <input placeholder="Birth Date" class="textbox-n" type="search" onfocus="(this.type='date')"
-                    onfocusout="changetype()" id="date">
+                <input placeholder="Birth Date" class="textbox-n" type="search" onfocus="(this.type='date')" onfocusout="changetype()" id="date">
                 <div class="gender">
                     <label>Gender:</label>
                     <input type="radio" name="gender" value="male" id="male" checked="checked"><label for="male">
