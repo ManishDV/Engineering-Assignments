@@ -20,12 +20,11 @@
         <form id="registerForm" action="validate.php">
             <fieldset>
                 <legend>Personal Information</legend>
-                <input type="search" placeholder="First Name.." autocomplete="off" id="fname" style="float: left;">
-                <div id="ferr" style="visibility: hidden;color:red"></div>
-                <input type="search" placeholder="Last Name.." autocomplete="off" id="lname" />
+                <input type="search" placeholder="First Name.." autocomplete="off" id="fname" style="float: left;" onkeyup="validateFirstName()">
+                <input type="search" placeholder="Last Name.." autocomplete="off" id="lname" onkeyup="validateLastName()" />
 
                 <textarea rows="5" cols="30" class="addExtra" placeholder="Enter Address" id="addr" onblur="validateAddress()"></textarea>
-                <input type="search" placeholder="Pin Code.." id="pin" autocomplete="off" onblur="validatePin()" />
+                <input type="search" placeholder="Pin Code.." id="pin" autocomplete="off" onkeyup="validatePin()" />
                 <input placeholder="Birth Date" class="textbox-n" type="search" onfocus="(this.type='date')" onfocusout="changetype()" id="date">
                 <div class="gender">
                     <label>Gender:</label>
@@ -38,11 +37,11 @@
 
             <fieldset>
                 <legend>Account Information</legend>
-                <input type="search" placeholder="Username.." autocomplete="off" id="username" />
+                <input type="search" placeholder="Username.." autocomplete="off" id="username" onkeyup="validateUname()" />
                 <input type="password" placeholder="Password.." autocomplete="off" id="pass" />
                 <input type="password" placeholder="Confirm Password.." autocomplete="off" id="cpass" />
-                <input type="search" placeholder="E-mail.." autocomplete="off" id="email" />
-                <input type="search" placeholder="Phone Number.." autocomplete="off" id="phone" />
+                <input type="search" placeholder="E-mail.." autocomplete="off" id="email" onkeyup="validateEmail()" />
+                <input type="search" placeholder="Phone Number.." autocomplete="off" id="phone" onkeyup="validatePhone()" />
             </fieldset>
             <input type="submit" value="Submit" onclick="return validate();">
             <input type="reset" class="spreset" value="Reset">
