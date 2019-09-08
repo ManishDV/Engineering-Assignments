@@ -1,15 +1,41 @@
-<!DOCTYPE html>
+<?php
+	session_start();
+	$theval = $_SESSION['error'];
+?>
+<!DOCTYPE html5>
 <html>
-
-<head>
-	<title>Welcome To Manish's Book Store</title>
-</head>
-<frameset rows="15%,*" framespacing="0" frameborder="0">
-	<frame name="top" src="logo.html" noresize="noresize" scrolling="no">
-		<frameset cols="20%,*" framespacing="0" frameborder="0">
-			<frame name="left" src="buttons.html" noresize="noresize" scrolling="yes">
-				<frame name="right" src="info.html" noresize="noresize" scrolling="yes" frameborder="0">
-		</frameset>
-</frameset>
-
+	<head>
+		<title> Register </title>
+		<link rel="stylesheet" href="main.css"/>
+	</head>
+	<body>
+		<form action="process.php" method="get">
+			<h1>Registration Form</h1>
+			<fieldset>
+				<legend>Enter Details</legend>
+				<label>NAME : <span style="color:FF0000">*</span></label>
+				<br>
+				<input type="text" id="First" name="first" placeholder="First"/>
+				<input type="text" id="Middle" name="middle" placeholder="Middle"/>
+				<input type="text" id="Last" name="last" placeholder="Last"/>
+				<br>
+				<br>
+				<label>Email : <span style="color:FF0000">*</span></label>
+				<br>
+				<input id="email" type="text" name="email" placeholder="Email id"/>
+				<br>
+				<br>
+				<label>URL : <span style="color:FF0000">*</span></label>
+				<br>
+				<input type="text" id="url" name="url" placeholder="URL"/>
+			</fieldset>
+			<br>
+			<br>
+			<p id="val"><?php echo $theval?></p>	
+			<center>
+			<input class="but" type="submit" value="SUBMIT"/>
+			<input class="but" type="reset" value="RESET"/>
+			</center>
+		</form>
+	</body>
 </html>
