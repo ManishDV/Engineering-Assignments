@@ -4,10 +4,11 @@ function validateFirstName() {
     rename = /^[a-zA-Z ]{2,30}$/;
     if (fname.length != 0 && rename.test(fname)) {
         form.fname.style = "border:2px solid green";
-
+        return true;
     } else {
         form.fname.style = "border:2px solid red";
         form.fname.focus();
+        return false;
     }
 }
 
@@ -19,9 +20,11 @@ function validateLastName() {
     if (lname.length != 0 && rename.test(lname)) {
 
         form.lname.style = "border:2px solid green";
+        return true;
     } else {
 
         form.lname.style = "border:2px solid red";
+        return false;
     }
 }
 
@@ -31,8 +34,10 @@ function validatePin() {
     var pinre = /^\d{6}$/;
     if (pin.length != 0 && pinre.test(pin)) {
         form.pin.style = "border:2px solid green";
+        return true;
     } else {
         form.pin.style = "border:2px solid red";
+        return false;
     }
 }
 
@@ -42,8 +47,10 @@ function validateUname() {
 
     if (uname.length >= 6) {
         document.getElementById("username").style = "border : 2px solid green";
+        return true;
     } else {
         document.getElementById("username").style = "border : 2px solid red";
+        return false;
     }
 
 }
@@ -54,8 +61,10 @@ function validatePhone() {
     var phoneno = /^\d{10}$/;
     if (phoneno.test(phone)) {
         document.getElementById("phone").style = "border : 2px solid green";
+        return true;
     } else {
         document.getElementById("phone").style = "border : 2px solid red";
+        return false;
     }
 
 }
@@ -66,14 +75,48 @@ function validateEmail() {
     var emailre = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (emailre.test(email)) {
         document.getElementById("email").style = "border : 2px solid green";
+        return true;
     } else {
         document.getElementById("email").style = "border : 2px solid red";
+        return false;
     }
 
 }
 
 
+function validateAge() {
 
+    bday = document.getElementById("date");
+    bday = baday.value.getFullYear();
+    alert("HELLO");
+
+    // alert("Years: " + bday.value);
+    today = new Date();
+    alert("HELLO1");
+
+    today = today.getFullYear();
+
+    // alert("Years: " + today);
+    // var diff = Math.floor(today.getTime() - bday.value.getTime());
+    // var day = 1000 * 60 * 60 * 24;
+
+    // var days = Math.floor(diff / day);
+    // var months = Math.floor(days / 31);
+    // var years = Math.floor(months / 12);
+
+    // alert("Years: " + years);
+    years = today - bday;
+
+    alert("BDAY: " + bday + "\nTODAY: " + today + "\nYEAR: " + year);
+    if (years < 13) {
+        document.getElementById("ageError").style = "visibility: visible";
+        bday.style = "border : 2px solid red";
+    } else {
+        document.getElementById("ageError").style = "visibility: hidden";
+        bday.style = "border : 2px solid green";
+    }
+
+}
 // function validate() {
 
 //     form = document.getElementById('registerForm');

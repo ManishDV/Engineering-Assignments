@@ -1,10 +1,10 @@
-body{
+body {
     background: url('back.jpeg');
     background-size: cover;
     font-family: 'Times New Roman', Times, serif;
 }
 
-.wrap{
+.wrap {
     max-width: 600px;
     max-height: 1200px;
     border-radius: 20px;
@@ -15,20 +15,25 @@ body{
     color: #fff;
     font-weight: 24px;
     margin-top: 100px;
-
     box-shadow: 5px 1px;
-
 }
-label{
+
+label {
     font-size: 24px;
     margin-left: 5px;
 }
-h2{
+
+h2 {
     text-align: center;
     color: blue;
     font-size: 40px;
 }
-input[type="date"]{
+
+.agelable {
+    color: #003366;
+}
+
+input[type="date"] {
     width: 100%;
     box-sizing: border-box;
     padding: 12px 5px;
@@ -36,14 +41,15 @@ input[type="date"]{
     outline: none;
     border: none;
     border-bottom: 1px #fff;
-    color:wheat;
+    color: wheat;
     border-radius: 5px;
     float: left;
     margin: 5px;
     font-size: 18px;
 }
 
-input[type="search"],input[type="password"]{
+input[type="search"],
+input[type="password"] {
     width: 100%;
     box-sizing: border-box;
     padding: 12px 5px;
@@ -52,14 +58,14 @@ input[type="search"],input[type="password"]{
     font-size: 18px;
     border: none;
     border-bottom: 1px #fff;
-    color:white;
+    color: white;
     border-radius: 5px;
     float: left;
     margin: 5px;
     font-weight: bold;
+}
 
-}
-textarea{
+textarea {
     width: 100%;
     box-sizing: border-box;
     padding: 12px 5px;
@@ -67,14 +73,15 @@ textarea{
     outline: none;
     border: none;
     border-bottom: 1px #fff;
-    color:white;
+    color: white;
     font-size: 18px;
     border-radius: 5px;
     float: left;
     margin: 5px;
     font-weight: bold;
 }
-input[type="submit"]{
+
+input[type="submit"] {
     width: 40%;
     box-sizing: border-box;
     padding: 10px 0px;
@@ -83,86 +90,80 @@ input[type="submit"]{
     border: none;
     background: purple;
     opacity: 0.7;
-    border-radius:20px;
+    border-radius: 20px;
     font-size: 20px;
-    color:#fff;
-
+    color: #fff;
 }
-.spreset{
+
+.spreset {
     width: 40%;
     box-sizing: border-box;
     padding: 10px 0px;
     margin-top: 20px;
     outline: none;
     border: none;
-    background:purple;
+    background: purple;
     opacity: 0.7;
-    border-radius:20px;
+    border-radius: 20px;
     font-size: 20px;
     float: right;
     margin-left: 20px;
-    color:#fff;
-
+    color: #fff;
 }
 
-input[type="submit"]:hover{
+input[type="submit"]:hover {
     background: #003366;
     opacity: 0.7;
 }
 
-input[type="reset"]:hover{
+input[type="reset"]:hover {
     background: #003366;
     opacity: 0.7;
-    
-
 }
 
-input:focus
-{
-background-color:white;
-color: black;
+input:focus {
+    background-color: white;
+    color: black;
 }
 
-input:focus::placeholder{
-    color:black;
+input:focus::placeholder {
+    color: black;
 }
 
-textarea:focus
-{
-background-color:white;
-color: black;
+textarea:focus {
+    background-color: white;
+    color: black;
 }
 
-textarea:focus::placeholder{
-    color:black;
+textarea:focus::placeholder {
+    color: black;
 }
 
-input[type="radio"]{
-       width: 50px;
-       height: 1.5em;
-       border: 0px; 
-} 
+input[type="radio"] {
+    width: 50px;
+    height: 1.5em;
+    border: 0px;
+}
 
-::placeholder{
-    color:white;
+::placeholder {
+    color: white;
 }
 
 fieldset {
-       border:2px solid purple;
-        margin-top: 10px;
-        border-radius: 10px;
-
-  box-shadow: 5px 1px;
+    border: 2px solid purple;
+    margin-top: 10px;
+    border-radius: 10px;
+    box-shadow: 5px 1px;
 }
 
 legend {
-  padding: 0.2em 0.5em;
-  border:1px solid purple;
-  color:purple;
-  font-size:90%;
-  border-radius: 5px;
-  box-shadow: 5px 1px;
-  text-align:left;
-  font-weight: 20px;
-  font-size: 25px;
-  }
+    padding: 0.2em 0.5em;
+    border: 1px solid purple;
+    color: purple;
+    font-size: 90%;
+    border-radius: 5px;
+    box-shadow: 5px 1px;
+    text-align: left;
+    font-weight: 20px;
+    font-size: 25px;
+}
