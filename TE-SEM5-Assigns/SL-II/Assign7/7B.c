@@ -12,15 +12,18 @@ int main(){
 	int pid;int i =0;
 	char content[1000];
 	char content2[1000];
+	
+	
+	printf("\n----------------------------------------");
+	printf("\n[INFO.... IN PARENT] \n\nEnter Path Name: ");
+	scanf("%s",&path);
+	
 	pipe(pd);
 	pipe(pd2);
 	
 	
-
-	printf("\n----------------------------------------");
-	printf("\n[INFO.... IN PARENT] \n\nEnter Path Name: ");
-	scanf("%s",&path);
 	pid = fork();
+	
 	
 	if(pid == 0){
 		sleep(2);
@@ -80,7 +83,8 @@ int main(){
 	
 		printf("\nFork Failed\n");
 	}
-	
+		
+
 
 	return 0;
 
