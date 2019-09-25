@@ -1,4 +1,4 @@
-Character Count: 1
+Character Count: -1
 Word Count: 1
 Space Count: 0
 Line Count: 0

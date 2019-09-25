@@ -21,30 +21,35 @@ int main()
 	printf("\n Creating PIPE....\n"); 
 	mkfifo(myfifo1, 0777); 
  	mkfifo(myfifo2, 0777); 
- 	char ch;
- 	int i =0;
-	char arr1[1000], arr2[1000]; 
+ 	
+	char arr1[1000], arr2[180]; 
 	while (1) 
 	{ 
 		// Open FIFO for write only 
 		fd = open(myfifo1, O_WRONLY); 
 		
 		printf("\nEnter The Data: ");
-		fgets(arr2, 1000, stdin); 
+		fgets(arr2, 180, stdin); 
 		
 		write(fd, arr2, strlen(arr2)); 
 		close(fd); 
 
+		sleep(3);
+		
 		// Open FIFO for Read only 
 		fd = open(myfifo2, O_RDONLY); 
 
-		sleep(3);
 		// Read from FIFO 
 		read(fd, arr1, 1000); 
 
 		// Print the read message 
 		printf("\n%s\n", arr1); 
 		close(fd); 
+
+
+		memset(arr1, 0, sizeof(arr1));
+		memset(arr2, 0, sizeof(arr2));
+		
 	} 
 	return 0; 
 } 
