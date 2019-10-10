@@ -1,0 +1,59 @@
+
+<html>
+
+<head>
+<link rel="stylesheet" href="style/Login.css">
+<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="style/style.css" />
+<title>Sign in</title>
+</head>
+
+<body>
+	<div id="main">
+		<div id="header">
+			<div id="logo">
+				<div id="logo_text">
+					<!-- class="logo_colour", allows you to change the colour of the text -->
+<img src="news.png" height="120">
+				</div>
+			</div>
+			<div id="menubar">
+				<ul id="menu">
+					<!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
+					<li><a href="index.html">HOME</a></li>
+					<li><a href="Register.html">REGISTER</a></li>
+					<li class="selected"><a href="Login.html">SIGN IN</a></li>
+					<li><a href="contact.html">CONTACT US</a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="content_header"></div>
+		<div id="site_content">
+			<div class="sidebar">
+				<!-- insert your sidebar items here -->
+
+			</div>
+			<div id="content">
+				<!-- insert the page content here -->
+				<div class="main" style="margin-left: 40%; margin-top: 0px;">
+					<p class="sign" align="center">Sign in</p>
+					<form class="form1" action="login.jsp" method="post">
+						<input class="un " type="text" align="center"
+							placeholder="Username" name="uname" /> <input class="pass"
+							type="password" align="center" placeholder="Password"
+							name="passwd" /> <input type="submit" class="submit"
+							value="Login" />
+						<p class="forgot" align="center">
+							<a href="#">Forgot Password?</a>
+						</p>
+					</form>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
+
