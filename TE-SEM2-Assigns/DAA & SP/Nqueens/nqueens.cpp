@@ -56,7 +56,9 @@ int canPlace(int *chess,int row,int col,int n){
 int placeQueens(int *chess,int col,int n){
 	int flag = 0;
 	if(col >= n){
-		return 1;
+		cout<<"\n\nSolution: "<<s+1;
+		s = s+1;
+		printChess(chess,n);
 	}
 
 	for(int i =0 ;i<n;i++){
@@ -96,8 +98,7 @@ int main(int argc, char const *argv[])
  	
  		cout<<"\n\tSolution Found\n";
  	}else{
- 	
- 		cout<<"\nSolution Not Found";
+ 		exit(0);
  	}
 	
 		
