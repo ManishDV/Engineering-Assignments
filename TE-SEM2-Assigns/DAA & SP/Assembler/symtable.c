@@ -1,51 +1,12 @@
 #include <stdio.h>
-#include <string.h>
+#include <iostream>
+#include <fstream>
+#include <vector> 
+using namespace std;
 
 
 int main(int argc,char const*argv[]){
-	FILE *filePointer; 
-	filePointer = fopen("file.txt","r");
-	char ch;
-	char ad[][21] = {"EQU","ORG","DS","INCLUDE","LTORG","END","START"};
-	char IS[][21] = {"READ","PRINT","MOVER","ADD","MOVEM","STOP"};
-	char reg[][6] = {"AREG","BREG","CREG","DREG"};
-
-	int adSize = sizeof(ad)/sizeof(ad[0]);
-	int isSize = sizeof(IS)/sizeof(IS[0]);
-	int i = 0;
-	int k = 0;
-	char word[10];
-	char *splits[10];	 
-	while ((ch = fgetc(filePointer)) != EOF)
-    {
-    	if(ch == ' ' || ch == ',' || ch == '\n'){
-    		word[i] = '\0';
-    		splits[k] = word;
-
-    		printf("%s\n",splits[k]);
-    		k++;
-    		// printf("%d\n",k);
-    		if(ch == '\n'){
-    			
-    			splits[k] = "EMPTY";
-    			k = 0;
-    			printf("\n");
-    			// int splitSize = sizeof(splits)/ sizeof(splits[0]);
-    			// for(int j=0;strcmp(splits[j],"EMPTY") != 0;j++){
-    			// 	printf("%s\t",*(splits+j));
-    			// }
-
-    			printf("%s\t%s",splits[0],splits[1] );
-
-
-    		}
-    		word[0] = '\0';
-    		i = 0;
-    	}else{
-    		word[i] = ch;
-    		i++;
-    	}
-    }
+	
 	// string ad[] ={"EQU","ORG","DS","INCLUDE","LTORG","END","START"};
 	// string IS[] ={"READ","PRINT","MOVER","ADD","MOVEM","STOP"};
 	// string reg[] ={"AREG","BREG","CREG","DREG"};
