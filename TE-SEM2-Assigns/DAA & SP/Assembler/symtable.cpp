@@ -10,10 +10,25 @@ struct symTable{
 	int sr;
 	string symbol;
 	int address;
+	int length;
 }symbolTable[20];
 
-int stringToI(string s){
+struct literalTable{
+	int sr;
+	string literal;
+	int address;
+}litTable[20];
 
+bool isLiteral(string literal){
+
+	if(literal[0] == '\'' && literal[1] == '='){
+		// cout<<"literal[0] : "<<literal[0]<< "\n literal[1] : "<<literal[1];
+		return true;
+	}
+	return false;
+}
+
+int stringToI(string s){
 	int num = 0;
 	// cout<<"\nLENGTH "<<s.length();
 	int thresh = pow(10,s.length()-1);
@@ -23,20 +38,15 @@ int stringToI(string s){
 		num += thresh * temp;
 		thresh = thresh / 10;	
 	}
-
 	return num;
-
 }
-
 bool isNumber(string s) 
 { 
     for (int i = 0; i < s.length(); i++) 
         if (isdigit(s[i]) == false) 
             return false; 
-  
     return true; 
 } 
-  
 bool isReg(string reg){
 	if(!reg.compare("AREG") || !reg.compare("BREG") || !reg.compare("CREG") || !reg.compare("DREG")){
 		return true;
@@ -44,42 +54,39 @@ bool isReg(string reg){
 		return false;
 	}
 }
-
-
 bool isPresent(struct symTable symbolTable[20],int symcount,string symbol){
-
 	for(int i=0;i<symcount;i++){
 		if(!(symbolTable[i].symbol).compare(symbol)){
 			return true;
 		}
 	}
-
 	return false;
 }
-
 int main(int argc,char const*argv[]){
 	ifstream fin;
 	ofstream fout;
-	fout.open("file1.txt",ios::app);
+	fout.open("Intermediate.txt",ios::app);
 	fin.open("file.txt", ios::in);
-	
 	char ch;
-	
 	string ad[] ={"EQU","ORG","DS","INCLUDE","LTORG","END","START"};
 	string IS[] ={"READ","PRINT","MOVER","ADD","MOVEM","STOP"};
 	string reg[] ={"AREG","BREG","CREG","DREG"};
 	string word;
+
+
+	int poolTab[10];
 	vector<string> g1;
 	int adSize = sizeof(ad) / sizeof(ad[0]);
 	int isSize = sizeof(IS) / sizeof(IS[0]);
-	
-
 	std::vector<string> directives;
-
 	std::vector<string> imperative;
+	std::vector<string> pool;
+
 	int isSymbol = 1;
 	int i=0;
 	int k = 0;
+	int poolcnt = 0;
+	int litcnt = 0;
 	int symcount = 0;
 	if(!fin){
 	   cout<<"\nFILE DOES NOT EXISTS";	
@@ -92,18 +99,32 @@ int main(int argc,char const*argv[]){
 					LC++;
 					for(int i=0;i<g1.size();i++){
 						for(int j = 0;j<adSize;j++){
-
+							if(!g1.at(i).compare("END") || !g1.at(i).compare("LTORG")){
+								LC--;
+								if(pool.size()){
+									poolTab[poolcnt] = litcnt+1;
+								}
+								for(int z=0;z<pool.size();z++){
+									litTable[litcnt].sr = litcnt+1;
+									litTable[litcnt].literal = pool[0];
+									litTable[litcnt].address = LC;
+									LC++;
+									litcnt++;
+								}
+								if(pool.size()){
+									poolcnt++;
+								}
+								pool.clear();	
+							}
 							if(g1.at(i).compare(ad[j]) == 0){
 								directives.push_back(ad[j]);
 								isSymbol = 0;
-								fout << "(IS,04)";
+								fout << "(IS,04) ";
 								break;
 							}else{
 								continue;
 							}
-
 						}
-
 						for(int j=0;j<isSize;j++){
 							if(g1.at(i).compare(IS[j]) == 0){
 								imperative.push_back(IS[j]);
@@ -113,74 +134,104 @@ int main(int argc,char const*argv[]){
 								continue;
 							}							
 						}
-
-
-
-
 						 if(isSymbol){
-						 	if(!isNumber(g1.at(i)) && !isReg(g1.at(i))){
+						 	if(!isNumber(g1.at(i)) && !isReg(g1.at(i)) && !isLiteral(g1.at(i))){
+						 		// cout<<" \n "<<g1.at(i);
 						 		if(!isPresent(symbolTable,symcount,g1.at(i))){
+						 				int length = 1;
 						 				symbolTable[symcount].sr = symcount+1;
-								 		symbolTable[symcount].symbol = g1.at(i);
-								 		symbolTable[symcount].address = LC;
+										symbolTable[symcount].symbol = g1.at(i);
+										// cout<<"\n"<<g1.at(1);
+								 		if(g1.size() == 3){
+								 			length = stringToI(g1.at(2));
+								 			symbolTable[symcount].address = LC;
+								 			symbolTable[symcount].length = length;
+								 			LC = LC+length;
+								 			// cout<<"\nLC: "<<LC;	
+								 		}else{
+								 			symbolTable[symcount].address = 888888;
+								 			symbolTable[symcount].length = length;
+								 		}
 								 		symcount++;	
-								 	}
-							} 	
+								}else{
+									int count = 0;
+									for(int k =0;k<symcount;k++){
 
+										if(!(symbolTable[k].symbol).compare(g1.at(i))){
+											count = k;
+											break;
+										}
+									}
+									// cout<<"\nG1: "<<g1.at(i)<<"\tSymbol: "<<symbolTable[count].symbol;
+									
+									if(symbolTable[count].address == 888888){
+										// cout<<"\n"<<g1.size();
+										if(g1.size() == 3 && !(g1.at(1)).compare("DS")){
+											// cout<<"\nLENGHT: "<<g1.size();
+								 			int length = stringToI(g1.at(2));
+								 			// cout<<"\nLENGTH: "<<length;
+								 			symbolTable[count].address = LC;
+								 			symbolTable[count].length = length;
+								 			LC = LC+length;
+									}
+								}
+
+								}		
+							 }
 							if(g1.size() == 2 && isNumber(g1.at(1)) && !g1.at(0).compare("START")){
 								LC = stringToI(g1.at(i));
-								
 							}
-
 							if(isNumber(g1.at(i))){
-								fout<<" (C,"<<g1.at(i)<<")";
+								fout<<"| (C,"<<g1.at(i)<<")";
 							}
-						 	
+							if(isLiteral(g1.at(i))){
+								pool.push_back(g1.at(i));								
+							}
+
 						 }
-
 						isSymbol = 1;
-						
-
 					}
-
-
-
 					g1.clear();
-				
 				}
 				fout<<"\n";
 				word = "";
-
 			}else{
 				word+=ch;
 			}
-			
-						
 		}
-			 		
 	}
-	
+	cout<<"\n\t\tSYMBOL TABLE";
 	cout<<"\n------------------------------------------------";
-	cout<<"\nSR\t\tSYMBOL\t\tADDRESS";
+	cout<<"\nSR\t\tSYMBOL\t\tADDRESS\t\tLENGTH";
 	cout<<"\n------------------------------------------------";
 	for (int i = 0; i < symcount; ++i)
 	{
-		cout<<"\n"<<symbolTable[i].sr<<"  \t\t "<<symbolTable[i].symbol<<"  \t\t "<<symbolTable[i].address;
+		cout<<"\n"<<symbolTable[i].sr<<"  \t\t "<<symbolTable[i].symbol<<"  \t\t "<<symbolTable[i].address<<"  \t\t "<<symbolTable[i].length;
 	}
 	cout<<"\n------------------------------------------------";
 	
-
-	// cout<<"\n------------------------------------------------";
-	// cout<<"\n\tIMPERATIVE STATEMENT IN GIVEN FILE";
-	// cout<<"\n------------------------------------------------";
-	// for (int i = 0; i < imperative.size(); ++i)
-	// {
-	// 	cout<<"\n\t"<<i+1<<". "<<imperative.at(i);
-
-	// }
-
+	cout<<"\n\n\t\tLITERAL TABLE";
+	cout<<"\n------------------------------------------------";
+	cout<<"\nSR\t\tLITERAL\t\tADDRESS";
+	cout<<"\n------------------------------------------------";
+	for (int i = 0; i < litcnt; ++i)
+	{
+		cout<<"\n"<<litTable[i].sr<<"  \t\t "<<litTable[i].literal<<"  \t\t "<<litTable[i].address;
+	}
+	cout<<"\n------------------------------------------------";
+	
+	cout<<"\n\n\t\tPOOL TABLE";
+	cout<<"\n------------------------------------------------";
+	cout<<"\n\t\tLITERAL NO";
+	cout<<"\n------------------------------------------------";
+	for (int i = 0; i < poolcnt; ++i)
+	{
+		cout<<"\n\t\t  #"<<poolTab[i];
+	}
+	cout<<"\n------------------------------------------------";
+	
+	
 
 	printf("\n");	
-	
 }
 
