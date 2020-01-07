@@ -3,9 +3,11 @@
 #include <fstream>
 #include <vector> 
 #include <cmath>
+#include <stdlib.h>
 using namespace std;
 
 int LC = 0;
+int linecount = 0;
 struct symTable{
 	int sr;
 	string symbol;
@@ -18,6 +20,10 @@ struct literalTable{
 	string literal;
 	int address;
 }litTable[20];
+
+string ad[] ={"EQU","ORG","DS","DC","INCLUDE","LTORG","END","START"};
+string IS[] ={"READ","PRINT","MOVER","ADD","MOVEM","STOP","BC"};
+string reg[] ={"AREG","BREG","CREG","DREG"};
 
 bool isLiteral(string literal){
 
@@ -73,15 +79,71 @@ bool isLiteralPresent(string lit,int n){
 	}
 	return false;
 }
+
+
+bool isMnemonic(string str){
+	for(int i=0;i<(sizeof(IS)/sizeof(IS[0]));i++){
+		if(!IS[i].compare(str)){
+			cout<<"\n"<<IS[i];
+			return true;
+		}
+	}
+	return false;
+}
+
+bool isAd(string str){
+	for(int i=0;i<(sizeof(ad)/sizeof(ad[0]));i++){
+		if(!ad[i].compare(str)){
+			cout<<"\n"<<ad[i];
+			return true;
+		}
+	}
+	return false;
+}
+
+
+
+bool syntaxOK(vector<string> splits){
+	cout<<"\nIN SYNTAX CHECK"<<std::flush;
+	if(isMnemonic(splits[0])){
+
+		return true;
+
+	}else if(isAd(splits[0])){
+			
+		cout<<"\nHERE";
+		if(!splits[0].compare("START")){
+			cout<<"\nIn Start";
+			if(splits.size() == 2){
+						if(isNumber(splits[1]) || !splits[0].compare(" ")){
+							return true;
+						}else{
+							cout<<"\nThere Should Be Constant After START directive at Line "<<linecount;
+							return true;
+						}
+			}else{
+				cout<<"\nThere Is Extra Character on Line "<<linecount;
+				return true;
+			}
+
+		}
+
+
+
+	}else{
+		// cout<<"\nIt iS Coming HERE";
+		return true;
+	}
+
+	return true;
+}
+
 int main(int argc,char const*argv[]){
 	ifstream fin;
 	ofstream fout;
 	fout.open("Intermediate.txt",ios::out);
 	fin.open("file.txt", ios::in);
 	char ch;
-	string ad[] ={"EQU","ORG","DS","DC","INCLUDE","LTORG","END","START"};
-	string IS[] ={"READ","PRINT","MOVER","ADD","MOVEM","STOP","BC"};
-	string reg[] ={"AREG","BREG","CREG","DREG"};
 	string word;
 
 
@@ -107,7 +169,9 @@ int main(int argc,char const*argv[]){
 			if(ch == ' ' || ch == ',' || ch == '\n'){
 				g1.push_back(word);
 				if(ch == '\n'){
+					linecount++;
 					LC++;
+					// cout<<"\nGOING FOR SYNTAX CHECKING";
 					for(int i=0;i<g1.size();i++){
 						for(int j = 0;j<adSize;j++){
 							if(!g1.at(i).compare("END") || !g1.at(i).compare("LTORG")){
@@ -127,6 +191,7 @@ int main(int argc,char const*argv[]){
 									poolcnt++;
 								}
 								pool.clear();
+
 							}
 								
 
@@ -166,9 +231,28 @@ int main(int argc,char const*argv[]){
 								isSymbol = 0;
 								if(!g1.at(i).compare("READ")){
 									fout<<"(IS,09) | ";	
+									if(!isMnemonic(g1.at(i+1))){
+										if(!isReg(g1.at(i+1))){
+											if(!isAd(g1.at(i+1))){
+
+											}else{
+												cout<<"\nThere Should Be Symbol After READ and Not Assembler directive on line "<<linecount <<"\n";
+												return 0;
+											}
+										}else{
+
+												cout<<"\nThere Should Be Symbol After READ and Not Register on Line "<<linecount <<"\n";
+												return 0;
+										}
+									}else{
+
+												cout<<"\nThere Should Be Symbol After READ and Not Mnemonic on Line "<<linecount <<"\n";
+												return 0;
+									}
 								}
 								else if(!g1.at(i).compare("MOVER")){
 									fout<<"(IS,04) | ";	
+
 								}
 								else if(!g1.at(i).compare("MOVEM")){
 									fout<<"(IS,05) | ";	
@@ -207,7 +291,7 @@ int main(int argc,char const*argv[]){
 						}
 						 if(isSymbol){
 						 		
-						 	if(isReg(g1.at(i))){	
+						 	if(isReg(g1.at(i)) || !g1.at(i).compare("BC")){	
  							 	if(!g1.at(i).compare("AREG")){
  										fout<<"(1)";	
  								}
@@ -220,19 +304,19 @@ int main(int argc,char const*argv[]){
  								else if(!g1.at(i).compare("DREG")){
  										fout<<"(4)";	
  								}
- 								else if(!g1.at(i).compare("LT")){
+ 								else if(!g1.at(i+1).compare("LT")){
  										fout<<"(1)";	
  								}
- 								else if(!g1.at(i).compare("LE")){
+ 								else if(!g1.at(i+1).compare("LE")){
  										fout<<"(2)";	
  								}
- 								else if(!g1.at(i).compare("EQ")){
+ 								else if(!g1.at(i+1).compare("EQ")){
  										fout<<"(3)";	
  								}
- 								else if(!g1.at(i).compare("GT")){
+ 								else if(!g1.at(i+1).compare("GT")){
  										fout<<"(4)";	
  								}
- 								else if(!g1.at(i).compare("GE")){
+ 								else if(!g1.at(i+1).compare("GE")){
  										fout<<"(5)";	
  								}
  								else{
@@ -288,9 +372,21 @@ int main(int argc,char const*argv[]){
 
 								}		
 							 }
-							if(g1.size() == 2 && isNumber(g1.at(1)) && !g1.at(0).compare("START")){
+							if(g1.size() == 2 && isNumber(g1.at(1)) && !g1.at(0).compare("START") && linecount == 1){
 								LC = stringToI(g1.at(i));
+							}else{
+								
+								if(g1.size() == 3 && !g1.at(0).compare("START")){
+									cout<<"\nThere Is An Extra Symbol On Line "<<linecount;
+									return 0;
+								}else{
+									if(!g1.at(0).compare("START")){
+										cout<<"\nThere Should Be Number After START On Line "<<linecount<<"\n";
+										return 0;
+									}
+								}
 							}
+
 							if(isNumber(g1.at(i))){
 								fout<<"(C,"<<g1.at(i)<<")";
 							}
@@ -306,8 +402,10 @@ int main(int argc,char const*argv[]){
 						 }
 						isSymbol = 1;
 					}
+				
 					g1.clear();
-				}
+				  }
+				
 				fout<<"\n";
 				word = "";
 			}else{
@@ -344,9 +442,5 @@ int main(int argc,char const*argv[]){
 		cout<<"\n\t\t  #"<<poolTab[i];
 	}
 	cout<<"\n------------------------------------------------";
-	
-	
-
 	printf("\n");	
 }
-
