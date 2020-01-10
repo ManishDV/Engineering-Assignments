@@ -22,7 +22,7 @@ struct literalTable{
 }litTable[20];
 
 string ad[] ={"EQU","ORG","DS","DC","INCLUDE","LTORG","END","START"};
-string IS[] ={"READ","PRINT","MOVER","ADD","MOVEM","STOP","BC"};
+string IS[] ={"READ","PRINT","MOVER","ADD","MOVEM","STOP","BC","MULT","COMP"};
 string reg[] ={"AREG","BREG","CREG","DREG"};
 
 bool isLiteral(string literal){
@@ -251,26 +251,221 @@ int main(int argc,char const*argv[]){
 									}
 								}
 								else if(!g1.at(i).compare("MOVER")){
-									fout<<"(IS,04) | ";	
+									fout<<"(IS,04) | ";
+									if(g1.size() >= 3){
 
+											if(!isMnemonic(g1.at(i+1))){
+												if(!isAd(g1.at(i+1))){
+													if(isReg(g1.at(i+1))){;
+													}else{
+
+														cout<<"\nThere Must Be Register After MOVER on Line "<<linecount<<"\n";
+														return 0;
+													}
+												}else{
+
+													cout<<"\nThere Must Be Register After MOVER on Line "<<linecount<<"\n";
+													return 0;
+												}
+											}else{
+												cout<<"\nThere Must Be Register After MOVER on Line "<<linecount<<"\n";
+												return 0;
+											}
+
+											if(!isMnemonic(g1.at(i+2))){
+												if(!isAd(g1.at(i+2))){
+													if(!isReg(g1.at(i+2))){;
+													}else{
+
+														cout<<"\nThere Must Be Symbol Or Literal After Register in MOVER on Line "<<linecount<<"\n";
+														return 0;
+													}
+												}else{
+
+														cout<<"\nThere Must Be Symbol Or Literal After Register in MOVER on Line "<<linecount<<"\n";
+														return 0;												
+												}
+											}else{
+
+													cout<<"\nThere Must Be Symbol Or Literal After Register in MOVER on Line "<<linecount<<"\n";
+													return 0;
+											}
+									
+
+									}
 								}
 								else if(!g1.at(i).compare("MOVEM")){
-									fout<<"(IS,05) | ";	
+									fout<<"(IS,05) | ";
+										if(g1.size() >= 3){
+
+											if(!isMnemonic(g1.at(i+1))){
+												if(!isAd(g1.at(i+1))){
+													if(isReg(g1.at(i+1))){;
+													}else{
+
+														cout<<"\nThere Must Be Register After MOVEM on Line "<<linecount<<"\n";
+														return 0;
+													}
+												}else{
+
+													cout<<"\nThere Must Be Register After MOVEM on Line "<<linecount<<"\n";
+													return 0;
+												}
+											}else{
+												cout<<"\nThere Must Be Register After MOVEM on Line "<<linecount<<"\n";
+												return 0;
+											}
+
+											if(!isMnemonic(g1.at(i+2))){
+												if(!isAd(g1.at(i+2))){
+													if(!isReg(g1.at(i+2))){;
+													}else{
+
+														cout<<"\nThere Must Be Symbol Or Literal After Register in MOVEM on Line "<<linecount<<"\n";
+														return 0;
+													}
+												}else{
+
+														cout<<"\nThere Must Be Symbol Or Literal After Register in MOVEM on Line "<<linecount<<"\n";
+														return 0;												
+												}
+											}else{
+
+													cout<<"\nThere Must Be Symbol Or Literal After Register in MOVEM on Line "<<linecount<<"\n";
+													return 0;
+											}
+									
+
+									}
+
 								}
 								else if(!g1.at(i).compare("MULT")){
-									fout<<"(IS,03) | ";	
+									fout<<"(IS,03) | ";
+									if(g1.size() == 2){
+									if(!isMnemonic(g1.at(i+1))){
+										if(!isAd(g1.at(i))){
+											if(isReg(g1.at(i+1))){
+
+											}else{
+
+												cout<<"\nThere Must Be Register AFTER MULT on Line "<<linecount<<"\n";
+												return 0;	
+											}
+										}else{
+											cout<<"\nThere Must Be Register AFTER MULT on Line "<<linecount<<"\n";
+											return 0;	
+										
+										}
+									}else{
+										cout<<"\nThere Must Be Register AFTER MULT on Line "<<linecount<<"\n";
+											return 0;	
+										
+									}	
+								}
 								}
 								else if(!g1.at(i).compare("ADD")){
-									fout<<"(IS,01) | ";	
+									fout<<"(IS,01) | ";
+									if(g1.size() >= 3){
+									if(!isMnemonic(g1.at(i+1))){
+										if(!isAd(g1.at(i+1))){
+
+										}else{
+
+											cout<<"\nIllegal Use Of Assembler Directive on Line "<<linecount<<"\n";
+											return 0;	
+											
+										}
+									}else{
+
+										cout<<"\nIllegal Use Of Mnemonic on Line "<<linecount<<"\n";
+										return 0;	
+										
+									}
+
+
+									if(!isMnemonic(g1.at(i+2))){
+										if(!isAd(g1.at(i+2))){
+
+										}else{
+
+											cout<<"\nIllegal Use Of Assembler Directive on Line "<<linecount<<"\n";
+											return 0;	
+											
+										}
+									}else{
+
+										cout<<"\nIllegal Use Of Mnemonic on Line "<<linecount<<"\n";
+										return 0;	
+										
+									}
+
+									
+										
+									}
 								}
 								else if(!g1.at(i).compare("COMP")){
-									fout<<"(IS,06) | ";	
+									fout<<"(IS,06) | ";
+									if(g1.size() >= 3){
+										if(!isMnemonic(g1.at(i+1))){
+											if(!isAd(g1.at(i+1))){
+												if(isReg(g1.at(i+1))){
+
+												}else{
+													cout<<"\nThere Must Be Register Followed by COMP on Line "<<linecount<<"\n";
+													return 0;
+												}
+											}else{
+
+													cout<<"\nThere Must Be Register Followed by COMP on Line "<<linecount<<"\n";
+													return 0;
+											}
+										}else{
+
+													cout<<"\nThere Must Be Register Followed by COMP on Line "<<linecount<<"\n";
+													return 0;
+										}
+
+
+										if(!isMnemonic(g1.at(i+2))){
+											if(!isAd(g1.at(i+2))){
+
+											}else{
+												cout<<"\nIllegal Use Of Assembler Directive on Line "<<linecount<<"\n";
+												return 0;	
+													
+											}
+										}else{
+											cout<<"\nIllegal Use Of Mnemonic on Line "<<linecount<<"\n";
+											return 0;	
+										
+										}
+									}	
 								}
 								else if(!g1.at(i).compare("BC")){
 									fout<<"(IS,07) | ";	
 								}
 								else if(!g1.at(i).compare("PRINT")){
-									fout<<"(IS,10) | ";	
+									fout<<"(IS,10) | ";
+									if(g1.size() >=2 ||g1.size() <=3 ){
+										if(!isMnemonic(g1.at(i+1))){
+											if(!isAd(g1.at(i+1))){
+												if(!isLiteral(g1.at(i+1))){
+
+												}else{
+													cout<<"\nIllegal Use Of Literal on Line "<<linecount<<"\n";
+													return 0;
+												}
+											}else{
+												
+													cout<<"\nIllegal Use Of Assembler Directive on Line "<<linecount<<"\n";
+													return 0;
+											}
+										}else{
+
+												cout<<"\nIllegal Use Of Mnemonic on Line "<<linecount<<"\n";
+												return 0;
+										}
+									}	
 								}
 								else if(!g1.at(i).compare("STOP")){
 									fout<<"(IS,00) | ";	
@@ -373,7 +568,7 @@ int main(int argc,char const*argv[]){
 								}		
 							 }
 							if(g1.size() == 2 && isNumber(g1.at(1)) && !g1.at(0).compare("START") && linecount == 1){
-								LC = stringToI(g1.at(i));
+								LC = stringToI(g1.at(1));
 							}else{
 								
 								if(g1.size() == 3 && !g1.at(0).compare("START")){
