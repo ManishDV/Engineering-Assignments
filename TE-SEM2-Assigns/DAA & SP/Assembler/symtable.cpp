@@ -140,13 +140,15 @@ bool syntaxOK(vector<string> splits){
 
 int main(int argc,char const*argv[]){
 	ifstream fin;
-	ofstream fout;
-	fout.open("Intermediate.txt",ios::out);
+	ofstream fout,tout;
+	fout.open("Intermediate(Variant 1).txt",ios::out);
+	tout.open("Intermediate(Variant 2).txt",ios::out);
+	
 	fin.open("file.txt", ios::in);
 	char ch;
 	string word;
 
-
+	int endflg = 0;
 	int poolTab[10];
 	vector<string> g1;
 	int adSize = sizeof(ad) / sizeof(ad[0]);
@@ -165,10 +167,12 @@ int main(int argc,char const*argv[]){
 	   cout<<"\nFILE DOES NOT EXISTS";	
 	}else{
 	   while(!fin.eof()){
+
 			fin.get(ch);
 			if(ch == ' ' || ch == ',' || ch == '\n'){
 				g1.push_back(word);
 				if(ch == '\n'){
+
 					linecount++;
 					LC++;
 					// cout<<"\nGOING FOR SYNTAX CHECKING";
@@ -199,25 +203,59 @@ int main(int argc,char const*argv[]){
 								directives.push_back(ad[j]);
 								isSymbol = 0;
 								if(!g1.at(i).compare("START")){
-									fout<<"(AD,01) | ";	
+									fout<<"(AD,01) | ";
+									tout<<"(AD,01) | ";
+									if(g1.size() > 2){
+										cout<<"\nThere is Extra Symbol On Line "<<linecount<<"\n";
+										return 0;
+									}	
 								}
 								else if(!g1.at(i).compare("END")){
-									fout<<"(AD,02) | ";	
+									fout<<"(AD,02) | ";
+									tout<<"(AD,02) | ";
+									endflg = 1;
+									if(g1.size() > 1){
+										cout<<"\nThere Should Not Be Anything Followed or Precceded By END On Line "<<linecount<<"\n";
+										return 0;	
+									}	
 								}
 								else if(!g1.at(i).compare("ORIGIN")){
 									fout<<"(AD,03) | ";	
+									tout<<"(AD,03) | ";	
+								
 								}
 								else if(!g1.at(i).compare("EQU")){
-									fout<<"(IS,04) | ";	
+									fout<<"(IS,04) | ";
+									tout<<"(IS,04) | ";	
+									if(g1.size() > 3){
+										cout<<"\nThere Is Extra Symbol On Line "<<linecount<<"\n";
+										return 0;
+									}
 								}
 								else if(!g1.at(i).compare("LTORG")){
-									fout<<"(AD,05) | ";	
+									fout<<"(AD,05) | ";
+									tout<<"(AD,05) | ";
+									
+									if(g1.size() > 1){
+										cout<<"\nThere Should Not Be Anything Followed or Precceded By END On Line "<<linecount<<"\n";
+										return 0;
+									}	
 								}
 								else if(!g1.at(i).compare("DS")){
-									fout<<"(DL,02) | ";	
+									fout<<"(DL,02) | ";
+									tout<<"(DL,02) | ";
+									if(g1.size() > 3){
+										cout<<"\nThere Is Extra Symbol On Line "<<linecount<<"\n";
+										return 0;
+									}	
 								}
 								else{
 									fout<<"(DL,01) | ";	
+									tout<<"(DL,01) | ";
+									if(g1.size() > 3){
+										cout<<"\nThere Is Extra Symbol On Line "<<linecount<<"\n";
+										return 0;
+									}	
 								}
 								
 								break;
@@ -230,7 +268,9 @@ int main(int argc,char const*argv[]){
 								imperative.push_back(IS[j]);
 								isSymbol = 0;
 								if(!g1.at(i).compare("READ")){
-									fout<<"(IS,09) | ";	
+									fout<<"(IS,09) | ";
+									tout<<"(IS,09) | ";
+										
 									if(!isMnemonic(g1.at(i+1))){
 										if(!isReg(g1.at(i+1))){
 											if(!isAd(g1.at(i+1))){
@@ -252,6 +292,8 @@ int main(int argc,char const*argv[]){
 								}
 								else if(!g1.at(i).compare("MOVER")){
 									fout<<"(IS,04) | ";
+									tout<<"(IS,04) | ";
+									
 									if(g1.size() >= 3){
 
 											if(!isMnemonic(g1.at(i+1))){
@@ -296,6 +338,8 @@ int main(int argc,char const*argv[]){
 								}
 								else if(!g1.at(i).compare("MOVEM")){
 									fout<<"(IS,05) | ";
+									tout<<"(IS,05) | ";
+									
 										if(g1.size() >= 3){
 
 											if(!isMnemonic(g1.at(i+1))){
@@ -341,6 +385,8 @@ int main(int argc,char const*argv[]){
 								}
 								else if(!g1.at(i).compare("MULT")){
 									fout<<"(IS,03) | ";
+									tout<<"(IS,03) | ";
+									
 									if(g1.size() == 2){
 									if(!isMnemonic(g1.at(i+1))){
 										if(!isAd(g1.at(i))){
@@ -365,6 +411,8 @@ int main(int argc,char const*argv[]){
 								}
 								else if(!g1.at(i).compare("ADD")){
 									fout<<"(IS,01) | ";
+									tout<<"(IS,01) | ";
+									
 									if(g1.size() >= 3){
 									if(!isMnemonic(g1.at(i+1))){
 										if(!isAd(g1.at(i+1))){
@@ -405,6 +453,8 @@ int main(int argc,char const*argv[]){
 								}
 								else if(!g1.at(i).compare("COMP")){
 									fout<<"(IS,06) | ";
+									tout<<"(IS,06) | ";
+									
 									if(g1.size() >= 3){
 										if(!isMnemonic(g1.at(i+1))){
 											if(!isAd(g1.at(i+1))){
@@ -442,10 +492,14 @@ int main(int argc,char const*argv[]){
 									}	
 								}
 								else if(!g1.at(i).compare("BC")){
-									fout<<"(IS,07) | ";	
+									fout<<"(IS,07) | ";
+									tout<<"(IS,07) | ";	
 								}
 								else if(!g1.at(i).compare("PRINT")){
+									
 									fout<<"(IS,10) | ";
+									tout<<"(IS,10) | ";
+									
 									if(g1.size() >=2 ||g1.size() <=3 ){
 										if(!isMnemonic(g1.at(i+1))){
 											if(!isAd(g1.at(i+1))){
@@ -468,16 +522,61 @@ int main(int argc,char const*argv[]){
 									}	
 								}
 								else if(!g1.at(i).compare("STOP")){
-									fout<<"(IS,00) | ";	
+									fout<<"(IS,00) | ";
+									tout<<"(IS,00) | ";
+									
+									if(g1.size() > 1){
+										cout<<"\nThere Should be Nothing Followed or Precceded By STOP statement on line "<<linecount<<"\n";
+										return 0;
+									}
 								}
 								else if(!g1.at(i).compare("SUB")){
-									fout<<"(IS,02) | ";	
+									fout<<"(IS,02) | ";
+									tout<<"(IS,02) | ";
+									
+									if(g1.size() >= 3){
+									if(!isMnemonic(g1.at(i+1))){
+										if(!isAd(g1.at(i+1))){
+
+										}else{
+
+											cout<<"\nIllegal Use Of Assembler Directive on Line "<<linecount<<"\n";
+											return 0;	
+											
+										}
+									}else{
+
+										cout<<"\nIllegal Use Of Mnemonic on Line "<<linecount<<"\n";
+										return 0;	
+										
+									}
+
+
+									if(!isMnemonic(g1.at(i+2))){
+										if(!isAd(g1.at(i+2))){
+
+										}else{
+
+											cout<<"\nIllegal Use Of Assembler Directive on Line "<<linecount<<"\n";
+											return 0;	
+											
+										}
+									}else{
+
+										cout<<"\nIllegal Use Of Mnemonic on Line "<<linecount<<"\n";
+										return 0;	
+										
+									}
+								}
+	
 								}
 								else if(!g1.at(i).compare("STORE")){
-									fout<<"(IS,11) | ";	
+									fout<<"(IS,11) | ";
+									tout<<"(IS,11) | ";	
 								}
 								else {
-									fout<<"(IS,12) | ";	
+									fout<<"(IS,12) | ";
+									tout<<"(IS,12) | ";	
 								}
 								break;
 							}else{
@@ -488,34 +587,44 @@ int main(int argc,char const*argv[]){
 						 		
 						 	if(isReg(g1.at(i)) || !g1.at(i).compare("BC")){	
  							 	if(!g1.at(i).compare("AREG")){
- 										fout<<"(1)";	
+ 										fout<<"(1)";
+ 										tout<<"AREG , ";	
  								}
  								else if(!g1.at(i).compare("BREG")){
- 										fout<<"(2)";	
+ 										fout<<"(2)";
+ 										tout<<"BREG , ";	
  								}
  								else if(!g1.at(i).compare("CREG")){
- 										fout<<"(3)";	
+ 										fout<<"(3)";
+ 										tout<<"CREG , ";	
  								}
  								else if(!g1.at(i).compare("DREG")){
- 										fout<<"(4)";	
+ 										fout<<"(4)";
+ 										tout<<"DREG , ";	
  								}
  								else if(!g1.at(i+1).compare("LT")){
- 										fout<<"(1)";	
+ 										fout<<"(1)";
+ 										tout<<"LT ," ;	
  								}
  								else if(!g1.at(i+1).compare("LE")){
- 										fout<<"(2)";	
+ 										fout<<"(2)";
+ 										tout<<"LE ,";	
  								}
  								else if(!g1.at(i+1).compare("EQ")){
- 										fout<<"(3)";	
+ 										fout<<"(3)";
+ 										tout<<"EQ , ";	
  								}
  								else if(!g1.at(i+1).compare("GT")){
- 										fout<<"(4)";	
+ 										fout<<"(4)";
+ 										tout<<"GT ,";	
  								}
  								else if(!g1.at(i+1).compare("GE")){
- 										fout<<"(5)";	
+ 										fout<<"(5)";
+ 										tout<<"GE ,";	
  								}
  								else{
- 										fout<<"(6) | ";	
+ 										fout<<"(6)";
+ 										tout<<"ANY , ";	
  								}
 							}
 										
@@ -537,6 +646,7 @@ int main(int argc,char const*argv[]){
 								 			symbolTable[symcount].length = length;
 								 		}
 								 		if(i != 0){
+								 			tout<<symbolTable[symcount].symbol;
 								 			fout<<"(S,0"<<symcount+1<<")";
 								 		}
 										symcount++;	
@@ -551,6 +661,7 @@ int main(int argc,char const*argv[]){
 									}
 									// cout<<"\nG1: "<<g1.at(i)<<"\tSymbol: "<<symbolTable[count].symbol;
 									if(i != 0){
+										tout<<symbolTable[count].symbol;
 										fout<<"(S,0"<<count+1<<")";
 									}
 									if(symbolTable[count].address == 888888){
@@ -583,7 +694,12 @@ int main(int argc,char const*argv[]){
 							}
 
 							if(isNumber(g1.at(i))){
-								fout<<"(C,"<<g1.at(i)<<")";
+									if(!endflg){
+										fout<<"(C,"<<g1.at(i)<<")";
+										tout<<"(C,"<<g1.at(i)<<")";
+										
+									}
+								
 							}
 							if(isLiteral(g1.at(i))){
 								pool.push_back(g1.at(i));								
@@ -591,6 +707,7 @@ int main(int argc,char const*argv[]){
 							}
 							if(isLiteral(g1.at(i)) && !isLiteralPresent(g1.at(i),litcnt)){
 								fout<<"(L,0"<<litcnt+1<<")";
+								tout<<"(L,0"<<litcnt+1<<")";
 							}
 
 
@@ -602,12 +719,16 @@ int main(int argc,char const*argv[]){
 				  }
 				
 				fout<<"\n";
+				tout<<"\n";
 				word = "";
 			}else{
 				word+=ch;
 			}
 		}
+
 	}
+
+				
 	cout<<"\n\t\tSYMBOL TABLE";
 	cout<<"\n------------------------------------------------";
 	cout<<"\nSR\t\tSYMBOL\t\tADDRESS\t\tLENGTH";
