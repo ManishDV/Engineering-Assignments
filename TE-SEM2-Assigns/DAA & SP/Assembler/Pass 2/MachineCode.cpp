@@ -108,8 +108,8 @@ int findSymbolAddress(int index){
 }
 
 
-string findLiteral(int index){
-	return litTable[index].literal;
+int findLiteralAddress(int index){
+	return litTable[index].address;
 }
 
 void generateMachineCode(){
@@ -120,7 +120,7 @@ void generateMachineCode(){
 	ofstream fout;
 	fout.open("MachineCode.txt",ios::out);
 	string word;
-	fout<<"ADDRESS\t\tOPCODE\t\tREGISTER OPERAND\t\tMEMORY OPERAND\n";
+	fout<<"ADDRESS\t\t\tOPCODE\t\tREGISTER OPERAND\t\tMEMORY OPERAND\n";
 	vector<string> splits;
 	if(!fin){
 		cout<<"\nFile Does Not Exists\n";
@@ -140,26 +140,34 @@ void generateMachineCode(){
 			}else if(ch == '\n'){
 				// int reg_operand = 0;
 				int mem_operand = 0;
-				string literal = "";
+				int literal_add = 0;
+				bool flag = false;
 				cout<<"\nSIZE : "<<splits.size();
 				if(splits.size() == 4){
 					if(!splits.at(0).compare("AD") && !splits.at(1).compare("01")){
 						lc = stringToI(splits.at(3));
 					}
 					if(!splits.at(0).compare("DL")){
-						fout<<lc<<") \t\t\t "<<" -- \t\t\t -- \t\t\t --";
+						fout<<lc<<")  \t\t   "<<" --\t\t\t --\t\t\t\t --";
 						lc++;
 						// continue;
 					}
+					if(!splits.at(0).compare("AD")){
+						fout<<lc<<") \t\t   "<<" --\t\t\t --\t\t\t\t --";
+						lc++;
+
+					}
 					if(!splits.at(0).compare("IS")){
 						// cout<<"\n\nS : "<<splits.at(2)<<"\n\n";
+						// string  s = splits.at(2);
+						// string  s1 = "S";
+						// cout<<"\n\n"<<s<<"\n\n";
 						
-						if(splits.at(2).compare("S")){
-							mem_operand = findSymbolAddress(stringToI(splits.at(3)) - 1 );
-							cout<<"\n\nMEM: "<<mem_operand<<"\t\t";
-						}
-						
-						fout<<lc<<")\t\t"<<splits.at(1)<<"\t\t\t -- \t\t\t"<<mem_operand<<"\n";
+						if(!splits.at(2).compare("  S")){
+							mem_operand = findSymbolAddress(stringToI(splits.at(3))-1);
+							cout<<"\n\n------------";
+						}	
+						fout<<lc<<")  \t\t    "<<splits.at(1)<<" \t\t\t\t -- \t\t\t\t "<<mem_operand<<"\n";
 						lc = lc+1;
 						// continue;	
 					}
@@ -168,26 +176,36 @@ void generateMachineCode(){
 					
 					if(!splits.at(0).compare("IS")){
 						if(!splits.at(3).compare("S")){
-							mem_operand = findSymbolAddress(stringToI(splits.at(4)));
+							mem_operand = findSymbolAddress(stringToI(splits.at(4))-1);
 							// cout<<lc;
 						}
 						if(!splits.at(3).compare("L")){
-							literal = findLiteral(stringToI(splits.at(4)));
+							literal_add = findLiteralAddress(stringToI(splits.at(4))-1);
 							// cout<<lc;
+							flag = true;
 						}
 
-						if(literal.length() == 0){
-							fout<<lc<<") \t\t "<<splits.at(1)<<" \t\t\t "<<splits.at(2)<<" \t\t\t "<<mem_operand<<"\n";
+						if(!flag){
+							fout<<lc<<") \t\t\t "<<splits.at(1)<<" \t\t\t\t "<<splits.at(2)<<" \t\t\t\t "<<mem_operand<<"\n";
 						}else{
-							fout<<lc<<") \t\t "<<splits.at(1)<<" \t\t\t "<<splits.at(2)<<" \t\t\t "<<literal<<"\n";
+							fout<<lc<<") \t\t\t "<<splits.at(1)<<" \t\t\t\t "<<splits.at(2)<<" \t\t\t\t "<<literal_add<<"\n";
 						}
-
+						flag = false;
 						lc++;
 						// continue;
 					}	
 					// cout<<word<<"\n";
 				}else if(splits.size() == 2){
 					// cout<<word<<"\n";
+					if(!splits.at(0).compare("AD")){
+						fout<<lc<<") \t\t\t\t "<<" -- \t\t\t\t -- \t\t\t\t --";
+						lc++;
+					}
+					if(!splits.at(0).compare("IS") && !splits.at(1).compare("00")){
+						fout<<lc<<") \t\t\t\t "<<splits.at(1)<<" \t\t\t\t -- \t\t\t\t\n";
+						lc++;
+					}
+					
 				}else{
 					// cout<<"\nThere Is Something Wrong With Intermediate Code\n";
 					return;
