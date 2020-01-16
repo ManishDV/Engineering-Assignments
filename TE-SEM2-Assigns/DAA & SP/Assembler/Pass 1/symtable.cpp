@@ -716,10 +716,11 @@ int main(int argc,char const*argv[]){
 					}
 				
 					g1.clear();
+						
+					fout<<"\n";
+					tout<<"\n";
 				  }
 				
-				fout<<"\n";
-				tout<<"\n";
 				word = "";
 			}else{
 				word+=ch;
