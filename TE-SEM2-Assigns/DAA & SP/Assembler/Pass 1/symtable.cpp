@@ -20,8 +20,8 @@ struct literalTable{
 	string literal;
 	int address;
 }litTable[20];
-
-string ad[] ={"EQU","ORG","DS","DC","INCLUDE","LTORG","END","START"};
+char splChar;
+string ad[] ={"EQU","ORG","DS","DC","INCLUDE","LTORG","END","START","ORIGIN"};
 string IS[] ={"READ","PRINT","MOVER","ADD","MOVEM","STOP","BC","MULT","COMP"};
 string reg[] ={"AREG","BREG","CREG","DREG"};
 
@@ -138,6 +138,46 @@ bool syntaxOK(vector<string> splits){
 	return true;
 }
 
+
+bool isPresentLiteral(string literal,int size){
+	for(int i=0;i<size;i++){
+		if(!litTable[i].literal.compare(literal)){
+			return true;
+		}
+	}
+	return false;
+}
+
+bool digitCheck(string s){
+	int i=0;
+	for(;i<s.length();i++){
+		if(isdigit(s[i])){
+			continue;
+		}
+	}
+	if(i == s.length()){
+		return true;
+	}
+	return false;
+}
+
+
+void seperateTwo(string splits[2],string word){
+	int j =0;
+	string temp="";
+	for(int i=0;i<wrod.length();i++){
+		if(word[i] =='+' ||  word[i] =='-' ||  word[i] =='\0'){
+			 splits[j] =temp;
+			 temp="";
+			 j++; 
+			 if(word[i] =='+' ||  word[i] =='-'){
+			 	splChar = word[i];
+			 }
+		}
+		temp+=word[i];
+	}
+}
+
 int main(int argc,char const*argv[]){
 	ifstream fin;
 	ofstream fout,tout;
@@ -170,11 +210,16 @@ int main(int argc,char const*argv[]){
 
 			fin.get(ch);
 			if(ch == ' ' || ch == ',' || ch == '\n'){
+
 				g1.push_back(word);
 				if(ch == '\n'){
+					// if(g1.size() == 3){
 
+					// }
+					if(linecount > 2){
+						LC++;
+					}
 					linecount++;
-					LC++;
 					// cout<<"\nGOING FOR SYNTAX CHECKING";
 					for(int i=0;i<g1.size();i++){
 						for(int j = 0;j<adSize;j++){
@@ -184,12 +229,17 @@ int main(int argc,char const*argv[]){
 									poolTab[poolcnt] = litcnt+1;
 								}
 								for(int z=0;z<pool.size();z++){
-									litTable[litcnt].sr = litcnt+1;
-									litTable[litcnt].literal = pool[0];
-									litTable[litcnt].address = LC;
-									LC++;
-									litcnt++;
-
+									if(!isPresentLiteral(pool.at(i),litcnt)){
+										litTable[litcnt].sr = litcnt+1;
+										litTable[litcnt].literal = pool[0];
+										litTable[litcnt].address = LC;
+										LC++;
+										litcnt++;
+		
+									}else{
+										continue;
+									}	
+									
 								}
 								if(pool.size()){
 									poolcnt++;
@@ -221,7 +271,31 @@ int main(int argc,char const*argv[]){
 								}
 								else if(!g1.at(i).compare("ORIGIN")){
 									fout<<"(AD,03) | ";	
-									tout<<"(AD,03) | ";	
+									tout<<"(AD,03) | ";
+
+									if(digitCheck(g1.at(1))){
+										LC = stringToI(g1.at(1));
+									}else{
+										string splits[2] = {"",""};
+										seperateTwo(splits,g1.at(i+1));
+										if(isPresent(symbolTable,symcount,splits[0])){
+											int add = 0;
+											if(int k =0;k<symcount;k++){
+												if(!symbolTable[i].symbol.compare(splits[0])){
+													add = symbolTable[i].address;
+												}
+
+											}
+											if(splChar == '+'){
+												LC = address + stringToI(splits[1]); 
+											}
+
+											if(splChar == '-'){
+												LC = address - stringToI(splits[1]); 
+											}
+										}
+									}
+
 								
 								}
 								else if(!g1.at(i).compare("EQU")){
