@@ -248,6 +248,7 @@ int main(int argc,char const*argv[]){
 	int poolcnt = 0;
 	int litcnt = 0;
 	int symcount = 0;
+
 	if(!fin){
 	   cout<<"\nFILE DOES NOT EXISTS";	
 	}else{
@@ -257,12 +258,18 @@ int main(int argc,char const*argv[]){
 				g1.push_back(word);
 				if(ch == '\n'){
 					linecount++;
-					LC++;
+					if(linecount > 2){
+						LC++;	
+					}
+					
 					// cout<<"\nGOING FOR SYNTAX CHECKING";
 					for(int i=0;i<g1.size();i++){
 						for(int j = 0;j<adSize;j++){
 							if(!g1.at(i).compare("END") || !g1.at(i).compare("LTORG")){
-								LC--;
+								// LC--;
+								if(!g1.at(i).compare("END")){
+									LC--;
+								}
 								if(pool.size()){
 									poolTab[poolcnt] = litcnt+1;
 								}
@@ -270,7 +277,10 @@ int main(int argc,char const*argv[]){
 									litTable[litcnt].sr = litcnt+1;
 									litTable[litcnt].literal = pool[0];
 									litTable[litcnt].address = LC;
-									LC++;
+									if(z != pool.size()-1){
+										LC++;
+										
+									}
 									litcnt++;
 
 								}
@@ -294,7 +304,9 @@ int main(int argc,char const*argv[]){
 									}	
 								}
 								else if(!g1.at(i).compare("END")){
-									fout<<"(AD,02) | ";
+									fout<<" \t\t (AD,02) | ";
+									
+									
 									// tout<<"(AD,02) | ";
 									endflg = 1;
 									if(g1.size() > 1){
@@ -303,12 +315,12 @@ int main(int argc,char const*argv[]){
 									}	
 								}
 								else if(!g1.at(i).compare("ORIGIN")){
-									fout<<"(AD,03) | ";	
+									fout<<" \t\t (AD,03) | ";	
 									// tout<<"(AD,03) | ";	
 								
 								}
 								else if(!g1.at(i).compare("EQU")){
-									fout<<"(IS,04) | ";
+									fout<<" \t\t (IS,04) | ";
 									// tout<<"(IS,04) | ";	
 									if(g1.size() > 3){
 										cout<<"\nThere Is Extra Symbol On Line "<<linecount<<"\n";
@@ -316,7 +328,7 @@ int main(int argc,char const*argv[]){
 									}
 								}
 								else if(!g1.at(i).compare("LTORG")){
-									fout<<"(AD,05) | ";
+									fout<<" \t\t (AD,05) | ";
 									// tout<<"(AD,05) | ";
 									
 									if(g1.size() > 1){
@@ -325,15 +337,17 @@ int main(int argc,char const*argv[]){
 									}	
 								}
 								else if(!g1.at(i).compare("DS")){
-									fout<<"(DL,02) | ";
 									// tout<<"(DL,02) | ";
+									if(!g1.at(0).compare())
+									fout<<LC<<" \t\t (DL,02) | ";
+									
 									if(g1.size() > 3){
 										cout<<"\nThere Is Extra Symbol On Line "<<linecount<<"\n";
 										return 0;
 									}	
 								}
 								else{
-									fout<<"(DL,01) | ";	
+									fout<<LC<<" \t\t (DL,01) | ";	
 									// tout<<"(DL,01) | ";
 									if(g1.size() > 3){
 										cout<<"\nThere Is Extra Symbol On Line "<<linecount<<"\n";
@@ -350,7 +364,7 @@ int main(int argc,char const*argv[]){
 								imperative.push_back(IS[j]);
 								isSymbol = 0;
 								if(!g1.at(i).compare("READ")){
-									fout<<"(IS,09) | ";
+									fout<<LC<<" \t\t(IS,09) | ";
 									// tout<<"(IS,09) | ";
 										
 									if(!isMnemonic(g1.at(i+1))){
@@ -373,7 +387,7 @@ int main(int argc,char const*argv[]){
 									}
 								}
 								else if(!g1.at(i).compare("MOVER")){
-									fout<<"(IS,04) | ";
+									fout<<LC<<" \t\t(IS,04) | ";
 									// tout<<"(IS,04) | ";
 									
 									if(g1.size() >= 3){
@@ -419,7 +433,7 @@ int main(int argc,char const*argv[]){
 									}
 								}
 								else if(!g1.at(i).compare("MOVEM")){
-									fout<<"(IS,05) | ";
+									fout<<LC<<" \t\t(IS,05) | ";
 									// tout<<"(IS,05) | ";
 									
 										if(g1.size() >= 3){
@@ -466,7 +480,7 @@ int main(int argc,char const*argv[]){
 
 								}
 								else if(!g1.at(i).compare("MULT")){
-									fout<<"(IS,03) | ";
+									fout<<LC<<" \t\t(IS,03) | ";
 									// tout<<"(IS,03) | ";
 									
 									if(g1.size() == 2){
@@ -492,7 +506,7 @@ int main(int argc,char const*argv[]){
 								}
 								}
 								else if(!g1.at(i).compare("ADD")){
-									fout<<"(IS,01) | ";
+									fout<<LC<<" \t\t(IS,01) | ";
 									// tout<<"(IS,01) | ";
 									
 									if(g1.size() >= 3){
@@ -534,7 +548,7 @@ int main(int argc,char const*argv[]){
 									}
 								}
 								else if(!g1.at(i).compare("COMP")){
-									fout<<"(IS,06) | ";
+									fout<<LC<<" \t\t(IS,06) | ";
 									// tout<<"(IS,06) | ";
 									
 									if(g1.size() >= 3){
@@ -574,12 +588,12 @@ int main(int argc,char const*argv[]){
 									}	
 								}
 								else if(!g1.at(i).compare("BC")){
-									fout<<"(IS,07) | ";
+									fout<<LC<<" \t\t(IS,07) | ";
 									// tout<<"(IS,07) | ";	
 								}
 								else if(!g1.at(i).compare("PRINT")){
 									
-									fout<<"(IS,10) | ";
+									fout<<LC<<" \t\t(IS,10) | ";
 									// tout<<"(IS,10) | ";
 									
 									if(g1.size() >=2 ||g1.size() <=3 ){
@@ -604,16 +618,18 @@ int main(int argc,char const*argv[]){
 									}	
 								}
 								else if(!g1.at(i).compare("STOP")){
-									fout<<"(IS,00) | ";
+									fout<<LC<<" \t\t(IS,00) | ";
 									// tout<<"(IS,00) | ";
 									
 									if(g1.size() > 1){
 										cout<<"\nThere Should be Nothing Followed or Precceded By STOP statement on line "<<linecount<<"\n";
 										return 0;
 									}
+
+									continue;
 								}
 								else if(!g1.at(i).compare("SUB")){
-									fout<<"(IS,02) | ";
+									fout<<LC<<" \t\t(IS,02) | ";
 									// tout<<"(IS,02) | ";
 									
 									if(g1.size() >= 3){
@@ -653,11 +669,11 @@ int main(int argc,char const*argv[]){
 	
 								}
 								else if(!g1.at(i).compare("STORE")){
-									fout<<"(IS,11) | ";
+									fout<<LC<<" \t\t(IS,11) | ";
 									// tout<<"(IS,11) | ";	
 								}
 								else {
-									fout<<"(IS,12) | ";
+									fout<<LC<<" \t\t(IS,12) | ";
 									// tout<<"(IS,12) | ";	
 								}
 								break;
@@ -713,6 +729,7 @@ int main(int argc,char const*argv[]){
 						 	if(!isNumber(g1.at(i)) && !isReg(g1.at(i)) && !isLiteral(g1.at(i))){
 						 		// cout<<" \n "<<g1.at(i);
 						 		if(!isPresent(symbolTable,symcount,g1.at(i))){
+						 			
 						 				int length = 1;
 						 				symbolTable[symcount].sr = symcount+1;
 										symbolTable[symcount].symbol = g1.at(i);
