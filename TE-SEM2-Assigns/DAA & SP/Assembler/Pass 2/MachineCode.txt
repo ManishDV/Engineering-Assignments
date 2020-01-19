@@ -1,3 +1,0 @@
-ADDRESS			OPCODE		REGISTER OPERAND		MEMORY OPERAND
-100) 		    --			 --				 --
-

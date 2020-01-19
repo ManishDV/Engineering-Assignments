@@ -26,7 +26,10 @@ struct literalTable{
 string ad[] ={"EQU","ORG","DS","DC","INCLUDE","LTORG","END","START"};
 string IS[] ={"READ","PRINT","MOVER","ADD","MOVEM","STOP","BC","MULT","COMP"};
 string reg[] ={"AREG","BREG","CREG","DREG"};
+char splChar;
 
+int adSize = sizeof(ad) / sizeof(ad[0]);
+int isSize = sizeof(IS) / sizeof(IS[0]);
 bool isLiteral(string literal){
 
 	if(literal[0] == '\'' && literal[1] == '='){
@@ -103,125 +106,95 @@ bool isAd(string str){
 	return false;
 }
 
-int findSymbolAddress(int index){
-	return symbolTable[index].address; 
-}
-
-
-int findLiteralAddress(int index){
-	return litTable[index].address;
-}
-
 void generateMachineCode(){
-	int lc = 0;
-	char ch;
-	ifstream fin;
+	// cout<<"\n Inside Machi";
+ifstream fin,sym,lit;
 	fin.open("Intermediate.txt",ios::in);
-	ofstream fout;
-	fout.open("MachineCode.txt",ios::out);
-	string word;
-	fout<<"ADDRESS\t\t\tOPCODE\t\tREGISTER OPERAND\t\tMEMORY OPERAND\n";
-	vector<string> splits;
+	char ch;
 	if(!fin){
-		cout<<"\nFile Does Not Exists\n";
+		cout<<"\nFILE NOT EXISTS\n";
 		return;
 	}else{
 		while(!fin.eof()){
 			fin.get(ch);
-			if(ch == '('){
-				continue;
-			}else if(ch == ',' || ch == ')'){
-				
-				splits.push_back(word);
-				// cout<<"\n"<<word<<"\n";
-				word = "";
-			}else if(ch == '|'){
-				continue;
-			}else if(ch == '\n'){
-				// int reg_operand = 0;
-				int mem_operand = 0;
-				int literal_add = 0;
-				bool flag = false;
-				cout<<"\nSIZE : "<<splits.size();
-				if(splits.size() == 4){
-					if(!splits.at(0).compare("AD") && !splits.at(1).compare("01")){
-						lc = stringToI(splits.at(3));
-					}
-					if(!splits.at(0).compare("DL")){
-						fout<<lc<<")  \t\t   "<<" --\t\t\t --\t\t\t\t --";
-						lc++;
-						// continue;
-					}
-					if(!splits.at(0).compare("AD")){
-						fout<<lc<<") \t\t   "<<" --\t\t\t --\t\t\t\t --";
-						lc++;
-
-					}
-					if(!splits.at(0).compare("IS")){
-						// cout<<"\n\nS : "<<splits.at(2)<<"\n\n";
-						// string  s = splits.at(2);
-						// string  s1 = "S";
-						// cout<<"\n\n"<<s<<"\n\n";
-						
-						if(!splits.at(2).compare("  S")){
-							mem_operand = findSymbolAddress(stringToI(splits.at(3))-1);
-							cout<<"\n\n------------";
-						}	
-						fout<<lc<<")  \t\t    "<<splits.at(1)<<" \t\t\t\t -- \t\t\t\t "<<mem_operand<<"\n";
-						lc = lc+1;
-						// continue;	
-					}
-					// cout<<word<<"\n";
-				}else if(splits.size() == 5){
-					
-					if(!splits.at(0).compare("IS")){
-						if(!splits.at(3).compare("S")){
-							mem_operand = findSymbolAddress(stringToI(splits.at(4))-1);
-							// cout<<lc;
-						}
-						if(!splits.at(3).compare("L")){
-							literal_add = findLiteralAddress(stringToI(splits.at(4))-1);
-							// cout<<lc;
-							flag = true;
-						}
-
-						if(!flag){
-							fout<<lc<<") \t\t\t "<<splits.at(1)<<" \t\t\t\t "<<splits.at(2)<<" \t\t\t\t "<<mem_operand<<"\n";
-						}else{
-							fout<<lc<<") \t\t\t "<<splits.at(1)<<" \t\t\t\t "<<splits.at(2)<<" \t\t\t\t "<<literal_add<<"\n";
-						}
-						flag = false;
-						lc++;
-						// continue;
-					}	
-					// cout<<word<<"\n";
-				}else if(splits.size() == 2){
-					// cout<<word<<"\n";
-					if(!splits.at(0).compare("AD")){
-						fout<<lc<<") \t\t\t\t "<<" -- \t\t\t\t -- \t\t\t\t --";
-						lc++;
-					}
-					if(!splits.at(0).compare("IS") && !splits.at(1).compare("00")){
-						fout<<lc<<") \t\t\t\t "<<splits.at(1)<<" \t\t\t\t -- \t\t\t\t\n";
-						lc++;
-					}
-					
-				}else{
-					// cout<<"\nThere Is Something Wrong With Intermediate Code\n";
-					return;
-				}
-				splits.clear();
-				fout<<"\n";
-			}
-			else{
-				word+=ch;	
-			}
-			
+			cout<<ch;
 		}
+		cout<<"\n\n";
 	}
+
 }
 
 
+bool isPresentLiteral(string literal,int size){
+	for(int i=0;i<size;i++){
+		if(!litTable[i].literal.compare(literal)){
+			return true;
+		}
+	}
+	return false;
+}
+
+
+bool digitCheck(string s){
+	int i=0;
+	for(;i<s.length();i++){
+		if(isdigit(s[i])){
+			continue;
+		}
+	}
+	if(i == s.length()){
+		return true;
+	}
+	return false;
+}
+int opcodeError(vector<string> g1){
+	int adcnt = 0;
+	int opcodecnt = 0;
+	for(int g=0;g<g1.size();g++){
+		for(int h = 0;h<adSize;h++){
+			if(!g1.at(g).compare(ad[h])){
+				adcnt = 1;
+				// cout<<"\nADCNT: "<<g1.at(g);
+				break;
+			}
+		}
+		if(adcnt == 1){
+			break;
+		}
+		for(int h = 0;h<isSize;h++){
+			if(!g1.at(g).compare(IS[h])){
+				opcodecnt = 1;
+				break;
+			}
+		}
+		if(opcodecnt == 1){
+			break;
+		}
+	}
+	// cout<<"\nADCNT : "<<adcnt<<"\t\t"<<"OPCODECNT: "<<opcodecnt;
+		
+	if(adcnt == 0 && opcodecnt == 0){
+		// cout<<"\nADCNT : "<<adcnt<<"\t\t"<<"OPCODECNT: "<<opcodecnt;
+		cout<<"\nInvalid OPCODE on Line "<<linecount<<"\n";
+		return -1;
+	}			
+	return 1;	
+}
+void seperateTwo(string splits[2],string word){
+	int j =0;
+	string temp="";
+	for(int i=0;i<word.length();i++){
+		if(word[i] =='+' ||  word[i] =='-' ||  word[i] =='\0'){
+			 splits[j] =temp;
+			 temp="";
+			 j++; 
+			 if(word[i] =='+' ||  word[i] =='-'){
+			 	splChar = word[i];
+			 }
+		}
+		temp+=word[i];
+	}
+}
 
 int main(int argc,char const*argv[]){
 	ifstream fin;
@@ -248,7 +221,6 @@ int main(int argc,char const*argv[]){
 	int poolcnt = 0;
 	int litcnt = 0;
 	int symcount = 0;
-
 	if(!fin){
 	   cout<<"\nFILE DOES NOT EXISTS";	
 	}else{
@@ -257,32 +229,40 @@ int main(int argc,char const*argv[]){
 			if(ch == ' ' || ch == ',' || ch == '\n'){
 				g1.push_back(word);
 				if(ch == '\n'){
-					linecount++;
-					if(linecount > 2){
-						LC++;	
+						if(linecount > 2){
+						LC++;
 					}
-					
+					linecount++;
+					if(!g1.at(0).compare("END")){
+						continue;
+					}else{
+						int v = opcodeError(g1);
+						if(v < 0){
+							return 0;
+						}else{
+
+						}	
+					}
 					// cout<<"\nGOING FOR SYNTAX CHECKING";
 					for(int i=0;i<g1.size();i++){
 						for(int j = 0;j<adSize;j++){
 							if(!g1.at(i).compare("END") || !g1.at(i).compare("LTORG")){
-								// LC--;
-								if(!g1.at(i).compare("END")){
-									LC--;
-								}
+								LC--;
 								if(pool.size()){
 									poolTab[poolcnt] = litcnt+1;
 								}
 								for(int z=0;z<pool.size();z++){
-									litTable[litcnt].sr = litcnt+1;
-									litTable[litcnt].literal = pool[0];
-									litTable[litcnt].address = LC;
-									if(z != pool.size()-1){
+										if(!isPresentLiteral(pool.at(i),litcnt)){
+										litTable[litcnt].sr = litcnt+1;
+										litTable[litcnt].literal = pool[0];
+										litTable[litcnt].address = LC;
 										LC++;
-										
-									}
-									litcnt++;
-
+										litcnt++;
+		
+									}else{
+										continue;
+									}	
+									
 								}
 								if(pool.size()){
 									poolcnt++;
@@ -296,7 +276,7 @@ int main(int argc,char const*argv[]){
 								directives.push_back(ad[j]);
 								isSymbol = 0;
 								if(!g1.at(i).compare("START")){
-									fout<<"(AD,01) | ";
+									fout<<"0\t(AD,01) | ";
 									// tout<<"(AD,01) | ";
 									if(g1.size() > 2){
 										cout<<"\nThere is Extra Symbol On Line "<<linecount<<"\n";
@@ -304,9 +284,7 @@ int main(int argc,char const*argv[]){
 									}	
 								}
 								else if(!g1.at(i).compare("END")){
-									fout<<" \t\t (AD,02) | ";
-									
-									
+									fout<<"0\t(AD,02) | ";
 									// tout<<"(AD,02) | ";
 									endflg = 1;
 									if(g1.size() > 1){
@@ -315,12 +293,37 @@ int main(int argc,char const*argv[]){
 									}	
 								}
 								else if(!g1.at(i).compare("ORIGIN")){
-									fout<<" \t\t (AD,03) | ";	
+									fout<<"0\t(AD,03) | ";	
 									// tout<<"(AD,03) | ";	
-								
+									int address = 0;
+									if(digitCheck(g1.at(1))){
+										LC = stringToI(g1.at(1));
+									}else{
+										string splits[2] = {"",""};
+										seperateTwo(splits,g1.at(i+1));
+										if(isPresent(symbolTable,symcount,splits[0]))
+										{
+											int add = 0;
+											for(int k =0;k<symcount;k++){
+												if(!symbolTable[i].symbol.compare(splits[0])){
+													add = symbolTable[i].address;
+												}
+
+											}
+											if(splChar == '+'){
+												LC = add + stringToI(splits[1]); 
+											}
+
+											if(splChar == '-'){
+												LC = add - stringToI(splits[1]); 
+											}
+										}
+									}
+
+
 								}
 								else if(!g1.at(i).compare("EQU")){
-									fout<<" \t\t (IS,04) | ";
+									fout<<"0\t(IS,04) | ";
 									// tout<<"(IS,04) | ";	
 									if(g1.size() > 3){
 										cout<<"\nThere Is Extra Symbol On Line "<<linecount<<"\n";
@@ -328,7 +331,7 @@ int main(int argc,char const*argv[]){
 									}
 								}
 								else if(!g1.at(i).compare("LTORG")){
-									fout<<" \t\t (AD,05) | ";
+									fout<<"0\t(AD,05) | ";
 									// tout<<"(AD,05) | ";
 									
 									if(g1.size() > 1){
@@ -337,17 +340,15 @@ int main(int argc,char const*argv[]){
 									}	
 								}
 								else if(!g1.at(i).compare("DS")){
+									fout<<"0\t(DL,02) | ";
 									// tout<<"(DL,02) | ";
-									if(!g1.at(0).compare())
-									fout<<LC<<" \t\t (DL,02) | ";
-									
 									if(g1.size() > 3){
 										cout<<"\nThere Is Extra Symbol On Line "<<linecount<<"\n";
 										return 0;
 									}	
 								}
 								else{
-									fout<<LC<<" \t\t (DL,01) | ";	
+									fout<<"0\t(DL,01) | ";	
 									// tout<<"(DL,01) | ";
 									if(g1.size() > 3){
 										cout<<"\nThere Is Extra Symbol On Line "<<linecount<<"\n";
@@ -364,7 +365,7 @@ int main(int argc,char const*argv[]){
 								imperative.push_back(IS[j]);
 								isSymbol = 0;
 								if(!g1.at(i).compare("READ")){
-									fout<<LC<<" \t\t(IS,09) | ";
+									fout<<LC<<"\t(IS,09) | ";
 									// tout<<"(IS,09) | ";
 										
 									if(!isMnemonic(g1.at(i+1))){
@@ -387,7 +388,7 @@ int main(int argc,char const*argv[]){
 									}
 								}
 								else if(!g1.at(i).compare("MOVER")){
-									fout<<LC<<" \t\t(IS,04) | ";
+									fout<<LC<<"\t(IS,04) | ";
 									// tout<<"(IS,04) | ";
 									
 									if(g1.size() >= 3){
@@ -433,7 +434,7 @@ int main(int argc,char const*argv[]){
 									}
 								}
 								else if(!g1.at(i).compare("MOVEM")){
-									fout<<LC<<" \t\t(IS,05) | ";
+									fout<<LC<<"\t(IS,05) | ";
 									// tout<<"(IS,05) | ";
 									
 										if(g1.size() >= 3){
@@ -480,7 +481,7 @@ int main(int argc,char const*argv[]){
 
 								}
 								else if(!g1.at(i).compare("MULT")){
-									fout<<LC<<" \t\t(IS,03) | ";
+									fout<<LC<<"\t(IS,03) | ";
 									// tout<<"(IS,03) | ";
 									
 									if(g1.size() == 2){
@@ -506,7 +507,7 @@ int main(int argc,char const*argv[]){
 								}
 								}
 								else if(!g1.at(i).compare("ADD")){
-									fout<<LC<<" \t\t(IS,01) | ";
+									fout<<LC<<"\t(IS,01) | ";
 									// tout<<"(IS,01) | ";
 									
 									if(g1.size() >= 3){
@@ -548,7 +549,7 @@ int main(int argc,char const*argv[]){
 									}
 								}
 								else if(!g1.at(i).compare("COMP")){
-									fout<<LC<<" \t\t(IS,06) | ";
+									fout<<LC<<"\t(IS,06) | ";
 									// tout<<"(IS,06) | ";
 									
 									if(g1.size() >= 3){
@@ -588,12 +589,12 @@ int main(int argc,char const*argv[]){
 									}	
 								}
 								else if(!g1.at(i).compare("BC")){
-									fout<<LC<<" \t\t(IS,07) | ";
+									fout<<LC<<"\t(IS,07) | ";
 									// tout<<"(IS,07) | ";	
 								}
 								else if(!g1.at(i).compare("PRINT")){
 									
-									fout<<LC<<" \t\t(IS,10) | ";
+									fout<<LC<<"\t(IS,10) | ";
 									// tout<<"(IS,10) | ";
 									
 									if(g1.size() >=2 ||g1.size() <=3 ){
@@ -618,18 +619,16 @@ int main(int argc,char const*argv[]){
 									}	
 								}
 								else if(!g1.at(i).compare("STOP")){
-									fout<<LC<<" \t\t(IS,00) | ";
+									fout<<LC<<"\t(IS,00) | ";
 									// tout<<"(IS,00) | ";
 									
 									if(g1.size() > 1){
 										cout<<"\nThere Should be Nothing Followed or Precceded By STOP statement on line "<<linecount<<"\n";
 										return 0;
 									}
-
-									continue;
 								}
 								else if(!g1.at(i).compare("SUB")){
-									fout<<LC<<" \t\t(IS,02) | ";
+									fout<<LC<<"\t(IS,02) | ";
 									// tout<<"(IS,02) | ";
 									
 									if(g1.size() >= 3){
@@ -669,11 +668,11 @@ int main(int argc,char const*argv[]){
 	
 								}
 								else if(!g1.at(i).compare("STORE")){
-									fout<<LC<<" \t\t(IS,11) | ";
+									fout<<LC<<"\t(IS,11) | ";
 									// tout<<"(IS,11) | ";	
 								}
 								else {
-									fout<<LC<<" \t\t(IS,12) | ";
+									fout<<LC<<"\t(IS,12) | ";
 									// tout<<"(IS,12) | ";	
 								}
 								break;
@@ -729,7 +728,6 @@ int main(int argc,char const*argv[]){
 						 	if(!isNumber(g1.at(i)) && !isReg(g1.at(i)) && !isLiteral(g1.at(i))){
 						 		// cout<<" \n "<<g1.at(i);
 						 		if(!isPresent(symbolTable,symcount,g1.at(i))){
-						 			
 						 				int length = 1;
 						 				symbolTable[symcount].sr = symcount+1;
 										symbolTable[symcount].symbol = g1.at(i);
@@ -738,7 +736,7 @@ int main(int argc,char const*argv[]){
 								 			length = stringToI(g1.at(2));
 								 			symbolTable[symcount].address = LC;
 								 			symbolTable[symcount].length = length;
-								 			LC = LC+length-1;
+								 			LC = LC+length;
 								 			// cout<<"\nLC: "<<LC;	
 								 		}else{
 								 			symbolTable[symcount].address = 888888;
@@ -771,7 +769,7 @@ int main(int argc,char const*argv[]){
 								 			// cout<<"\nLENGTH: "<<length;
 								 			symbolTable[count].address = LC;
 								 			symbolTable[count].length = length;
-								 			LC = LC+length-1;
+								 			LC = LC+length;
 									}
 								}
 
@@ -829,7 +827,21 @@ int main(int argc,char const*argv[]){
 		}
 
 	}
-	fout.close();
+	ofstream f,f1;
+	cout<<symcount;
+	f.open("symbolTable.txt",ios::out);
+	// f<<"SR.NO\t\tSYMBOL\t\tADDRESS\t\tLENGTH\n";
+	for(int i=0;i<symcount;i++){ 
+		f<<"\t"<<symbolTable[i].sr<<"\t"<<symbolTable[i].symbol<<"\t"<<symbolTable[i].address<<"\t"<<symbolTable[i].length<<"\n";
+	}
+
+	f1.open("literalTable.txt",ios::out);
+	// f1<<"SR.NO\t\tLITERAL\t\tADDRESS";
+	for(int i=0;i<litcnt;i++){ 
+		f1<<"\t"<<litTable[i].sr<<"\t"<<litTable[i].literal<<"\t"<<litTable[i].address<<"\n";
+	}
+
+
 	generateMachineCode();
 	// cout<<"\nMachine Code Saved In File Machine_Code.txt";
 	printf("\n");	
