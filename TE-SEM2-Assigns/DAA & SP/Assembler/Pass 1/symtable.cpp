@@ -24,7 +24,9 @@ char splChar;
 string ad[] ={"EQU","ORG","DS","DC","INCLUDE","LTORG","END","START","ORIGIN"};
 string IS[] ={"READ","PRINT","MOVER","ADD","MOVEM","STOP","BC","MULT","COMP"};
 string reg[] ={"AREG","BREG","CREG","DREG"};
-
+int adSize = sizeof(ad) / sizeof(ad[0]);
+int isSize = sizeof(IS) / sizeof(IS[0]);
+	
 bool isLiteral(string literal){
 
 	if(literal[0] == '\'' && literal[1] == '='){
@@ -101,44 +103,6 @@ bool isAd(string str){
 	return false;
 }
 
-
-
-bool syntaxOK(vector<string> splits){
-	cout<<"\nIN SYNTAX CHECK"<<std::flush;
-	if(isMnemonic(splits[0])){
-
-		return true;
-
-	}else if(isAd(splits[0])){
-			
-		cout<<"\nHERE";
-		if(!splits[0].compare("START")){
-			cout<<"\nIn Start";
-			if(splits.size() == 2){
-						if(isNumber(splits[1]) || !splits[0].compare(" ")){
-							return true;
-						}else{
-							cout<<"\nThere Should Be Constant After START directive at Line "<<linecount;
-							return true;
-						}
-			}else{
-				cout<<"\nThere Is Extra Character on Line "<<linecount;
-				return true;
-			}
-
-		}
-
-
-
-	}else{
-		// cout<<"\nIt iS Coming HERE";
-		return true;
-	}
-
-	return true;
-}
-
-
 bool isPresentLiteral(string literal,int size){
 	for(int i=0;i<size;i++){
 		if(!litTable[i].literal.compare(literal)){
@@ -160,12 +124,44 @@ bool digitCheck(string s){
 	}
 	return false;
 }
-
+int opcodeError(vector<string> g1){
+	int adcnt = 0;
+	int opcodecnt = 0;
+	for(int g=0;g<g1.size();g++){
+		for(int h = 0;h<adSize;h++){
+			if(!g1.at(g).compare(ad[h])){
+				adcnt = 1;
+				// cout<<"\nADCNT: "<<g1.at(g);
+				break;
+			}
+		}
+		if(adcnt == 1){
+			break;
+		}
+		for(int h = 0;h<isSize;h++){
+			if(!g1.at(g).compare(IS[h])){
+				opcodecnt = 1;
+				break;
+			}
+		}
+		if(opcodecnt == 1){
+			break;
+		}
+	}
+	// cout<<"\nADCNT : "<<adcnt<<"\t\t"<<"OPCODECNT: "<<opcodecnt;
+		
+	if(adcnt == 0 && opcodecnt == 0){
+		// cout<<"\nADCNT : "<<adcnt<<"\t\t"<<"OPCODECNT: "<<opcodecnt;
+		cout<<"\nInvalid OPCODE on Line "<<linecount<<"\n";
+		return -1;
+	}			
+	return 1;	
+}
 
 void seperateTwo(string splits[2],string word){
 	int j =0;
 	string temp="";
-	for(int i=0;i<wrod.length();i++){
+	for(int i=0;i<word.length();i++){
 		if(word[i] =='+' ||  word[i] =='-' ||  word[i] =='\0'){
 			 splits[j] =temp;
 			 temp="";
@@ -191,8 +187,6 @@ int main(int argc,char const*argv[]){
 	int endflg = 0;
 	int poolTab[10];
 	vector<string> g1;
-	int adSize = sizeof(ad) / sizeof(ad[0]);
-	int isSize = sizeof(IS) / sizeof(IS[0]);
 	std::vector<string> directives;
 	std::vector<string> imperative;
 	std::vector<string> pool;
@@ -202,6 +196,8 @@ int main(int argc,char const*argv[]){
 	int k = 0;
 	int poolcnt = 0;
 	int litcnt = 0;
+	int opcodecnt = 0;
+	int adcnt = 0;
 	int symcount = 0;
 	if(!fin){
 	   cout<<"\nFILE DOES NOT EXISTS";	
@@ -213,13 +209,22 @@ int main(int argc,char const*argv[]){
 
 				g1.push_back(word);
 				if(ch == '\n'){
-					// if(g1.size() == 3){
 
-					// }
+					
 					if(linecount > 2){
 						LC++;
 					}
 					linecount++;
+					if(!g1.at(0).compare("END")){
+						continue;
+					}else{
+						int v = opcodeError(g1);
+						if(v < 0){
+							return 0;
+						}else{
+
+						}	
+					}
 					// cout<<"\nGOING FOR SYNTAX CHECKING";
 					for(int i=0;i<g1.size();i++){
 						for(int j = 0;j<adSize;j++){
@@ -250,6 +255,7 @@ int main(int argc,char const*argv[]){
 								
 
 							if(g1.at(i).compare(ad[j]) == 0){
+								adcnt = 1;
 								directives.push_back(ad[j]);
 								isSymbol = 0;
 								if(!g1.at(i).compare("START")){
@@ -272,26 +278,27 @@ int main(int argc,char const*argv[]){
 								else if(!g1.at(i).compare("ORIGIN")){
 									fout<<"(AD,03) | ";	
 									tout<<"(AD,03) | ";
-
+									int address = 0;
 									if(digitCheck(g1.at(1))){
 										LC = stringToI(g1.at(1));
 									}else{
 										string splits[2] = {"",""};
 										seperateTwo(splits,g1.at(i+1));
-										if(isPresent(symbolTable,symcount,splits[0])){
+										if(isPresent(symbolTable,symcount,splits[0]))
+										{
 											int add = 0;
-											if(int k =0;k<symcount;k++){
+											for(int k =0;k<symcount;k++){
 												if(!symbolTable[i].symbol.compare(splits[0])){
 													add = symbolTable[i].address;
 												}
 
 											}
 											if(splChar == '+'){
-												LC = address + stringToI(splits[1]); 
+												LC = add + stringToI(splits[1]); 
 											}
 
 											if(splChar == '-'){
-												LC = address - stringToI(splits[1]); 
+												LC = add - stringToI(splits[1]); 
 											}
 										}
 									}
@@ -339,6 +346,7 @@ int main(int argc,char const*argv[]){
 						}
 						for(int j=0;j<isSize;j++){
 							if(g1.at(i).compare(IS[j]) == 0){
+								opcodecnt = 1;
 								imperative.push_back(IS[j]);
 								isSymbol = 0;
 								if(!g1.at(i).compare("READ")){
@@ -786,9 +794,9 @@ int main(int argc,char const*argv[]){
 
 
 						 }
+
 						isSymbol = 1;
 					}
-				
 					g1.clear();
 						
 					fout<<"\n";

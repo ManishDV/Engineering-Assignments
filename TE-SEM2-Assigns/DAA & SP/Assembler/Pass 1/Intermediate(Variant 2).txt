@@ -2,16 +2,3 @@
 (DL,02) | (C,10)
 (IS,09) | A
 (IS,09) | B
-(AD,03) | (C,20)
-(IS,04) | AREG , (L,01)
-(IS,04) | AREG , (L,01)
-(IS,04) | AREG , A
-(AD,05) | 
-(IS,01) | AREG , B
-(IS,04) | AREG , (L,02)
-(IS,05) | AREG , A
-(IS,10) | A
-(IS,00) | 
-(DL,02) | (C,1)
-(AD,02) | 
-
