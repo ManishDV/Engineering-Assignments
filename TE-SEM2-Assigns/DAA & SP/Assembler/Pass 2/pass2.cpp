@@ -120,7 +120,7 @@ int findLiteralAddress(int index){
 	return add;
 }
 
-void generateMachineCode(){
+int generateMachineCode(){
 	vector<string> temp;
 	ifstream ic;
 	ofstream MC;
@@ -132,6 +132,7 @@ void generateMachineCode(){
 	MC<<"ADDRESS\t\tOPCODE\t\t  REGISTER\t\t    MEMORY\n\n";
 	if(!ic){
 		cout<<"\nNO SUCH FILE EXISTS\n";
+		return -1;
 	}else{
 		while(!ic.eof()){
 			ic.get(ch);
@@ -200,13 +201,18 @@ void generateMachineCode(){
 				word+=ch;
 			}
 		}
-	}	
+	}
+
+	return 1;	
 }
 
 int main(int argc, char const *argv[])
 {
 	readSymbolTable();
 	readLiteralTable();
-	generateMachineCode();
+	int status = generateMachineCode();
+	if(status == 1){
+		cout<<"\nMachine Code Is Successfully Generated\n";
+	}
 	return 0;
 }
