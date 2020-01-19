@@ -229,12 +229,12 @@ int main(int argc,char const*argv[]){
 			if(ch == ' ' || ch == ',' || ch == '\n'){
 				g1.push_back(word);
 				if(ch == '\n'){
-						if(linecount > 2){
+					if(linecount > 2){
 						LC++;
 					}
 					linecount++;
-					if(!g1.at(0).compare("END")){
-						continue;
+					if(!g1.at(0).compare("")){
+						
 					}else{
 						int v = opcodeError(g1);
 						if(v < 0){
@@ -250,13 +250,36 @@ int main(int argc,char const*argv[]){
 								LC--;
 								if(pool.size()){
 									poolTab[poolcnt] = litcnt+1;
+									poolcnt++;
+									
+								}
+								if(!g1.at(i).compare("LTORG")){
+									fout<<"0\t(AD,05) | ";
+									// tout<<"(AD,05) | ";
+									isSymbol = 0;
+									if(g1.size() > 1){
+										cout<<"\nThere Should Not Be Anything Followed or Precceded By END On Line "<<linecount<<"\n";
+										return 0;
+									}	
+								}
+
+								 if(!g1.at(i).compare("END")){
+									fout<<"0\t(AD,02) | ";
+									// tout<<"(AD,02) | ";
+									isSymbol = 0;
+									endflg = 1;
+									if(g1.size() > 1){
+										cout<<"\nThere Should Not Be Anything Followed or Precceded By END On Line "<<linecount<<"\n";
+										return 0;	
+									}	
 								}
 								for(int z=0;z<pool.size();z++){
-										if(!isPresentLiteral(pool.at(i),litcnt)){
+									if(!isPresentLiteral(pool.at(i),litcnt)){
 										litTable[litcnt].sr = litcnt+1;
 										litTable[litcnt].literal = pool[0];
-										litTable[litcnt].address = LC;
-										LC++;
+										litTable[litcnt].address = LC+1;
+										LC = LC+1;
+										// cout<<"\nLC : "<<LC<<"\n";
 										litcnt++;
 		
 									}else{
@@ -264,11 +287,9 @@ int main(int argc,char const*argv[]){
 									}	
 									
 								}
-								if(pool.size()){
-									poolcnt++;
-								}
 								pool.clear();
 
+								break;
 							}
 								
 
@@ -281,15 +302,6 @@ int main(int argc,char const*argv[]){
 									if(g1.size() > 2){
 										cout<<"\nThere is Extra Symbol On Line "<<linecount<<"\n";
 										return 0;
-									}	
-								}
-								else if(!g1.at(i).compare("END")){
-									fout<<"0\t(AD,02) | ";
-									// tout<<"(AD,02) | ";
-									endflg = 1;
-									if(g1.size() > 1){
-										cout<<"\nThere Should Not Be Anything Followed or Precceded By END On Line "<<linecount<<"\n";
-										return 0;	
 									}	
 								}
 								else if(!g1.at(i).compare("ORIGIN")){
@@ -323,21 +335,12 @@ int main(int argc,char const*argv[]){
 
 								}
 								else if(!g1.at(i).compare("EQU")){
-									fout<<"0\t(IS,04) | ";
+									fout<<"0\t(AD,04) | ";
 									// tout<<"(IS,04) | ";	
 									if(g1.size() > 3){
 										cout<<"\nThere Is Extra Symbol On Line "<<linecount<<"\n";
 										return 0;
 									}
-								}
-								else if(!g1.at(i).compare("LTORG")){
-									fout<<"0\t(AD,05) | ";
-									// tout<<"(AD,05) | ";
-									
-									if(g1.size() > 1){
-										cout<<"\nThere Should Not Be Anything Followed or Precceded By END On Line "<<linecount<<"\n";
-										return 0;
-									}	
 								}
 								else if(!g1.at(i).compare("DS")){
 									fout<<"0\t(DL,02) | ";
@@ -355,9 +358,6 @@ int main(int argc,char const*argv[]){
 										return 0;
 									}	
 								}
-								break;
-							}else{
-								continue;
 							}
 						}
 						for(int j=0;j<isSize;j++){
@@ -675,10 +675,7 @@ int main(int argc,char const*argv[]){
 									fout<<LC<<"\t(IS,12) | ";
 									// tout<<"(IS,12) | ";	
 								}
-								break;
-							}else{
-								continue;
-							}							
+							}						
 						}
 						 if(isSymbol){
 						 		
@@ -828,7 +825,7 @@ int main(int argc,char const*argv[]){
 
 	}
 	ofstream f,f1;
-	cout<<symcount;
+	// cout<<symcount;
 	f.open("symbolTable.txt",ios::out);
 	// f<<"SR.NO\t\tSYMBOL\t\tADDRESS\t\tLENGTH\n";
 	for(int i=0;i<symcount;i++){ 
@@ -842,7 +839,7 @@ int main(int argc,char const*argv[]){
 	}
 
 
-	generateMachineCode();
+	// generateMachineCode();
 	// cout<<"\nMachine Code Saved In File Machine_Code.txt";
 	printf("\n");	
 }
