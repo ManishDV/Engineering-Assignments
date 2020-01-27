@@ -1,0 +1,39 @@
+==============================================================================================
+						
+									HBASE
+
+==============================================================================================
+						
+
+
+1) Create Table:-
+
+	Command:- 
+
+			 create 'studentDB','personal details','educational details'
+
+	Output:-
+
+			0 row(s) in 2.2660 seconds
+
+			=> Hbase::Table - studentDB
+
+----------------------------------------------------------------------------------------------
+
+2) Dropping a Table:-
+
+	i) Disabling Table:-
+
+		Command:- disable 'employee'
+
+		Output:- 0 row(s) in 4.3060 seconds
+
+	ii) Dropping Table:-
+		
+		Command:-  drop 'employee'
+
+		Output:- 0 row(s) in 2.2990 seconds
+
+----------------------------------------------------------------------------------------------
+
+3) Altering Table
