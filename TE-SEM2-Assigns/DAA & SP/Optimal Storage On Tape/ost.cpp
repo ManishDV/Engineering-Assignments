@@ -163,30 +163,39 @@ void multiStorage(int mode){
 						tapeIdx++;
 				}else{
 					start = tapeIdx;
+					cout<<"\ntapeIDX : "<<tapeIdx;
 					idxArr[i] = tapeIdx;
 					break;
+				}
+
+				if(j == n-1){
+					start = tapeIdx;
+					cout<<"\ntapeIDX : "<<tapeIdx;
+					idxArr[i] = tapeIdx;
+					
 				}
 			}
 		}
 		total = 0;
 		float sumArr[tapeCount];
-		for(int i=0;i<tapeCount;i++){
+		// for(int i=0;i<tapeCount;i++){
 			
-			cout<<"\nLENGTH OF TAPE "<<i+1<<" IS "<<idxArr[i];
-			for(int j=0;j<idxArr[i];j++){
-				int sum = 0;
-					if(j==0){
-						total = tapes[i][j].length;
-					}else{
-						for(int k=0;k<=j;k++){
-							sum+=tapes[i][k].length;
-						}
-					}	
-						total = sum+total;
-			}
-				cout<<"\nTOTAL OF TAPE "<<i+1<<" Is: "<<total;
-				sumArr[i] = float(total) / float(idxArr[i]);
-		}
+		// 	cout<<"\nLENGTH OF TAPE "<<i+1<<" IS "<<idxArr[i];
+		// 	for(int j=0;j<idxArr[i];j++){
+		// 		int sum = 0;
+		// 			if(j==0){
+		// 				total = tapes[i][j].length;
+		// 			}else{
+		// 				for(int k=0;k<=j;k++){
+		// 					sum+=tapes[i][k].length;
+		// 				}
+		// 			}	
+		// 				total = sum+total;
+		// 				cout<<"\nTOTAL OF TAPE "<<i+1<<" Is: "<<total;
+		// 				sumArr[i] = float(total) / float(idxArr[i]);
+		// 	}
+				
+		// }
 
 		for (int i = 0; i < tapeCount; ++i)
 		{
@@ -194,6 +203,7 @@ void multiStorage(int mode){
 			cout<<"\n===========================================\n";
 			cout<<"\t\tTAPE "<<i+1<<" CONTENT";
 			cout<<"\n===========================================\n";
+			cout<<"\nLENGTH IDX OF "<<i+1<<" : "<<idxArr[i];
 			for (int j = 0; j < idxArr[i]; ++j)
 			{
 
@@ -207,7 +217,7 @@ void multiStorage(int mode){
 			
 		}	
 			
-		
+		return;
 
 
 	}else{
