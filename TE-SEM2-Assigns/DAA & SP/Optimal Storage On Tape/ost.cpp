@@ -56,6 +56,7 @@ int Merge(int p, int q,int r)
     {
         program[k++]=R[j++];
     }
+    return 0;
 }
 int Sort(int p,int r)    
 {
@@ -67,6 +68,7 @@ int Sort(int p,int r)
         Sort(q+1,r);
         Merge(p,q,r);
     }
+    return 0;
 }
 
 void storeOnTape(){
@@ -145,12 +147,14 @@ void multiStorage(int mode){
 		cin>>tapeSizes[i];
 	}
 
+		int total = 0;
+int start = 0;
+		int idxArr[tapeCount]; 
+		struct programs tapes[tapeCount][20];
 	if(mode == 1){
 		int total = 0;
 		tapeIdx = 0;
-		int start = 0;
-		int idxArr[tapeCount]; 
-		struct programs tapes[tapeCount][20];
+		
 		for(int i=0;i<tapeCount;i++){
 			start = tapeIdx; 
 			total = 0;
@@ -163,54 +167,89 @@ void multiStorage(int mode){
 						tapeIdx++;
 				}else{
 					start = tapeIdx;
-					cout<<"\ntapeIDX : "<<tapeIdx;
+					// cout<<"\ntapeIDX : "<<tapeIdx;
 					idxArr[i] = tapeIdx;
 					break;
 				}
 
 				if(j == n-1){
 					start = tapeIdx;
-					cout<<"\ntapeIDX : "<<tapeIdx;
+					// cout<<"\ntapeIDX : "<<tapeIdx;
 					idxArr[i] = tapeIdx;
 					
 				}
 			}
 		}
+
+			}else{
+
+			int totals[tapeCount];
+			for (int i = 0; i < tapeCount; ++i)
+				{
+					idxArr[i] = 0;
+					totals[i] = 0;
+				}	
+			tapeIdx = 0;
+			for(int i=0;i<n;i++){
+				int loc = (i) % tapeCount;
+				cout<<"\nLOC: "<<loc;
+				// cout<<"\nIT CAME HERE\ns";
+				for(int k=0;k<tapeCount;k++){
+					totals[loc] += program[i].length;
+					if(tapeSizes[loc] >= totals[loc]){
+						cout<<"\nTOTALS: "<<totals[loc];
+						tapes[loc][idxArr[loc]++] = program[i];
+						
+						break;	
+					}else{
+						loc++;
+					}	
+				}
+				
+				
+			}
+
+
+	}
+
 		total = 0;
 		float sumArr[tapeCount];
-		// for(int i=0;i<tapeCount;i++){
-			
-		// 	cout<<"\nLENGTH OF TAPE "<<i+1<<" IS "<<idxArr[i];
-		// 	for(int j=0;j<idxArr[i];j++){
-		// 		int sum = 0;
-		// 			if(j==0){
-		// 				total = tapes[i][j].length;
-		// 			}else{
-		// 				for(int k=0;k<=j;k++){
-		// 					sum+=tapes[i][k].length;
-		// 				}
-		// 			}	
-		// 				total = sum+total;
-		// 				cout<<"\nTOTAL OF TAPE "<<i+1<<" Is: "<<total;
-		// 				sumArr[i] = float(total) / float(idxArr[i]);
-		// 	}
+		for(int i=0;i<tapeCount;i++){
+			total =0 ;
+			// cout<<"\nLENGTH OF TAPE "<<i+1<<" IS "<<idxArr[i];
+			for(int j=0;j<idxArr[i];j++){
+				int sum = 0;
+					if(j==0){
+						total = tapes[i][j].length;
+					}else{
+						for(int k=0;k<=j;k++){
+							sum+=tapes[i][k].length;
+						}
+					}	
+						cout<<"\nMINI SUM: "<<sum;
+					
+						cout<<"\nMINI TOTAL: "<<total;
+						total = sum+total;
+						
+			}
+				cout<<"\nTOTAL OF TAPE "<<i+1<<" Is: "<<total;
 				
-		// }
-
+				sumArr[i] = float(total) / float(idxArr[i]);
+				total = 0;
+		}
+		cout<<"\n\n";
 		for (int i = 0; i < tapeCount; ++i)
 		{
 
-			cout<<"\n===========================================\n";
 			cout<<"\t\tTAPE "<<i+1<<" CONTENT";
 			cout<<"\n===========================================\n";
-			cout<<"\nLENGTH IDX OF "<<i+1<<" : "<<idxArr[i];
+			// cout<<"\nLENGTH IDX OF "<<i+1<<" : "<<idxArr[i];
 			for (int j = 0; j < idxArr[i]; ++j)
 			{
 
-				cout<<"P"<<tapes[i][j].program_no<<"\t";
+				cout<<"P"<<tapes[i][j].program_no<<" "<<tapes[i][j].length<<"  ||  ";
 			}
 
-			cout<<"\n===========================================\n";
 			cout<<"\n===========================================\n";
 			cout<<"\nTOTAL MRT IS: "<<sumArr[i]<<"ms";
 			cout<<"\n===========================================\n";
@@ -220,9 +259,6 @@ void multiStorage(int mode){
 		return;
 
 
-	}else{
-
-	}
 
 }
 
@@ -268,6 +304,7 @@ int main(int argc, char const *argv[])
 									multiStorage(1);
 									break;
 							case 2:
+									multiStorage(0);
 									break;		
 							case 3:
 									break;
