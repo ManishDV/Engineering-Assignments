@@ -28,12 +28,20 @@ int isKeyword(string key){
 
 }
 
-int isConstant(){
+int isConstant(string str){
 
+	std::vector<int> count;
+	for(int i=0;i<str.length();i++){
+		if(isdigit(str[i]) == false){
+			return 0;
+		}
+	}
+
+	return 1;
 }
 
 int isIdentifier(){
-
+	return -1;
 }
 int main(int argc, char const *argv[])
 {
@@ -53,11 +61,14 @@ int main(int argc, char const *argv[])
 			ic.get(ch);
 			if(ch == '\n'|| ch == '+' || ch == '-' || ch == '/'|| ch == '%'|| ch == '*' || ch == '=' || ch == '<' ||ch == '>' || ch == '!' || ch =='#' || ch == '\t' || ch == ' ' || ch == '(' || ch == '|' || ch == ')' || ch == ',' || ch == '='|| ch == ';' || ch == '[' || ch == '{' || ch == ']' || ch == '}' || ch == '.'){
 				
-				if( ch == '(' || ch == '|' || ch == ')' || ch =='#'|| ch == ',' || ch == '[' || ch == '{' || ch == ']' || ch == '}' || ch == '.' || ch == ';'){
+				if( ch == '(' || ch == ' ' || ch == '|' || ch == ')' || ch =='#'|| ch == ',' || ch == '[' || ch == '{' || ch == ']' || ch == '}' || ch == '.' || ch == ';'){
 					// cout<<"\n"<<word<<" Is Not Special Symbol";
 					// cout<<"\n"<<ch<<" Is Special Symbol";
 					temp.push_back(word);
-					temp1.push_back(ch);	
+					if(ch != ' '){
+						
+						temp1.push_back(ch);	
+					}
 				}else if(ch == '+' || ch == '-' || ch == '/'|| ch == '%'|| ch == '*' || ch == '=' || ch == '<' ||ch == '>' || ch == '!' ){
 					// cout<<"\n"<<word<<" Is Not Special Symbol";
 					temp.push_back(word);
@@ -71,9 +82,11 @@ int main(int argc, char const *argv[])
 
 					for(int i=0;i<temp.size();i++){
 						if(!isKeyword(temp.at(i))){
-							if(!isConstant()){
+							if(!isConstant(temp.at(i))){
 								if(isIdentifier()){
 									cout<<"\n"<<temp.at(i) <<" Is Identifer";
+								}else{
+									cout<<"\nCan't Say";
 								}
 							}else{
 								cout<<"\n"<<temp.at(i) <<" Is constant";

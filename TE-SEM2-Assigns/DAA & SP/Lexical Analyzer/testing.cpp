@@ -10,6 +10,7 @@ int main(int argc, char const *argv[])
 {
 	string s = "S";
 	string s1 = "S";
+	int c = 20;
 	
 	if(!s.compare(s1)){
 		cout<<"\n\nEQUAL";
