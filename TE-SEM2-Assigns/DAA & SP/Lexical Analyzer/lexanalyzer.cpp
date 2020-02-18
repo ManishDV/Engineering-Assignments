@@ -33,7 +33,7 @@ int isConstant(){
 }
 
 int isIdentifier(){
-	
+
 }
 int main(int argc, char const *argv[])
 {
@@ -51,12 +51,11 @@ int main(int argc, char const *argv[])
 	}else{
 		while(!ic.eof()){
 			ic.get(ch);
-			if(ch == '\n' || ch == '\t' || ch == ' ' || ch == '(' || ch == '|' || ch == ')' || ch == ',' || ch == '='|| ch == ';' || ch == '[' || ch == '{' || ch == ']' || ch == '}' || ch == '.'){
+			if(ch == '\n'|| ch == '+' || ch == '-' || ch == '/'|| ch == '%'|| ch == '*' || ch == '=' || ch == '<' ||ch == '>' || ch == '!' || ch =='#' || ch == '\t' || ch == ' ' || ch == '(' || ch == '|' || ch == ')' || ch == ',' || ch == '='|| ch == ';' || ch == '[' || ch == '{' || ch == ']' || ch == '}' || ch == '.'){
 				
-				if( ch == '(' || ch == '|' || ch == ')' || ch == ',' || ch == '[' || ch == '{' || ch == ']' || ch == '}' || ch == '.' || ch == ';'){
+				if( ch == '(' || ch == '|' || ch == ')' || ch =='#'|| ch == ',' || ch == '[' || ch == '{' || ch == ']' || ch == '}' || ch == '.' || ch == ';'){
 					// cout<<"\n"<<word<<" Is Not Special Symbol";
 					// cout<<"\n"<<ch<<" Is Special Symbol";
-					
 					temp.push_back(word);
 					temp1.push_back(ch);	
 				}else if(ch == '+' || ch == '-' || ch == '/'|| ch == '%'|| ch == '*' || ch == '=' || ch == '<' ||ch == '>' || ch == '!' ){
