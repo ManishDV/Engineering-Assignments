@@ -8,14 +8,16 @@ using namespace std;
 
 int main(int argc, char const *argv[])
 {
-	string s = "S";
-	string s1 = "S";
-	int c = 20;
+	char a = '0';
+	char b = '9';
+	// char c = 'a';
+	// char d = 'z';
+
+	cout<<"\n"<<int(a);
+	cout<<"\n"<<int(b);
+	// cout<<"\n"<<int(c);
+	// cout<<"\n"<<int(d);
+	cout<<"\n";
 	
-	if(!s.compare(s1)){
-		cout<<"\n\nEQUAL";
-	}else{
-		cout<<"\n\nUNEQUAL";
-	}
 	return 0;
 }
