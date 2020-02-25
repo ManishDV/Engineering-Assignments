@@ -82,7 +82,7 @@ int isIdentifier1(char s){
 }
 
 int isOperator(char ch){
-	if(ch == '+' || ch == '-' || ch == '/'|| ch == '%'|| ch == '*' || ch == '=' || ch == '<' ||ch == '>' || ch == '!' ){
+	if(ch == '+' || ch == '-' || ch == '/'|| ch == '%'|| ch == '*' || ch == '=' || ch == '<' ||ch == '>' || ch == '!' || ch == '.'){
 		return 1;
 	}
 	return 0;
