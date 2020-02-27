@@ -1,0 +1,133 @@
+ ================ ust_table ==================== 
+
+ TRM  : 		 35		 : #
+ TRM  : 		 0		 : include
+ TRM  : 		 34		 : <
+ TRM  : 		 46		 : .
+ ID   : 		 0		 : stdio
+ TRM  : 		 33		 : >
+ ID   : 		 1		 : h
+ TRM  : 		 35		 : #
+ TRM  : 		 0		 : include
+ TRM  : 		 34		 : <
+ TRM  : 		 33		 : >
+ ID   : 		 2		 : iostream
+ TRM  : 		 35		 : #
+ TRM  : 		 0		 : include
+ TRM  : 		 34		 : <
+ TRM  : 		 3		 : fstream
+ TRM  : 		 33		 : >
+ TRM  : 		 35		 : #
+ TRM  : 		 0		 : include
+ TRM  : 		 34		 : <
+ TRM  : 		 1		 : vector
+ TRM  : 		 33		 : >
+ TRM  : 		 35		 : #
+ TRM  : 		 0		 : include
+ TRM  : 		 34		 : <
+ TRM  : 		 33		 : >
+ ID   : 		 3		 : cmath
+ TRM  : 		 35		 : #
+ TRM  : 		 0		 : include
+ TRM  : 		 34		 : <
+ TRM  : 		 46		 : .
+ ID   : 		 4		 : stdlib
+ TRM  : 		 33		 : >
+ ID   : 		 5		 : h
+ TRM  : 		 5		 : using
+ TRM  : 		 6		 : namespace
+ TRM  : 		 41		 : ;
+ ID   : 		 6		 : std
+ TRM  : 		 7		 : int
+ TRM  : 		 42		 : (
+ ID   : 		 7		 : main
+ TRM  : 		 7		 : int
+ TRM  : 		 30		 : ,
+ ID   : 		 8		 : argc
+ TRM  : 		 12		 : char
+ TRM  : 		 16		 : const
+ TRM  : 		 37		 : *
+ TRM  : 		 49		 : [
+ ID   : 		 9		 : argv
+ TRM  : 		 50		 : ]
+ TRM  : 		 43		 : )
+ TRM  : 		 39		 : {
+ TRM  : 		 12		 : char
+ ID   : 		 10		 : a
+ TRM  : 		 52		 : =
+ TRM  : 		 29		 : '
+ LIT : 		 0		 : 0'
+ TRM  : 		 41		 : ;
+ ID   : 		 11		 : '
+ TRM  : 		 12		 : char
+ ID   : 		 12		 : b
+ TRM  : 		 52		 : =
+ TRM  : 		 29		 : '
+ LIT : 		 1		 : 9'
+ TRM  : 		 41		 : ;
+ ID   : 		 13		 : '
+ TRM  : 		 34		 : <
+ ID   : 		 14		 : cout
+ TRM  : 		 22		 : <<
+ TRM  : 		 28		 : "
+ TRM  : 		 28		 : "
+ ID   : 		 15		 : \n
+ TRM  : 		 34		 : <
+ TRM  : 		 22		 : <<
+ TRM  : 		 42		 : (
+ ID   : 		 16		 : nt
+ TRM  : 		 43		 : )
+ ID   : 		 17		 : a
+ TRM  : 		 41		 : ;
+ TRM  : 		 34		 : <
+ ID   : 		 18		 : cout
+ TRM  : 		 22		 : <<
+ TRM  : 		 28		 : "
+ TRM  : 		 28		 : "
+ ID   : 		 19		 : \n
+ TRM  : 		 34		 : <
+ TRM  : 		 22		 : <<
+ TRM  : 		 42		 : (
+ ID   : 		 20		 : nt
+ TRM  : 		 43		 : )
+ ID   : 		 21		 : b
+ TRM  : 		 41		 : ;
+ TRM  : 		 34		 : <
+ ID   : 		 22		 : cout
+ TRM  : 		 22		 : <<
+ TRM  : 		 28		 : "
+ TRM  : 		 28		 : "
+ ID   : 		 23		 : \n
+ TRM  : 		 41		 : ;
+ TRM  : 		 8		 : return
+ LIT : 		 2		 : 0;
+ TRM  : 		 40		 : }
+ ================ Identifiers ================ 
+0 : stdio
+1 : h
+2 : iostream
+3 : cmath
+4 : stdlib
+5 : h
+6 : std
+7 : main
+8 : argc
+9 : argv
+10 : a
+11 : '
+12 : b
+13 : '
+14 : cout
+15 : \n
+16 : nt
+17 : a
+18 : cout
+19 : \n
+20 : nt
+21 : b
+22 : cout
+23 : \n
+ ================ Literal ================ 
+0 : 0
+1 : 9
+2 : 0
