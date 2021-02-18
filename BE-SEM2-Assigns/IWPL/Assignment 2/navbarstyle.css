@@ -1,0 +1,41 @@
+.logo{
+    margin: 0px;
+    float: left;
+}
+.nav-items{
+    height: 100%;
+}
+
+a{
+    text-decoration: none;
+}
+
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: right;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  padding: 18px 18px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #118899;
+}

@@ -1,0 +1,141 @@
+body {
+    background: url('back3.jpg');
+    background-size: cover;
+    margin: 0;
+}
+
+.errorSpan {
+    height: 20px;
+    position: absolute;
+    margin-top: 4%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: red;
+    width: 100%;
+}
+
+.card-container {
+    margin-top: 100px;
+    justify-content: center;
+    width: 400px;
+    align-items: center;
+    height: 350px;
+    margin-left: 36%;
+    display: flex;
+    border-radius: 20px;
+    box-shadow: 6px 6px 10px rgba(0, 0, 0, .29);
+}
+
+.header {
+    padding: 0;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    background: #118899;
+    border-radius: 20px 20px 0px 0px;
+    width: 100%;
+}
+
+.fields {
+    margin-top: 0%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    background: #FFFFFF;
+    height: 267px;
+    padding: 0px;
+    border-radius: 0px 0px 20px 20px;
+    margin-left: 0px;
+}
+
+#username {
+    margin-top: 0px;
+    width: 70%;
+    padding: 5px;
+    height: 25px;
+    margin-left: 50px;
+    background: #BBBBBB;
+    justify-content: center;
+    align-items: center;
+    border: 0px solid #000000;
+    border-bottom: 2px solid #118899;
+    background-color: transparent;
+    /*display: inline-flex;*/
+    color: black;
+    text-align: center;
+    font-weight: 24px;
+    font-size: 18px;
+}
+
+#username::placeholder {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#username:focus {
+    text-align: center;
+    outline: none;
+}
+
+#pass {
+    margin-top: 20px;
+    width: 70%;
+    padding: 5px;
+    height: 25px;
+    margin-left: 50px;
+    justify-content: center;
+    align-items: center;
+    border: 0px solid #000000;
+    border-bottom: 2px solid #118899;
+    background-color: transparent;
+    color: black;
+    text-align: center;
+    font-weight: 24px;
+    font-size: 18px;
+}
+
+#pass::placeholder {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#pass:focus {
+    text-align: center;
+    outline: none;
+}
+
+#btnSubmit {
+    width: 70px;
+    margin-top: 30px;
+    margin-left: 40%;
+    height: 40px;
+    padding: 10px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    cursor: pointer;
+    border-radius: 7px;
+    border: none;
+    /*border:1px solid #118899;*/
+    background-color: #118899;
+}
+
+#btnSubmit:hover {
+    box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, .30);
+    /*opacity: 0.9;*/
+    /*background-color: #FFEEDD;*/
+}
+
+.foot {
+    margin-top: -50px;
+    justify-content: center;
+    display: flex;
+    /*position: absolute;*/
+    align-items: center;
+}
+
+.foot a {
+    text-decoration: none;
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>REGISTRATION</title>
+    <link rel="stylesheet" href="fom.css">
+    <script src="form.js"></script>
+    <script>
+        function changetype() {
+            id = document.getElementById("date");
+            id.type = 'search';
+        }
+    </script>
+    <link type="text/css" rel="stylesheet" href="navbarstyle.css" />
+    <style>
+        * {
+            margin: 0%;
+            padding: 0%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="outer">
+        <div class="navbar-container">
+            <div class="logo">
+                <a href="index.php"><img src="logo.png" width="70px" height="70px"></a>
+            </div>
+            <div class="nav-items">
+                <ul>
+                    <!-- <li><a href="registration.html" class="active">Sign Up</a></li> -->
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="Categories.php">Browse</a></li>
+                    <li><a href="index.php">Home</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="wrap">
+            <h2> Register </h2>
+            <form id="registerForm" action="storeInDB.php" method="POST">
+                <fieldset>
+                    <legend>Personal Information</legend>
+                    <input type="search" placeholder="First Name.." autocomplete="off" name="fname" id="fname" style="float: left;" onfocusout="validateFirstName()" required />
+                    <input type="search" placeholder="Last Name.." autocomplete="off" name="lname" id="lname" onfocusout="validateLastName()" required />
+                    <textarea rows="5" cols="30" class="addExtra" placeholder="Enter Address" name="addr" id="addr" onblur="validateAddress()"></textarea>
+                    <input type="search" placeholder="Pin Code.." id="pin" autocomplete="off" name="pin" onkeyup="validatePin()" required />
+                    <input placeholder="Birth Date" class="textbox-n" type="search" onfocus="(this.type='date')" name="dob" onfocusout="validateAge()" id="date">
+                    <div class="gender">
+                        <label class="genlable"><b>Gender:</b></label>
+                        <input type="radio" name="gender" value="male" id="male" checked="checked"><label for="male">
+                                Male</label>
+                        <input type="radio" name="gender" value="female" id="female"> <label for="female"> Female</label>
+                        <input type="radio" name="gender" value="other" id="other"> <label for="other"> Other</label>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Account Information</legend>
+                    <input type="search" placeholder="Username.." name="username" autocomplete="off" id="username" onkeyup="validateUname()" />
+                    <input type="password" placeholder="Password.." name="pass" autocomplete="off" id="pass" onkeyup="validatePass()" required />
+                    <input type="password" placeholder="Confirm Password.." autocomplete="off" id="cpass" onkeyup="confirmPass()" required />
+                    <center><span id="cpassError" class="hidden">Passwords Do Not Match</span></center>
+                    <input type="search" placeholder="E-mail.." autocomplete="off" name="email" id="email" onkeyup="validateEmail()" required />
+                    <input type="search" placeholder="Phone Number.." autocomplete="off" id="phone" name="phone" onkeyup="validatePhone()" required/>
+                </fieldset>
+                <input type="submit" name="submit" value="Submit">
+                <input type="reset" class="spreset" value="Reset">
+            </form>
+        </div>
+
+    </div>
+</body>
+
+</html>
