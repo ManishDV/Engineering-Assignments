@@ -1,0 +1,18 @@
+com/example/quizera/SplashScreen.java
+ com.example.quizera.SplashScreen
+ com.example.quizera.SplashScreen$1
+com/example/quizera/HomeActivity.java
+ com.example.quizera.HomeActivity
+com/example/quizera/BuildConfig.java
+ com.example.quizera.BuildConfig
+com/example/quizera/UserModel.java
+ com.example.quizera.UserModel
+com/example/quizera/MainActivity.java
+ com.example.quizera.MainActivity
+ com.example.quizera.MainActivity$1
+ com.example.quizera.MainActivity$2
+com/example/quizera/DBHelper.java
+ com.example.quizera.DBHelper
+com/example/quizera/SignUpActivity.java
+ com.example.quizera.SignUpActivity
+ com.example.quizera.SignUpActivity$1
