@@ -1,5 +1,5 @@
 body {
-    background: url('back3.jpg');
+    background: url('images/back3.jpg');
     background-size: cover;
     margin: 0;
 }
@@ -47,6 +47,7 @@ body {
     background: #FFFFFF;
     height: 267px;
     padding: 0px;
+    width: 400px;
     border-radius: 0px 0px 20px 20px;
     margin-left: 0px;
 }
@@ -109,7 +110,7 @@ body {
 
 #btnSubmit {
     width: 70px;
-    margin-top: 30px;
+    margin-top: 25px;
     margin-left: 40%;
     height: 40px;
     padding: 10px;
@@ -138,4 +139,15 @@ body {
 
 .foot a {
     text-decoration: none;
+}
+
+.forgotPass {
+    margin-left: 35%;
+    margin-top: 2%;
+}
+
+.forgotPass a {
+    text-decoration: none;
+    color: #118899;
+    font-weight: bolder;
 }

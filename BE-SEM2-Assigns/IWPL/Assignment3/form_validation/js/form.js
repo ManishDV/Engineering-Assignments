@@ -96,7 +96,7 @@ function validateAge() {
     console.log(years);
 
     // alert("BDAY: " + bday + "\nTODAY: " + today + "\nYEAR: " + years);
-    if (years < 13) {
+    if (years < 15) {
         // document.getElementById("ageError").style = "visibility: visible";
         // bday.style = "border : 2px solid red";
         alert("Age must be greater than 15")
@@ -108,39 +108,39 @@ function validateAge() {
 }
 
 
-function validateAddress(){
-    if(document.getElementById("addr").value.length != 0){
+function validateAddress() {
+    if (document.getElementById("addr").value.length != 0) {
         document.getElementById("addr").style = "border : 2px solid green";
-    }else{
+    } else {
         document.getElementById("addr").style = "border : 2px solid red";
     }
 }
 
-function validatePass(){
-	console.log('Came Here');
-	var re = /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
-	pass = document.getElementById('pass').value;
-	console.log(pass);
-	if(re.test(pass)){
-		document.getElementById("pass").style = "border : 2px solid green";
-	}else{
-		document.getElementById("pass").style = "border : 2px solid red";
-	}
+function validatePass() {
+    console.log('Came Here');
+    var re = /^(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+    pass = document.getElementById('pass').value;
+    console.log(pass);
+    if (re.test(pass)) {
+        document.getElementById("pass").style = "border : 2px solid green";
+    } else {
+        document.getElementById("pass").style = "border : 2px solid red";
+    }
 }
 
-function confirmPass(){
-	pass = document.getElementById('pass').value;
-	cpass = document.getElementById('cpass').value;
-	console.log(pass)
-	console.log(cpass)
-	console.log(cpass === pass)
-	
-	if(cpass === pass){
-		document.getElementById("cpass").style = "border : 2px solid green";
+function confirmPass() {
+    pass = document.getElementById('pass').value;
+    cpass = document.getElementById('cpass').value;
+    console.log(pass)
+    console.log(cpass)
+    console.log(cpass === pass)
 
-		document.getElementById('cpassError').style="visibility:hidden;";
-	}else{
-		document.getElementById('cpassError').style="visibility:visible;color:#FF0000";
-		document.getElementById("cpass").style = "border : 2px solid red";
-	}
+    if (cpass === pass) {
+        document.getElementById("cpass").style = "border : 2px solid green";
+
+        document.getElementById('cpassError').style = "visibility:hidden;";
+    } else {
+        document.getElementById('cpassError').style = "visibility:visible;color:#FF0000";
+        document.getElementById("cpass").style = "border : 2px solid red";
+    }
 }

@@ -6,16 +6,16 @@ session_start();
 
 <head>
     <title>Categories</title>
-    <link type="text/css" rel="stylesheet" href="style.css" />
+    <link type="text/css" rel="stylesheet" href="css/style.css" />
     
-    <link rel="stylesheet" type="text/css" href="navbarstyle.css">
+    <link rel="stylesheet" type="text/css" href="css/navbarstyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
     <div class="navbar-container">
         <div class="logo">
-            <a href="index.php"><img src="logo.png" width="70px" height="70px"></a>
+            <a href="index.php"><img src="images/logo.png" width="70px" height="70px"></a>
         </div>
         <div class="nav-items">
             <ul>

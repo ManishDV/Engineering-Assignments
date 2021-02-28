@@ -10,7 +10,7 @@
 }
 
 .hidden {
-    visibility: hidden;
+    display: none;
 }
 
 .wrap {

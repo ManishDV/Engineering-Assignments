@@ -8,8 +8,8 @@ error_reporting(0);
 
 <head>
     <title>Login to Music Gallary</title>
-    <link rel="stylesheet" type="text/css" href="navbarstyle.css">
-    <link rel="stylesheet" type="text/css" href="login.css">
+    <link rel="stylesheet" type="text/css" href="css/navbarstyle.css">
+    <link rel="stylesheet" type="text/css" href="css/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
@@ -18,7 +18,7 @@ error_reporting(0);
 
 <div class="navbar-container">
         <div class="logo">
-            <a href="index.php"><img src="logo.png" width="56px" height="56px"></a>
+            <a href="index.php"><img src="images/logo.png" width="56px" height="56px"></a>
         </div>
         <div class="nav-items">
             <ul>
@@ -53,8 +53,10 @@ error_reporting(0);
                     <input type="text" name="username" id="username" placeholder="username" align="center" autocomplete="off" />
                     <input type="password" name="pass" id="pass" placeholder="Password" autocomplete="off">
                     <input type="submit" value="Login" id="btnSubmit">
+                    <div class="forgotPass"><a href="forgotPass.php">Forgot Password</a></div>    
                 </form>
             </div>
+
             <div class="foot">
                 <p>Not a Member ? <a href="registration.html"><font color="#118899"><b><i>Register Here</i></b></font></a></p>
             </div>

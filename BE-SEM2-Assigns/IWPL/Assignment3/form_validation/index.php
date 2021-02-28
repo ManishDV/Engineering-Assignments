@@ -6,20 +6,21 @@
 
 <head>
     <title>Music Gallary</title>
-    <link type="text/css" rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" type="text/css" href="navbarstyle.css">
+    <link type="text/css" rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/navbarstyle.css">
 </head>
 
 <body>
     <div class="navbar-container">
         <div class="logo">
-            <a href="index.php"><img src="logo.png" width="56px" height="56px"></a>
+            <a href="index.php"><img src="images/logo.png" width="56px" height="56px"></a>
         </div>
         <div class="nav-items">
             <ul>
             <?php if( isset($_SESSION['username']) && !empty($_SESSION['username']) )
             {
             ?>
+            <!-- <li>Welcome <?php ?> </li> -->
             <li><a href="logout.php">Logout</a></li>
             <?php }else{ ?>
                 <li><a href="login.php">Sign In</a></li>
