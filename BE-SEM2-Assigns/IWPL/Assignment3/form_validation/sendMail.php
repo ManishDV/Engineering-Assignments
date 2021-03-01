@@ -42,8 +42,8 @@ if( isset($_POST['sendBtn'])){
         $mail->Host         = "smtp.gmail.com";                 // sets GMAIL as the SMTP server
         $mail->Port         = 587;                              // set the SMTP port for the GMAIL server
 
-        $mail->Username     = "musicgallaryservices@gmail.com"  ;           // GMAIL username
-        $mail->Password     = 'Manny@123' ;           // GMAIL password
+        $mail->Username     = "music@gmail.com"  ;           // GMAIL username
+        $mail->Password     = '' ;           // GMAIL password
 
         $mail->SetFrom('musicgallaryservices@gmail.com', 'Music Gallary');
         $mail->Subject    = "Password Reset";
