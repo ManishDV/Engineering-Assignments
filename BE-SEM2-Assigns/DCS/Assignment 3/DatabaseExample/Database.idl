@@ -1,0 +1,14 @@
+module DatabaseApp{
+
+    struct Record{
+        long roll;
+        string name;
+    };
+
+     typedef sequence<Record> recordSeq;
+    interface DatabaseImpl{
+        recordSeq  getStudentData();
+        
+    };
+
+};
