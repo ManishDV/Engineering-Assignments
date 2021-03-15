@@ -1,0 +1,61 @@
+.logo {
+    margin: 0px;
+    float: left;
+    background-color: #333;
+    height: 59px;
+}
+
+.profile {
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    margin-right: 0px;
+    margin-top: 25%;
+    margin-right: 25%;
+    /* float: right; */
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+.profile-div {
+    position: relative;
+    height: 40px;
+    width: 40px;
+}
+
+.profile-div:hover {
+    background-color: #111;
+    cursor: pointer;
+}
+
+li {
+    float: right;
+    margin-right: 5px;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    font-size: 20px;
+    padding: 18px 18px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #111;
+}
+
+.active {
+    background-color: #118899;
+}
+
+.navbar-container {
+    position: relative;
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>REGISTRATION</title>
+    <link rel="stylesheet" href="css/fom.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/validator.js"></script>
+    <script>
+        function changetype() {
+            id = document.getElementById("date");
+            id.type = 'search';
+        }
+    </script>
+    <link type="text/css" rel="stylesheet" href="css/navbarstyle.css" />
+    <style>
+        * {
+            margin: 0%;
+            padding: 0%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="outer">
+        <div class="navbar-container">
+            <div class="logo">
+                <a href="index.php"><img src="images/logo.png" width="70px" height="70px"></a>
+            </div>
+            <div class="nav-items">
+                <ul>
+                    <!-- <li><a href="registration.html" class="active">Sign Up</a></li> -->
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="Categories.php">Browse</a></li>
+                    <li><a href="index.php">Home</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="wrap">
+            <h2> Register </h2>
+            <form id="registerForm" action="storeInDB.php" method="POST">
+                <fieldset>
+                    <legend>Personal Information</legend>
+                    <input type="search" placeholder="First Name.." autocomplete="off" name="fname" id="fname" style="float: left;" required />
+                    <center><span id="fnameError" class="hidden">First Name Must Contain only Alphabets with minimum length of 2 and maximun of 30</span></center>
+                    <input type="search" placeholder="Last Name.." autocomplete="off" name="lname" id="lname" required />
+                    <center><span id="lnameError" class="hidden">Last Name Must Contain only Alphabets with minimum length of 2 and maximun of 30</span></center>
+                    <textarea rows="5" cols="30" class="addExtra" placeholder="Enter Address" name="addr" id="addr" required></textarea>
+                    <center><span id="addrError" class="hidden">Address Should Not Be Empty</span></center>
+
+                    <input type="search" placeholder="Pin Code.." id="pin" autocomplete="off" name="pin" required />
+                    <center><span id="pinError" class="hidden">Pin code must contain digits and it must be 6 digits long</span></center>
+
+                    <input placeholder="Birth Date" class="textbox-n" type="search" onfocus="(this.type='date')" name="dob" id="date">
+                    <center><span id="ageError" class="hidden">Age must be greater than 15</span></center>
+
+                    <div class="gender">
+                        <label class="genlable"><b>Gender:</b></label>
+                        <input type="radio" name="gender" value="male" id="male" checked="checked"><label for="male">
+                                Male</label>
+                        <input type="radio" name="gender" value="female" id="female"> <label for="female"> Female</label>
+                        <input type="radio" name="gender" value="other" id="other"> <label for="other"> Other</label>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Account Information</legend>
+                    <input type="search" placeholder="Username.." name="username" autocomplete="off" id="username" />
+                    <center><span id="userError" class="hidden">Username Must be of length 6 or greater</span></center>
+                    <input type="password" placeholder="Password.." name="pass" autocomplete="off" id="pass" required />
+                    <center><span id="passError" class="hidden">Password must contain at least 1 capital letter, 1 small letter, 1 special symbol and 1 digit and should be at least 6 characters long</span></center>
+                    <input type="password" placeholder="Confirm Password.." autocomplete="off" id="cpass" required />
+                    <center><span id="cpassError" class="hidden">Passwords Do Not Match</span></center>
+                    <input type="search" placeholder="E-mail.." autocomplete="off" name="email" id="email" required />
+                    <center><span id="mailError" class="hidden">Invalid Email Address</span></center>
+                    <input type="search" placeholder="Phone Number.." autocomplete="off" id="phone" name="phone" required/>
+                    <center><span id="phoneError" class="hidden">Phone Number should be 10 digits Long</span></center>
+                </fieldset>
+                <input type="submit" id="submitBtn" name="submit" value="Submit">
+                <input type="reset" class="spreset" value="Reset">
+            </form>
+        </div>
+
+    </div>
+</body>
+
+</html>

@@ -5,7 +5,7 @@ module DatabaseApp{
         string name;
     };
 
-     typedef sequence<Record> recordSeq;
+    typedef sequence<Record> recordSeq;
     interface DatabaseImpl{
         recordSeq  getStudentData();
         
