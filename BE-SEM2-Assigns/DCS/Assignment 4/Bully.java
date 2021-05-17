@@ -151,17 +151,17 @@ public class Bully {
 				break;
 			case 3:
 				proc = 0;
-				System.out.println("Enter the Process Number to be down: ");
+				System.out.print("\nEnter the Process Number to be down: ");
 				proc = sc.nextInt();
 				bl.down(proc);
 				break;
 			case 4:
-				System.out.println("Enter the Process Number to UP: ");
+				System.out.print("\nEnter the Process Number to UP: ");
 				proc = sc.nextInt();
 				bl.up(proc);
 				break;
 			case 5:
-				System.out.println("Enter the Process Number which will Send Message: ");
+				System.out.print("\nEnter the Process Number which will Send Message: ");
 				proc = sc.nextInt();
 				bl.sendMessage(proc);
 				break;
