@@ -1,6 +1,4 @@
-<?php
-session_start();
-?>
+
 <!DOCTYPE html>
 <html>
 
@@ -15,25 +13,24 @@ session_start();
 <body>
     <div class="navbar-container">
         <div class="logo">
-            <a href="index.php"><img src="images/logo.png" width="70px" height="70px"></a>
+            <a href="index.jsp"><img src="images/logo.png" width="70px" height="70px"></a>
         </div>
         <div class="nav-items">
             <ul>
-            <?php if( isset($_SESSION['username']) && !empty($_SESSION['username']) )
-            {
-            ?>
-                <li><a href="logout.php">Logout</a></li>
-            <?php }else{ ?>
-                <li><a href="login.php">Sign In</a></li>
-            <?php } ?>
+            <%if(!((String)session.getAttribute("user")).equals("absent")){
+            %>
+                <li><a href="logout.jsp">Logout</a></li>
+            <% }else{ %>
+                <li><a href="login.jsp">Sign In</a></li>
+            <% } %>
                 <li><a href="#">About Us</a></li>
-                <li><a href="Categories.php" class="active">Browse</a></li>
-                <li><a href="index.php">Home</a></li>
-                <?php if( isset($_SESSION['username']) && !empty($_SESSION['username']) )
-                    {
-                        $user = $_SESSION["username"];
-                        echo "<li class=\"username\">Welcome  $user</li>";
-                    }?>
+                <li><a href="Categories.jsp" class="active">Browse</a></li>
+                <li><a href="index.jsp">Home</a></li>
+                <% if(! ((String)session.getAttribute("user")).equals("absent")) {
+                %>       
+                        
+                        <li class="username">Welcome  <%=session.getAttribute("user")%></li>;
+                <%} %>    
             </ul>
         </div>
     </div>

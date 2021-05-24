@@ -16,7 +16,7 @@
 <body>
 <div class="navbar-container">
         <div class="logo">
-            <a href="index.php"><img src="images/logo.png" width="56px" height="56px"></a>
+            <a href="index.jsp"><img src="images/logo.png" width="56px" height="56px"></a>
         </div>
         <div class="nav-items">
             <ul>
@@ -26,7 +26,7 @@
                 <li><a href="login.jsp" class="active">Sign In</a></li>
                 <%}%>
                 <li><a href="#">About Us</a></li>
-                <li><a href="Categories.php">Browse</a></li>
+                <li><a href="Categories.jsp">Browse</a></li>
                 <li><a href="index.jsp">Home</a></li>
             </ul>
         </div>

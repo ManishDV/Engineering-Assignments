@@ -10,11 +10,16 @@
 <body>
     <div class="navbar-container">
         <div class="logo">
-            <a href="index.php"><img src="images/logo.png" width="56px" height="56px"></a>
+            <a href="index.jsp"><img src="images/logo.png" width="56px" height="56px"></a>
         </div>
         <div class="nav-items">
             <ul>
             <%
+            	if(session.getAttribute("user") == null){
+            		session.setAttribute("user","absent");
+            		session.setAttribute("error","None");
+            	}
+            
                 if(! ((String) session.getAttribute("user")).equals("absent")) {
             %>
                 <!-- <li>Welcome <?php ?> </li> -->
@@ -24,7 +29,7 @@
                 <li><a href="login.jsp">Sign In</a></li>
             <% } %>    
             <li><a href="#">About Us</a></li>
-                <li><a href="Categories.php ">Browse</a></li>
+                <li><a href="Categories.jsp ">Browse</a></li>
                 <li><a href="index.jsp" class="active">Home</a></li>
                 <% if(! ((String)session.getAttribute("user")).equals("absent")) {
                 %>       
