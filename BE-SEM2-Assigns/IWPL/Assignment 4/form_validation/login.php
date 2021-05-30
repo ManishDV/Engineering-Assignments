@@ -62,7 +62,7 @@ error_reporting(0);
                     <center><span id="userError" class="hidden"></span></center>
                     <input type="password" name="pass" id="pass" placeholder="Password" autocomplete="off" required/>
                     <center><span id="passError" class="hidden"></span></center>
-                    <input type="submit" value="Login" name="btnLog" id="btnSubmit">
+                    <input type="submit" value="Login" id="btnSubmit">
                     <div class="forgotPass"><a href="forgotPass.php">Forgot Password</a></div>    
                 </form>
             </div>
@@ -74,6 +74,79 @@ error_reporting(0);
     </div>
 </body>
 <script>
+
+    $("document").ready(function(){
+        $("#username").focusout(function(){
+            let usr = $("#username").val();
+            if(usr.length > 0){
+                $.ajax({ 
+                type: "POST", 
+                url: "check.php", 
+                data: "username="+ usr,
+                dataType: 'text',
+                    success: function(msg){
+                        if(msg == 'EXISTS'){
+                            $("#username").css('border-bottom','1px solid green');
+                           
+                            $("#userError").slideUp("slow");
+                        } else {
+                            $("#username").css('border-bottom','1px solid red');
+                            $("#userError").html("No user present with username <b>" + usr + "</b>");
+                            $("#userError").slideDown("slow");
+                        }
+                    }
+
+                });
+            }else{
+
+                $("#username").css('border-bottom','1px solid red');
+                $("#userError").html("This field is necessary");
+                $("#userError").slideDown("slow");
+                
+            }
+            
+        });
+        $("#pass").keyup(function(){
+            let usr = $("#username").val();
+            let pass = $("#pass").val();
+            let jsonObj = {"username":usr,"pass":pass};
+            
+            if(pass.length > 0 && usr.length > 0){
+                $.ajax({ 
+                type: "POST", 
+                url: "check.php", 
+                data: {data: JSON.stringify( jsonObj )},
+                dataType: 'text',
+                    success: function(msg){
+                        console.log(msg);
+                        
+                        if(msg == 'EXISTS'){
+                            $("#pass").css('border-bottom','1px solid green');
+                            $("#passError").slideUp("slow");
+                        } else {
+                            $("#passError").slideUp("slow");
+                            $("#pass").css('border-bottom','1px solid red');
+                            $("#passError").html("Incorrect Password");
+                            $("#passError").slideDown("slow");
+                        }
+                    },
+                    error: function(msg){
+                        // var err = eval("(" + msg.responseText + ")");
+                        console.log(msg.responseJSON);
+                    }
+
+                });
+            }else{
+                $("#pass").css('border-bottom','1px solid red');
+                $("#passError").html('This field is necessary');
+                
+                $("#passError").slideDown("slow");
+                
+            }
+            
+        });
+    });
+
 </script>
 </html>
 

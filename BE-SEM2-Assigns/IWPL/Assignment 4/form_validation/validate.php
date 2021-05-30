@@ -1,31 +1,36 @@
 <?php
-
-
-require_once('C:\\xampp\\nusoap\\lib\\nusoap.php');
 session_start();
 unset($_SESSION['Error']);
+$servername = "localhost";
+$username = "Manny";
+$password = "Manny@123";
+$dbname = "IWPL";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
 
-if ( isset($_POST["btnLog"]) ){
-    $wsdl="http://localhost:8080/SimpleWebService/services/DatabaseUtilityImpl?wsdl";
-
+if ( $_SERVER["REQUEST_METHOD"] == "POST" ){
     $uname = $_POST['username'];
     $pass = $_POST['pass']; 
+    $sql = "SELECT username, pass FROM user_details where username='$uname' and pass='$pass'";
+    $result = $conn->query($sql);
 
-    $param = array('uName'=>$uname,'uPass'=>$pass);
-
-    $client = new nusoap_client($wsdl,'wsdl');
-
-    $result = $client->call('validateUser',$param);
-    if(implode($result) == 'true'){
-        $_SESSION['username'] = $uname;
-        header('location: index.php');
-    }else{
-        $_SESSION['error'] = "Wrong Username or Password";
+    if ($result->num_rows > 0) {
+        $_SESSION["username"] = $uname;
+        header("Location:index.php");
+        unset($_SESSION["error"]);
+    } else {
         
-        header('location: login.php');
+        $_SESSION["error"] = "*Either Username or Password is Wrong.";
+        header("Location:login.php");
     }
 
+    $conn->close();
 }else{
     echo "Error: Please Submit the form";
 }
